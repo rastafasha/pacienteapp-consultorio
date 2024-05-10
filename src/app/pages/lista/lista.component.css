@@ -1,0 +1,9 @@
+.calificacion {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+}
+
+

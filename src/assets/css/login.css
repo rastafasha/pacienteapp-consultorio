@@ -1,0 +1,22 @@
+.login {
+    background-color: var(--base);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.logo_circulo_login {
+    display: flex;
+    width: 100px;
+    height: auto;
+    border-radius: 100px;
+    background-color: var(--amarillo-fondo);
+}
+
+.logo_circulo_login img {
+    display: flex;
+    width: 75%;
+    margin: 0 auto;
+}

@@ -1,0 +1,13 @@
+p{
+    padding: 0;
+    margin: 0;
+}
+
+.pago{
+    display: flex;
+    flex-flow: nowrap;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 5px;
+    justify-content: space-around;
+}

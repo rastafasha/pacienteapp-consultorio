@@ -1,0 +1,36 @@
+.cuentanos {
+    background-color: var(--amarillo-fondo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+.cuentanos_top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cuentanos_top i {
+    font-size: 100px;
+    color: var(--base);
+    border: 1px solid var(--base);
+    background-color: var(--blanco);
+    border-radius: 100px;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cuentanos_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}

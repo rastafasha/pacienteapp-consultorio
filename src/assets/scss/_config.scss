@@ -1,0 +1,107 @@
+//variables
+$primary-color: #ffe92e;
+$secondary-color: black;
+$terciary-color: white;
+$font-color: #aaa;
+$box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.6);
+$limit: 10;
+$unit: 8px;
+:root {
+    --base: #fe2554;
+    --amarillo-fondo: #ffffe5;
+    --blanco: #f2f2f2;
+    --black: #202020;
+    --dorado: gold;
+    --font: 'HelveticaNeueLTPro-Th';
+    --font-medium: 'HelveticaNeueLTPro-Md';
+    --font-bold: 'HelveticaNeueLTStd-Bd';
+    --fontsizeboton: 14px;
+    --border-radius: 30px;
+    --botonborder-radius: 20px;
+    --padding-section: 60px 0px;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: var(--font);
+}
+
+a {
+    color: var(--black);
+    text-decoration: none;
+}
+
+b {
+    font-family: var(--font-bold);
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--black);
+    font-family: var(--font);
+}
+
+h2 {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--black);
+    font-family: var(--font);
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--black);
+    font-family: var(--font);
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--black);
+    font-family: var(--font);
+}
+
+.clear {
+    clear: both;
+    visibility: hidden;
+    margin: 0px;
+    padding: 0px;
+    height: 0;
+}
+
+b {
+    color: var(--black);
+}
+
+input,
+textarea {
+    font-family: var(--font);
+}
+
+.logo {
+    background-image: url(../svg/logo_logo-color.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 70px;
+}
+
+.shadow {
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+}
+
+.btn-rojo {
+    background: var(--base);
+    color: var(--amarillo-fondo)
+}
+
+.bg-red {
+    background: var(--base);
+}
+
+.bg-red i {
+    color: var(--amarillo-fondo)
+}

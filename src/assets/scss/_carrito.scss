@@ -1,0 +1,37 @@
+.lista_compra {
+    .item_compra {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        display: flex;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        margin-bottom: 10px;
+        &img.productoimage {
+            display: block;
+            margin: auto;
+            width: 30%;
+            padding: 10px;
+        }
+        .detalle_lista h3 {
+            font-size: 16px;
+            font-family: var(--font-medium);
+        }
+    }
+}
+
+.cantidad_precio {
+    &h2 {
+        font-size: 24px;
+        font-family: var(--font-bold);
+    }
+}
+
+.subtotal {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

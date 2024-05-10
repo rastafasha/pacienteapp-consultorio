@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+/* CSS Document */
+
+
+/*Author: Malcolm cordova @malcolmcordova mercadocreativo@gmail.com www.malcolmcordova.com*/
+
+.navbarM a img {
+    width: 20px;
+    height: 25px;
+    margin: auto;
+}
+
+@media(min-width:769px) {
+    .navbarM {
+        display: none;
+    }
+}
+
+@media(max-width:768px) {
+    .foot{
+        display: flex;
+    justify-content: center;
+    }
+    .navbarM {
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+        background-color: transparent;
+        border-top: 1px solid var(--azuloscuro);
+        position: fixed;
+        width: 91%;
+        height: 74px;
+        bottom: 0px;
+        z-index: 9999;
+    }
+    .navbarM a {
+        float: left;
+        display: inline-block;
+        color: var(--gris);
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 11px;
+        width: calc(23%);
+        background-color: #fff;
+        border-radius: 14px;
+        height: 60px;
+        /* width: 60px; */
+        box-shadow: 0 8px 10px 0 rgba(11, 11, 11, 0.37);
+    }
+    .navbarM a i {
+        font-size: 20px;
+        display: block;
+        text-align: center;
+    }
+    .navbarM a p{
+        font-size: 11px;
+        display: block;
+        text-align: center;
+    }
+    .navbarM a:hover {
+        background: var(--gris);
+        color: #fff;
+    }
+    .navbarM a.active {
+        background-color: var(--gris);
+        color: white;
+    }
+    .navbarM a img {
+        /* rojo */
+        /* filter: invert(10%) sepia(100%) saturate(2476%) hue-rotate(331deg) brightness(118%) contrast(119%); */
+        /* azul */
+        filter: invert(10%) sepia(100%) saturate(2476%) hue-rotate(249deg) brightness(118%) contrast(119%);
+    }
+    .navbarM a.active img {
+        filter: rgb(0, 68, 255);
+    }
+    .main {
+        padding: 16px;
+        margin-bottom: 30px;
+    }
+    .navbarMtop {
+        display: none;
+    }
+}

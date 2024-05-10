@@ -1,0 +1,20 @@
+.creditos {
+    display: flex;
+    justify-content: end;
+    text-align: right;
+    position: absolute;
+    bottom: 90px;
+    right: 10px;
+    flex-direction: column;
+}
+.creditos h6{
+    font-size: 9px;padding: 10px;color: #b6b4b4;
+    margin:0; padding: 0;
+}
+.creditos h6 a{
+    color: #403f3f; font-size: 9px;
+    margin:0; padding: 0;
+}
+.creditos p{
+    color: #403f3f; font-size: 9px; margin:0; padding: 0
+}

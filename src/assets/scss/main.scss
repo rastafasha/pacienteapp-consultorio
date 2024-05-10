@@ -1,0 +1,63 @@
+@import 'config';
+@import 'utils';
+@import 'buscador';
+@import 'botones';
+@import 'splash';
+@import 'login';
+@import 'cuentanos';
+@import 'header';
+@import 'menulateral';
+@import 'home';
+@import 'registro-negocio';
+@import 'mercado';
+@import 'mercado-detalle';
+@import 'productos';
+@import 'producto';
+@import 'carrito';
+* {
+    @include reset-pm();
+    box-sizing: border-box;
+}
+
+input,
+textarea {
+    font-family: var(--font);
+}
+
+.logo {
+    background-image: url(../svg/logo_logo-color.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 70px;
+}
+
+.shadow {
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+}
+
+.btn-rojo {
+    background: var(--base);
+    color: var(--amarillo-fondo)
+}
+
+.bg-red {
+    background: var(--base);
+    &i {
+        color: var(--amarillo-fondo)
+    }
+}
+
+.buscador {
+    display: block;
+    position: relative;
+    left: 15px;
+    top: 70px;
+    width: 90%;
+    z-index: 0;
+}
+
+.buscador .input-group:not(.has-validation)> :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3) {
+    border-radius: 100px;
+}

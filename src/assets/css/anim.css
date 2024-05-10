@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+/* CSS Document */
+
+
+/*Author: Malcolm cordova @malcolmcordova mercadocreativo@gmail.com www.malcolmcordova.com*/
+
+
+/* 
+body {
+    -webkit-animation: body-animacion 1s 1 ease;
+    -moz-animation: body-animacion 1s 1 ease;
+    -o-animation: body-animacion 1s 1 ease;
+    -ms-animation: body-animacion 1s 1 ease;
+    animation: body-animacion 1s 1 ease;
+}
+
+@-ms-keyframes body-animacion {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes body-animacion {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes body-animacion {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes body-animacion {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+} */
+
+#social {
+    -webkit-animation: social-animacion 3.5s 1;
+    -moz-animation: social-animacion 3.5s 1;
+    -o-animation: social-animacion 3.5s 1;
+    -ms-animation: social-animacion 3.5s 1;
+    animation: social-animacion 3.5s 1;
+    -webkit-backface-visibility: visible !important;
+    -ms-backface-visibility: visible !important;
+    backface-visibility: visible !important;
+    -webkit-animation-name: flipInX;
+    animation-name: flipInX;
+}
+
+.cuadroimg {
+    -webkit-animation: cuadroimg-animacion 4s 1;
+    -moz-animation: cuadroimg-animacion 4s 1;
+    -o-animation: cuadroimg-animacion 4s 1;
+    -ms-animation: cuadroimg-animacion 4s 1;
+    animation: cuadroimg-animacion 4s 1;
+    -webkit-animation-name: bounceInUp;
+    animation-name: bounceInUp;
+}
+
+.cuadrotext {
+    -webkit-animation: cuadrotext-animacion 3s 1;
+    -moz-animation: cuadrotext-animacion 3s 1;
+    -o-animation: cuadrotext-animacion 3s 1;
+    -ms-animation: cuadrotext-animacion 3s 1;
+    animation: cuadrotext-animacion 3s 1;
+    -webkit-animation-name: bounceInUp;
+    animation-name: bounceInUp;
+}
+
+.cuadroborde1 {
+    -webkit-animation: cuadroborde1-animacion 4s 1;
+    -moz-animation: cuadroborde1-animacion 4s 1;
+    -o-animation: cuadroborde1-animacion 4s 1;
+    -ms-animation: cuadroborde1-animacion 4s 1;
+    animation: cuadroborde1-animacion 4s 1;
+    -webkit-animation-name: bounceInUp;
+    animation-name: bounceInUp;
+}
+
+.bleft {
+    -webkit-animation: bleft-animacion 2s 1;
+    -moz-animation: bleft-animacion 2s 1;
+    -o-animation: bleft-animacion 2s 1;
+    -ms-animation: bleft-animacion 2s 1;
+    animation: bleft-animacion 2s 1;
+    -webkit-animation-name: fadeInLeft;
+    animation-name: fadeInLeft;
+}
+
+.bright {
+    -webkit-animation: bright-animacion 2s 1;
+    -moz-animation: bright-animacion 2s 1;
+    -o-animation: bright-animacion 2s 1;
+    -ms-animation: bright-animacion 2s 1;
+    animation: bright-animacion 2s 1;
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+}
+
+.Up {
+    -webkit-animation: Up-animacion 1s 1;
+    -moz-animation: Up-animacion 1s 1;
+    -o-animation: Up-animacion 1s 1;
+    -ms-animation: Up-animacion 1s 1;
+    animation: Up-animacion 1s 1;
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+}

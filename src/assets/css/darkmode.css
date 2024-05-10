@@ -1,0 +1,168 @@
+.darkmode{
+    
+}
+.darkmode {
+    background-color: var(--fondo-negro);
+}
+
+.darkmode h4 {
+    color: var(--blanco);
+}
+
+
+
+.darkmode .sidemenu {
+    background: var(--fondo-negro);
+    color: var(--blanco);
+}
+
+.darkmode .sidemenu .close::before,
+.darkmode .sidemenu .close::after {
+    background: rgb(255, 255, 255);
+}
+
+.darkmode .navbarM a {
+    background-color: var(--fondo-negro);
+    box-shadow: 0 2px 5px 0 rgba(165, 164, 164, 0.37)
+}
+
+.darkmode .navbarM a p {
+    color: #fff;
+}
+
+.darkmode .navbarM a img {
+    filter: invert(30%) sepia(100%) saturate(0%) hue-rotate(234deg) brightness(118%) contrast(119%);
+}
+
+.darkmode .local_categoria_item .contenido {
+    background-color: var(--black);
+    color: #fff;
+}
+
+.darkmode .info_local h3, 
+.darkmode .info_local p {
+    color: #fff;
+}
+
+.darkmode .categoria_home a p {
+    color: var(--blanco);
+}
+
+.darkmode .top h2{
+    color: #fff;
+}
+
+.darkmode .header .menuright .menu {
+    background-color: var(--black);
+    border: 1px solid var(--blanco);
+}
+.darkmode .sidemenu-toggler>span {
+    display: block;
+    background-color: #d2cece;
+    height: 2px;
+}
+
+.darkmode .header2 {
+    background: var(--black);
+}
+
+.darkmode .globoblack {
+    display: block;
+    height: 24px;
+    width: 24px;
+    margin-top: 17px;
+    
+}
+.darkmode .globowhite {
+    display: none;
+    
+}
+
+.darkmode .card {
+    background-color: var(--black);
+    border: 1px solid #ccc;
+    border-radius: 18px;
+    box-shadow: 0 15px 30px 0 rgba(0, 0, 0, .11), 0 5px 15px 0 rgba(0, 0, 0, .08);
+    min-height: 30vh;
+    padding: 20px;
+    margin-bottom: 40px;
+    width: 100%;
+    display: flex;
+    color: var(--blanco);
+}
+.darkmode .table {
+    color: #fff;
+}
+.darkmode .clinicaname{
+    border-left: 1px solid var(--blanco);
+    
+}
+
+
+.darkmode .tab-content-set .active{
+    color: var(--base);
+    border-bottom: 2px solid var(--base);
+    border-bottom-width: 80%;
+    text-align: center;
+}
+
+.darkmode .tab-content-set{
+    color: var(--blanco);
+    background-color: var(--fondo-negro);
+}
+
+.darkmode b {
+    color: var(--blanco);
+}
+.darkmode .navbarM a.active {
+    background: #9c9a9a;
+    color: #fff;
+}
+.darkmode .tab-content-set li a {
+    color: #fff;
+}
+.darkmode .btn-sm {
+    color: #fff;
+    border:1px solid #fff;
+}
+.darkmode .info_local {
+    color: #fff;
+}
+
+.darkmode .accordion-item{
+    background: var(--fondo-negro);
+    color:  var(--blanco);
+}
+.darkmode .accordion-button:not(.collapsed) {
+    color: var(--blanco);
+    background-color: #101010;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+}
+.darkmode .accordion-item .accordion-button {
+    color: var(--blanco);
+    background-color: #101010;
+}
+.darkmode .accordion-button {
+    color: #ffffff;
+    background-color: #282828;
+    
+}
+
+.darkmode .accordion-body {
+    background: #201f1f;
+}
+.darkmode .recibo,
+.darkmode .legall,
+.darkmode .legall h2,
+.darkmode .legall p {
+    color: var(--blanco);
+}
+
+.darkmode .recibo h3{
+    color: var(--blanco);
+}
+.darkmode .pago p{
+    color: var(--blanco);
+}
+
+

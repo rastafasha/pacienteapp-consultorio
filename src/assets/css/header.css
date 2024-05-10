@@ -1,0 +1,330 @@
+.header {
+    align-self: center;
+    width: 100%;
+    margin: 0 auto;
+    height: 40px;
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 999;
+    top: 20px;
+    transition: all .1s ease;
+}
+
+.header .container {
+    max-width: 1140px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .row {
+    flex-wrap: nowrap;
+    width: 100%;
+    display: contents;
+}
+
+.header .logo {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: left;
+}
+
+.header .logo2 {
+    display: none;
+}
+
+.globowhite {
+    display: block;
+    height: 30px;
+    width: 30px;
+    margin-top: 17px;
+}
+.globowhite-hide {
+    display: none;
+}
+
+.globoblack {
+    display: none;
+    
+}
+
+
+.header .menuright {
+    height: 40px;
+    width: 110px;
+    display: flex;
+    justify-content: end;
+}
+
+.header .menuright ul {
+    list-style: none;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .menuright ul li a {
+    list-style: none;
+    color: var(--white);
+}
+
+.header .menuright ul li.dropdown .dropdown-menu a {
+    list-style: none;
+    color: var(--black);
+}
+
+.header .menuright ul li {
+    display: flex;
+}
+
+.header .menuright .menu {
+    height: 40px;
+    width: 80px;
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--white);
+    padding: 5px;
+    border-radius: 40px;
+    margin-left: 5px;
+    border: 1px solid var(--black);
+    padding-top: 4px;
+}
+
+.header .menuright .menu a img {
+    height: 30px;
+    width: 30px;
+    color: var(--azul);
+    background-color: var(--bluelight);
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.header .menuright .menu .fa-user {
+    height: 30px;
+    width: 30px;
+    color: var(--azul);
+    background-color: var(--bluelight);
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.header .menuright .menu img {
+    height: 30px;
+    width: 30px;
+    color: var(--azul);
+    background-color: var(--bluelight);
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.header .search {
+    display: flex;
+    width: 400px;
+    height: 40px;
+    justify-content: space-between;
+    align-self: center;
+    background-color: var(--white);
+    border-radius: 40px;
+    flex-direction: row;
+    border: 1px solid var(--black);
+}
+
+.header .search p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 60px;
+    margin-top: 15px;
+}
+
+.header .search i {
+    display: flex;
+    background-color: var(--orange);
+    padding: 20px;
+    border-radius: 50px;
+    width: 65px;
+    height: 65px;
+    color: var(--white);
+    justify-content: center;
+    font-size: 27px;
+    align-self: center;
+}
+
+.header .search img {
+    display: flex;
+    background-color: var(--orange);
+    padding: 10px;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    color: var(--white);
+    justify-content: center;
+    font-size: 27px;
+    align-self: center;
+    margin-right: 5px;
+}
+
+.header .contenido_header {
+    display: flex;
+    justify-content: space-between;
+    width: 96%;
+    align-items: center;
+    flex-direction: row;
+    margin: auto;
+}
+
+.header .contenido_header .back {
+    width: 12%;
+    display: flex;
+}
+
+.header .contenido_header .buscador {
+    /* width: fit-content;
+    display: flex; */
+    left: 0;
+}
+
+.header .contenido_header .menuright {
+    width: 12%;
+    display: flex;
+}
+
+.tope {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header2 .header {
+    top: 0px;
+}
+
+.header2 {
+    height: auto;
+    align-self: center;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-top: 0px;
+    padding: 20px 0px;
+    position: fixed;
+    z-index: 999;
+    background: rgba(248, 248, 249, 0.834);
+    /* backdrop-filter: blur(34px); */
+    box-shadow: 0 8px 32px 0 rgba(11, 11, 11, 0.37);
+}
+
+.header2 .logo {
+    display: flex;
+}
+
+.header2 .logo2 {
+    display: none;
+}
+
+/* .header2 .globowhite {
+    display: none;
+}
+
+.header2 .globoblack {
+    display: block;
+} */
+
+.header2 .menuright ul li.nav-item>a.nav-link {
+    list-style: none;
+    color: var(--orange) !important;
+}
+
+.top {
+    display: flex;
+    /* padding-top: 20px; */
+    justify-content: center;
+    /* align-items: center; */
+    flex: auto;
+    position: relative;
+    left: 0px;
+    top: 1px;
+}
+
+.top h2 {
+    font-size: 16px;
+    width: 60px;
+    text-align: right !important;
+}
+
+.clinicaname{
+    border-left: 1px solid var(--black);
+    display: flex;
+    flex-wrap: wrap;
+    width: 112px;
+    height: 33px;
+    margin-left: 5px;
+    
+}
+.clinicaname h4{
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+@media(max-width:1024px) {}
+
+@media(max-width:768px) {}
+
+@media(max-width:420px) {
+    .header {
+        width: 100vw;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 10px;
+        margin-top: -5px;
+        position: fixed;
+        z-index: 1;
+    }
+    .header2 {
+        height: auto;
+        padding: 10px;
+        position: fixed;
+        z-index: 999;
+        /* background: rgba(248, 248, 249, 0.834); */
+        background: #fff;
+        box-shadow: 0 8px 32px 0 rgb(11 11 11 / 37%);
+    }
+    .header .menuright .menu {
+        margin-left: 10px;
+    }
+    .header .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    .header .search {
+        display: none;
+    }
+}
+
+.back {
+    width: calc(45px);
+}
+
+.back img {
+    width: 20px;
+    height: 25px;
+}
+
+@media(min-width:990px) {
+    .header .contenido_header {
+        display: flex;
+        justify-content: space-between;
+        width: 87%;
+        align-items: center;
+        flex-direction: row;
+        margin: auto;
+    }
+}

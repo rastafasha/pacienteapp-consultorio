@@ -1,0 +1,48 @@
+<div *ngIf="!patient">
+    <h2 class="notiene">Usted no tiene registro medico con esta Clínica.</h2>
+</div>
+<div *ngIf="!appointment_pendings">
+    <h2 class="notiene">No tienes citas pendientes.</h2>
+</div>
+
+<div  >
+    
+    <section class="container animated fadeInUp " style="margin-bottom: 30px;" *ngIf="patient">
+        <h4>Citas pendientes </h4>
+        <div class="overflow" >
+            <div class="locales_categorias" style="width: 236vw;" >
+            <ng-container *ngFor="let appoitment of appointment_pendings | slice:0:4">
+                    <!-- item -->
+                    <div class="local_categoria_item">
+                        <div class="logo_local">
+                            <img [src]="appoitment.doctor.avatar" alt="">
+                        </div>
+                        <div class="contenido">
+                            <div class="info_local">
+                                <h3>Dr(a).{{appoitment.doctor.full_name}}</h3>
+                                <div class="infcita">
+                                    <p class="esp">{{appoitment.speciality.name}}</p>
+                                    <p class="fech">{{appoitment.date_appointment_format|date}}</p>
+                                    <p class="tiemp">{{appoitment.segment_hour.format_segment.hour_start}} a {{appoitment.segment_hour.format_segment.hour_end}}</p>
+                                    <!-- <p class="monto">Costo: ${{appoitment.amount}}</p> -->
+                                    <!-- <p class="pagado">
+                                        <span *ngIf="appoitment.status_pay === 1">Pagado</span>
+                                        <span *ngIf="appoitment.status_pay === 2">Deuda</span>
+                                    </p> -->
+                                </div>
+                            </div>
+                            <!-- <div class="calificacion">
+                                <span *ngIf="appoitment.status === 1"> <i class="fa fa-star-o"></i>&nbsp;Pendiente</span>
+                                <span *ngIf="appoitment.status === 2"> <i class="fa fa-star"></i>&nbsp;Atendida</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- item -->
+                </ng-container>
+            </div>
+            
+        </div>
+    
+    </section>
+
+</div>

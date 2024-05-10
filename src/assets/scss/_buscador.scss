@@ -1,0 +1,22 @@
+.buscador {
+    display: block;
+    position: relative;
+    left: 15px;
+    top: 70px;
+    width: 90%;
+    z-index: 0;
+}
+
+.header .buscador {
+    display: block;
+    position: relative;
+    left: 15px;
+    top: 0px;
+    width: 90%;
+    z-index: 0;
+}
+
+.buscador .input-group:not(.has-validation)> :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3) {
+    border-radius: 100px;
+}

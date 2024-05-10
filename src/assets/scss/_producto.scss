@@ -1,0 +1,93 @@
+@use 'variables' as v;
+@use 'mixins';
+.producto {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    .imgppal {
+        width: 100%;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        &img {
+            display: block;
+            width: 80%;
+            margin: auto;
+        }
+    }
+    .producto_detail {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        &h3 {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+        p.peso {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        h2.price {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-medium);
+        }
+        .precioventa {
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            padding: 0;
+        }
+        p small.last {
+            display: flex;
+            text-decoration: line-through;
+            font-family: var(--font-medium);
+        }
+        p.pricebyk {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        h4.discount {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-bold);
+        }
+        .details__product-quantity {
+            .input {
+                height: 57px;
+                display: flex;
+                justify-content: space-between;
+                background-color: v.$Light-grayish-blue;
+                // align-items: center;
+                &__minus {
+                    @include mixins.changeNumber(24px, 5px);
+                }
+                &__number {
+                    width: 100%;
+                    border: none;
+                    background-color: v.$Light-grayish-blue;
+                    font-size: 1.2em;
+                    font-weight: 700;
+                    font-family: v.$Font;
+                    text-align: center;
+                    outline: none;
+                }
+                &__plus {
+                    @include mixins.changeNumber(19px, 3px);
+                }
+            }
+        }
+    }
+    .preferencia_agotado,
+    .aclaracion_adicional {
+        padding: 20px 0;
+    }
+}

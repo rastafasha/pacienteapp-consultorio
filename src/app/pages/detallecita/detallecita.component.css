@@ -1,0 +1,45 @@
+
+.files{
+    display: flex;
+    align-items: self-start;
+    text-align: left;
+    width: 100%;
+    float: left;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+    gap: 7px;
+}
+.filesvg{
+    
+    margin: 0 auto;
+}
+.tititle{
+    
+    font-size: 14px;
+}
+.sizeee{
+    
+    font-size: 12px;
+}
+
+.pdf-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+    margin: auto;
+}
+
+@media(max-width:768px){
+    .pdf-content {
+        height: 95vh;
+    }
+}
+
+.filesAdded{
+    font-size: 12px;
+}
+
+

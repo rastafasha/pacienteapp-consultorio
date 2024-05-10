@@ -1,0 +1,67 @@
+<!-- <div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <div class="alert-heading">Cargando</div>
+            <i class="fa fa-spin fa-refresh fa-1x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+    </div>
+</div> -->
+<div >
+    <div class="container animated fadeInUp">
+        <h4>Signos Vitales</h4>
+        <div class="card">
+            <div class="heading-detail">
+                <p style="margin: 0; padding: 0; padding-bottom: 10px;">Registrado: {{patient.created_at|date}}</p>
+            </div>
+            <div class="skill-blk">
+                <div class="skill-statistics">
+                    <div class="skills-head">
+                        <h5>Presión Arterial (mm/hg)</h5>
+                        <p>{{patient.ta}}</p>
+                    </div>
+                    <div class="progress mb-0"  >
+                        <div class="progress-bar bg-operations" role="progressbar" [style.width]="patient.ta+''+'%'"  [attr.aria-valuenow]="patient.ta" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-statistics">
+                    <div class="skills-head">
+                        <h5>Temperatura (•C)</h5>
+                        <p>{{patient.temperature}}</p>
+                    </div>
+                    <div class="progress mb-0"  >
+                        <div class="progress-bar bg-haemoglobin" role="progressbar" [style.width]="patient.temperature+''+'%'"  [attr.aria-valuenow]="patient.temperature" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-statistics">
+                    <div class="skills-head">
+                        <h5>Frecuencia Cardiaca (por minuto)</h5>
+                        <p>{{patient.fc}}</p>
+                    </div>
+                    <div class="progress mb-0"  >
+                        <div class="progress-bar bg-statistics" role="progressbar" [style.width]="patient.fc+''+'%'"  [attr.aria-valuenow]="patient.fc" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-statistics">
+                    <div class="skills-head">
+                        <h5>Frecuencia Respiratoria (por minuto) </h5>
+                        <p>{{patient.fr}}</p>
+                    </div>
+                    <div class="progress mb-0"  >
+                        <div class="progress-bar bg-visit" role="progressbar" [style.width]="patient.fr+''+'%'"  [attr.aria-valuenow]="patient.fr" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="skill-statistics">
+                    <div class="skills-head">
+                        <h5>Peso (Kg) </h5>
+                        <p>{{patient.peso}}</p>
+                    </div>
+                    <div class="progress mb-0"  >
+                        <div class="progress-bar bg-visit" role="progressbar" [style.width]="patient.peso+''+'%'"  [attr.aria-valuenow]="patient.peso" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>

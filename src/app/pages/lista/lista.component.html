@@ -1,0 +1,166 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <div class="alert-heading">Cargando</div>
+            <i class="fa fa-spin fa-refresh fa-1x"></i>
+            <p class="mb-0">Por favor espere</p>
+        </div>
+    </div>
+</div>
+
+<div  *ngIf="!cargando">
+    <div *ngIf="!patient">
+        <h2 class="notiene">Usted no tiene registro medico con esta Clínica.</h2>
+    </div>
+    <div class="tab-content-set">
+        <ul class="nav">
+            <li>
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 1}" (click)="optionSelected(1)">Pendientes</a>
+            </li>
+            <li>
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 2}" (click)="optionSelected(2)">Atendidas</a>
+            </li>
+            <li>
+                <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 3}" (click)="optionSelected(3)">Todas</a>
+            </li>
+        </ul>
+    </div>
+    <ng-container *ngIf="option_selected == 1">
+        <section class="container " style="margin-bottom: 30px; padding-top: 40px; " *ngIf="patient" >
+        
+            <div class="" >
+                <ng-container *ngFor="let appoitmentp of appointment_pendings">
+                <div class="locales_categorias" style="width: 94vw;" >
+                        
+                        <div class="local_categoria_item">
+                            <div class="logo_local">
+                                <img [src]="appoitmentp.doctor.avatar" alt="">
+                            </div>
+                            <div class="contenido">
+                                <div class="info_local">
+                                    <h3>Dr(a). {{appoitmentp.doctor.full_name}}</h3>
+                                    <div class="infcita">
+                                        <p class="esp">{{appoitmentp.speciality.name}}</p>
+                                        <p class="fech">&nbsp;{{appoitmentp.date_appointment_format|date}}</p>
+                                        <p class="monto">Costo: ${{appoitmentp.amount}}</p>
+                                        <p class="pagado">Pago:
+                                            <span *ngIf="appoitmentp.status_pay === 1">&nbsp;Pagado</span>
+                                            <span *ngIf="appoitmentp.status_pay === 2">&nbsp;Deuda</span>
+                                        </p>
+                                        <!-- <p class="tiemp">{{appoitmentp.format_hour_start}} a {{appoitmentp.format_hour_end}}</p> -->
+                                        <p class="tiemp">Hora: {{appoitmentp.segment_hour.format_segment.hour_start}} a {{appoitmentp.segment_hour.format_segment.hour_end}}</p>
+                                    </div>
+                                </div>
+                                <div class="calificacion">
+                                    <span *ngIf="appoitmentp.confimation === 1"> <i class="fa fa-circle-o-notch"></i>&nbsp;Por Confirmar</span>
+                                    <span *ngIf="appoitmentp.confimation === 2"> <i class="fa fa-check-circle"></i>&nbsp;Confirmada</span>
+                                    <div class="clear"></div><br>
+                                    <button class="btn btn-sm" *ngIf="appoitmentp.status_pay === 2 && appoitmentp.confimation === 2" [routerLink]="['/app/pagar/', appoitmentp.id]">Pagar</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </ng-container>
+                
+            </div>
+        
+        </section>
+    </ng-container>
+    <ng-container *ngIf="option_selected == 2">
+        <section class="container animated fadeInUp " style="margin-bottom: 30px; padding-top: 40px;" *ngIf="patient" >
+        
+            <div class="" >
+                <ng-container *ngFor="let appoitment of appointment_checkeds">
+                <div class="locales_categorias" style="width: 94vw;" >
+                        
+                        <div class="local_categoria_item">
+                            <a [routerLink]="['/app/detalle-cita', appoitment.id]">
+                                <div class="logo_local">
+                                    <img [src]="appoitment.doctor.avatar" alt="">
+                                </div>
+                            </a>
+                                <div class="contenido">
+                                    <div class="info_local">
+                                        <h3>Dr(a). {{appoitment.doctor.full_name}}</h3>
+                                        <div class="infcita">
+                                            <p class="esp">{{appoitment.speciality.name}}</p>
+                                            <p class="fech">&nbsp;{{appoitment.date_appointment_format |date}}</p>
+                                            <p class="monto">Costo: ${{appoitment.amount}}</p>
+                                            <p class="pagado">Pago:
+                                            <span *ngIf="appoitment.status_pay === 1">&nbsp;Pagado</span>
+                                            <span *ngIf="appoitment.status_pay === 2">&nbsp;Deuda</span>
+                                        </p>
+                                            <!-- <p class="tiemp">{{appoitment.format_hour_start}} a {{appoitment.format_hour_end}}</p> -->
+                                        </div>
+                                    </div>
+                                    <div class="calificacion">
+                                        <span *ngIf="appoitment.status === 1"> <i class="fa fa-circle-o-notch"></i>&nbsp;Pendiente</span>
+                                    <span *ngIf="appoitment.status === 2"> <i class="fa fa-check-circle"></i>&nbsp;Atendida</span>
+                                        <div class="clear"></div><br>
+                                    <button class="btn btn-sm" *ngIf="appoitment.status_pay === 2" [routerLink]="['/app/pagar/', appoitment.id]">Pagar</button>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                    </div>
+                </ng-container>
+                
+            </div>
+        
+        </section>
+    </ng-container>
+    <ng-container *ngIf="option_selected == 3">
+        <section class="container animated fadeInUp " style="margin-bottom: 30px; padding-top: 40px;" *ngIf="patient" >
+        
+            <div class="" >
+                <ng-container *ngFor="let appoitment of appointments">
+                <div class="locales_categorias" style="width: 94vw;" >
+                        
+                        <div class="local_categoria_item">
+                            <a [routerLink]="['/app/detalle-cita', appoitment.id]">
+                                <div class="logo_local">
+                                    <img [src]="appoitment.doctor.avatar" alt="">
+                                </div>
+                            </a>
+                                <div class="contenido">
+                                    <div class="info_local">
+                                        <h3>Dr(a). {{appoitment.doctor.full_name}}</h3>
+                                        <div class="infcita">
+                                            <p class="esp">{{appoitment.speciality.name}}</p>
+                                            <p class="fech">&nbsp;{{appoitment.date_appointment_format}}</p>
+                                            <p class="monto">Costo: ${{appoitment.amount}}</p>
+                                            <p class="pagado">Pago:
+                                                <span *ngIf="appoitment.status_pay === 1">&nbsp;Pagado</span>
+                                                <span *ngIf="appoitment.status_pay === 2">&nbsp;Deuda</span>
+                                            </p>
+                                            <p class="tiemp">Hora: {{appoitment.format_hour_start}} a {{appoitment.format_hour_end}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="calificacion">
+                                        <span *ngIf="appoitment.status === 1"> <i class="fa fa-circle-o-notch"></i>&nbsp;Pendiente</span>
+                                    <span *ngIf="appoitment.status === 2"> <i class="fa fa-check-circle"></i>&nbsp;Atendida</span>
+                                        <div class="clear"></div><br>
+                                    <button class="btn btn-sm" *ngIf="appoitment.status_pay === 2" [routerLink]="['/app/pagar/', appoitment.id]">Pagar</button>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                    </div>
+                </ng-container>
+                
+            </div>
+        
+        </section>
+    </ng-container>
+   
+
+</div>
+
+
+
+
+
+
+
+<!-- <h1>pagina lista</h1> -->

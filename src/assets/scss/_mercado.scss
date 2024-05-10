@@ -1,0 +1,127 @@
+.mercado {
+    .overflow {
+        overflow: hidden;
+        overflow-x: scroll;
+    }
+    .categoriaCuadrada {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        width: 620px;
+    }
+    .categoria_mercado {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        height: 100px;
+        width: 100px;
+        margin-right: 5px;
+        font-size: 14px;
+        color: var(--black);
+        padding-top: 10px;
+        &h5 {
+            display: flex;
+            font-size: 11px;
+            color: var(--black);
+            text-align: center;
+            padding-top: 30px;
+        }
+        &:nth-child(1) {
+            background-image: url('../images/food/driks.png');
+            background-position: center 10px;
+            background-size: 40%;
+            background-repeat: no-repeat;
+            height: 100px;
+            width: 100px;
+        }
+        &:nth-child(2) {
+            background-image: url('../images/food/driks.png');
+            background-position: center 10px;
+            background-size: 40%;
+            background-repeat: no-repeat;
+            height: 100px;
+            width: 100px;
+        }
+        &:nth-child(3) {
+            background-image: url('../images/food/driks.png');
+            background-position: center 10px;
+            background-size: 40%;
+            background-repeat: no-repeat;
+            height: 100px;
+            width: 100px;
+        }
+        &:nth-child(4) {
+            background-image: url('../images/food/driks.png');
+            background-position: center 10px;
+            background-size: 40%;
+            background-repeat: no-repeat;
+            height: 100px;
+            width: 100px;
+        }
+        &:nth-child(5) {
+            background-image: url('../images/food/driks.png');
+            background-position: center 10px;
+            background-size: 40%;
+            background-repeat: no-repeat;
+            height: 100px;
+            width: 100px;
+        }
+        &:nth-child(6) {
+            background-image: url('../images/food/driks.png');
+            background-position: center 10px;
+            background-size: 40%;
+            background-repeat: no-repeat;
+            height: 100px;
+            width: 100px;
+        }
+    }
+    .listado_item {
+        display: flex;
+        flex-direction: row;
+        height: 80px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 15px;
+        &img {
+            display: flex;
+            width: 30%;
+            padding: 10px;
+        }
+        .info {
+            display: flex;
+            flex-direction: column;
+            &h4 {
+                display: flex;
+                font-family: var(--font-bold);
+                font-size: 16px;
+                margin: 0;
+                padding: 0;
+            }
+            &p.categoria {
+                display: flex;
+                font-size: 14px;
+                margin: 0;
+                padding: 0;
+            }
+            &p.duracion {
+                display: flex;
+                flex-direction: row;
+            }
+        }
+        .rated {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            &i {
+                color: var(--dorado)
+            }
+        }
+    }
+}

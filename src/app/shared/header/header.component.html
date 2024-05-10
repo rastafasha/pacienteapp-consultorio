@@ -1,0 +1,115 @@
+<!-- header -->
+<header>
+    <div class="header">
+        <div class="container">
+            <div class="tope">
+                <a routerLink="/app/home">
+                <div class="logo">
+                        <!-- <img src="./assets/images/logomalcolm.png" alt="logo "> -->
+                    </div>
+                </a>
+                <a routerLink="/app/home">
+                <div class="logo logo2">
+                        <!-- <img src="./assets/images/logomalcolm.png" alt="logo "> -->
+                    </div>
+                </a>
+                <div class="top">
+                    <h2 >Health Connect</h2>
+                    <div class="clinicaname">
+                        <h4>{{name_setting}}</h4>
+                    </div>
+                </div>
+                <div class="menuright">
+                    <ul>
+
+                        <li>
+                            <img class="globowhite"  (click)="darkMode('dark')" src="./assets/svg/luna.svg" alt="">
+                            <img class="globoblack"  (click)="darkMode('dark')" src="./assets/svg/sol.svg" alt="">
+                        </li>
+                    </ul>
+                    <div class="menu">
+                        <a href="javascript:void(0)" (click)="openMenu()" class="sidemenu-toggler">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </a>
+                        <div *ngIf="!patient.avatar">
+                            <img src="./assets/svg/user-login.svg" alt="">
+                        </div>
+                        <div *ngIf="patient.avatar">
+                            <img [src]="patient.avatar" alt="">
+                        </div>
+                        <div class="sidemenu">
+                            <a href="javascript:void(0)" (click)="closeMenu()" class="close"></a>
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a routerLink="/app/home">
+                                            <i class="fa fa-info-circle"></i>&nbsp;Hola {{patient.name}}!
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/app/ayuda">
+                                            <i class="fa fa-life-ring"></i>&nbsp; Ayuda en Línea
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a routerLink="/app/legal">
+                                            <i class="fa fa-balance-scale"></i>&nbsp; Información legal
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a (click)="logout()">
+                                            <i class="fa fa-sign-out"></i>&nbsp; Salir
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                            <div class="creditos">
+                                <!-- <h6 >Comercializado por: <br>
+                                    <a href="https://iketid.net" target="_blank" style="color: #403f3f;">Iketid</a>
+                                    <br>
+                                    Desarrollado por: <br>
+                                    <a href="https://malcolmcordova.com/" target="_blank">Malcolm Cordova Studio Design.</a>
+                                </h6> -->
+                                <p>Copyright © {{year}} Health Connect - Todos los derechos reservados.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+</header>
+<!-- header -->
+<!-- <div class="top">
+    <h2 >My Paciente</h2>
+    <div class="clinicaname">
+        <h4>Nombre de la Clínica o Consultorio.</h4>
+    </div>
+</div> -->
+<div class="clear"></div>
+<!-- search -->
+
+<div class="buscador">
+    <!-- <form class="form-horizontal">
+        <div class="bg-red rounded rounded-pill shadow-sm mb-4">
+            <div class="input-group">
+                <input type="search" name="search" type="text" class="form-control col-xs-12" placeholder="Buscar locales" aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                <div class="input-group-append">
+                    <button id="button-addon1" type="submit" class="btn btn-link text-primary" name="submit" data-toggle="tooltip" title="mostrar todos"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </form> -->
+</div>
+<div class="clear"></div>
+<!-- search -->
+<br>
+    <br>
