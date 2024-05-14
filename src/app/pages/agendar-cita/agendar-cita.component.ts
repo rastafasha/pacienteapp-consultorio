@@ -34,6 +34,7 @@ export class AgendarCitaComponent implements OnInit {
   surname_companion:string = '';
   
   amount:number = 0;
+  precio_cita:number;
   amount_add:number = 0;
   method_payment:string = '';
 
@@ -41,6 +42,7 @@ export class AgendarCitaComponent implements OnInit {
   DOCTORS:any = [];
   DOCTOR:any = [];
   DOCTOR_SELECTED:any;
+  DOCTOR_Det_SELECTED:any;
 
   selected_segment_hour:any;
 
@@ -87,7 +89,7 @@ export class AgendarCitaComponent implements OnInit {
       speciality_id:this.specilityie_id
     }
     this.appointmentService.lisFiter(data).subscribe((resp:any)=>{
-      // console.log(resp);
+      console.log(resp);
       this.DOCTORS = resp.doctors;
     })
   }
@@ -98,12 +100,20 @@ export class AgendarCitaComponent implements OnInit {
     return SEGMENTS.length;
   }
 
-  showSegment(DOCTOR:any){
+  showSegment(DOCTOR:any, ){
     this.DOCTOR_SELECTED = DOCTOR;
   }
+  showDetail(DOCTOR:any){
+    this.DOCTOR_Det_SELECTED = DOCTOR;
+  }
 
-  selecSegment(SEGMENT:any){
+  selecSegment(SEGMENT:any, ){
     this.selected_segment_hour = SEGMENT;
+  }
+
+  back(){
+    this.DOCTOR_Det_SELECTED = null;
+    // this.DOCTOR_SELECTED = !this.DOCTOR_SELECTED;
   }
 
   precioCita(){
@@ -135,7 +145,7 @@ export class AgendarCitaComponent implements OnInit {
         this.n_doc= 0;
   }
 
-  save(){debugger
+  save(){
     this.text_validation = '';
 
     this.speciality_id = this.speciality.id;
@@ -152,7 +162,7 @@ export class AgendarCitaComponent implements OnInit {
     }
 
     let data ={
-      "doctor_id": this.DOCTOR_SELECTED.doctor.id,
+        doctor_id: this.DOCTOR_SELECTED.doctor.id,
         // "patient_id": ,
         user_id:this.patient.id,
         name: this.name,
@@ -161,9 +171,9 @@ export class AgendarCitaComponent implements OnInit {
         phone: this.phone,
         name_companion: this.name_companion,
         surname_companion: this.surname_companion,
-        "date_appointment": this.date_appointment,
-        "speciality_id": this.speciality_id,
-        "doctor_schedule_join_hour_id": this.selected_segment_hour.id,
+        date_appointment: this.date_appointment,
+        speciality_id: this.speciality_id,
+        doctor_schedule_join_hour_id: this.selected_segment_hour.id,
         amount:this.speciality.price,
         amount_add:0,
         method_payment:'Pendiente',
