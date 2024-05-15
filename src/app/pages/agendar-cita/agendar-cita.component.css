@@ -8,3 +8,10 @@
     font-size: 18px;
     font-family: var(--font-bold);
 }
+
+
+.listadoctors{
+    height: 50vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}

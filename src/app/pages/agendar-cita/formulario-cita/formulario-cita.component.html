@@ -11,8 +11,8 @@
                         <div class="row align-items-center" >
                             <div class="col-12">
                                 <div class="form-heading">
-                                    <h5>Agendar Cita para:</h5>
-                                    <h4>{{speciality?speciality.name:'N/A'}}</h4>
+                                    <h5>Formulario Agendar Cita para:</h5>
+                                    <h4>{{speciality.name}}</h4>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">  
@@ -58,7 +58,7 @@
 
                         <!-- disponibilidad -->
                         <div class="row align-items-center" >
-                            <div class="col-12 listadoctors" *ngIf="!DOCTOR_Det_SELECTED ">
+                            <div class="col-12" *ngIf="!DOCTOR_Det_SELECTED ">
                                 <div class="table-responsive">
                                     <table class="table mb-0">
                                         <thead>
@@ -79,8 +79,6 @@
                                                     <td>{{countDisponibilidad(DOCTOR)}}</td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary btn-sm" (click)="showSegment(DOCTOR,i)">+</button>
-                                                        <!-- <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/agendar-cita/form/', DOCTOR.doctor.id]" >+</button> -->
-                                                        <!-- <a class="btn btn-primary btn-sm" [routerLink]="['/agendar-cita/form/', DOCTOR.doctor.id]"><i class="fa-solid fa-eye m-r-5"></i> View</a> -->
                                                     </td>
                                                 </tr>
                                                 
@@ -128,7 +126,6 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        Dr. {{DOCTOR_SELECTED.doctor.full_name}}
                                                         <ng-container *ngFor="let SEGMENT of DOCTOR_SELECTED.segments">
                                                             <div class="radio">
                                                                 <label>

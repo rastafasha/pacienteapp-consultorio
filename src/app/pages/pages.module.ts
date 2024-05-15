@@ -18,6 +18,7 @@ import { MisPagosComponent } from './pagos/mis-pagos/mis-pagos.component';
 import { PagarComponent } from './pagos/pagar/pagar.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { LegalComponent } from './legal/legal.component';
+import { FormularioCitaComponent } from './agendar-cita/formulario-cita/formulario-cita.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { LegalComponent } from './legal/legal.component';
     MisPagosComponent,
     PagarComponent,
     AyudaComponent,
-    LegalComponent
+    LegalComponent,
+    FormularioCitaComponent
   ],
   exports: [
     HomeComponent,
@@ -47,7 +49,8 @@ import { LegalComponent } from './legal/legal.component';
     MisPagosComponent,
     PagarComponent,
     AyudaComponent,
-    LegalComponent
+    LegalComponent,
+    FormularioCitaComponent
   ],
   imports: [
     CommonModule,

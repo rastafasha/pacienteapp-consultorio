@@ -3,13 +3,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
-@Component({
-  selector: 'app-agendar-cita',
-  templateUrl: './agendar-cita.component.html',
-  styleUrls: ['./agendar-cita.component.css']
-})
-export class AgendarCitaComponent implements OnInit {
 
+@Component({
+  selector: 'app-formulario-cita',
+  templateUrl: './formulario-cita.component.html',
+  styleUrls: ['./formulario-cita.component.css']
+})
+export class FormularioCitaComponent implements OnInit {
+
+  public doctor_id: any;
   public selectedValue!: string;
 
   valid_form_success: boolean = false;
@@ -46,31 +48,24 @@ export class AgendarCitaComponent implements OnInit {
 
   selected_segment_hour:any;
 
-  
-
   constructor(
-    // public doctorService:DoctorService,
+    public activatedRoute: ActivatedRoute,
     public appointmentService:AppointmentService,
     public router: Router,
-    public activatedRoute: ActivatedRoute,
-  ){
+  ) { }
 
-  }
-
-  ngOnInit(): void {
-    // this.doctorService.closeMenuSidebar();
+  ngOnInit(): void {debugger
     window.scrollTo(0, 0);
-
     this.activatedRoute.params.subscribe((resp:any)=>{
       // console.log(resp);
-      this.specilityie_id = resp.id;
+      this.doctor_id = resp.id;
       
     });
     this.getPrice();
-    this.appointmentService.listConfig().subscribe((resp:any)=>{
-      this.hours = resp.hours;
-      this.specialities = resp.specialities;
-    })
+    // this.appointmentService.listConfig().subscribe((resp:any)=>{
+    //   this.hours = resp.hours;
+    //   this.specialities = resp.specialities;
+    // })
   }
 
   getPrice(){
@@ -81,7 +76,7 @@ export class AgendarCitaComponent implements OnInit {
     })
 
   }
-  
+
   filtro(){
     let data = {
       date_appointment:this.date_appointment,
@@ -100,11 +95,10 @@ export class AgendarCitaComponent implements OnInit {
     return SEGMENTS.length;
   }
 
-  showSegment(DOCTOR: any) {
+  showSegment(DOCTOR:any, ){
     this.DOCTOR_SELECTED = DOCTOR;
-    // this.router.navigateByUrl(`/agendar-cita/form/${DOCTOR.doctor.id}`);
+    this.router.navigate(['agendar-cita/form/', DOCTOR.doctor.id]);
   }
-
   showDetail(DOCTOR:any){
     this.DOCTOR_Det_SELECTED = DOCTOR;
   }
