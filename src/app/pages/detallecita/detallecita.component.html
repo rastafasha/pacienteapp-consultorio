@@ -14,65 +14,19 @@
 </div> -->
     <section class="container animated fadeInUp " style=" padding-top: 30px; padding-bottom: 50px;">
 
-        <div class="card" style="margin-top: -10px;" *ngIf="laboratory == 2">
-            <p class="monto">
-                <b>Archivos de Laboratorio</b> <br>
-            </p>
-            <ng-container *ngFor="let FILE of FilesAdded">
-                <div class="filesAdded">
-                    <!--begin::Wrapper-->
-                    <div class="files">
-                        <a href="javascript:void(0);" (click)="selectDoc(FILE)" data-bs-toggle="modal"
-                            [attr.data-bs-target]="'#view-doc-'+FILE.id">
-                            <img src="assets/svg/doc.svg" class="w-50px ms-n1 me-1 filesvg" alt="">
-                        </a>
-                        <div class="infofile">
-                            <a href="javascript:void(0);" (click)="selectDoc(FILE)" data-bs-toggle="modal"
-                                [attr.data-bs-target]="'#view-doc-'+FILE.id">
-                                {{FILE.name_file}}</a>
-                            <br>
-                            <span class="text-gray-400 fw-bolder sizeee">Size:
-                                <a href="#" onclick="return false;"
-                                    class="text-gray-800 text-hover-primary fw-bolder">{{FILE.size}} Kb.</a></span>
-                        </div>
-                    </div>
-                    <!--end::Wrapper-->
-                </div>
-                <!--end::Info-->
-                <!-- modal -->
-
-                <div [attr.id]="'view-doc-'+FILE.id" class="modal  add-modal" role="dialog">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">{{FILE.name_file}}</h5>
-                                <a href="javascript:void(0);" (click)="closeReload()" class="btn btn-white me-1"
-                                    data-bs-dismiss="modal">Close</a>
-                            </div>
-                            <div class="modal-body text-center">
-                                <embed [src]="getDocumentIframe(FILE.file)" class="pdf-content" />
-                                <!-- <div class="m-t-20"> 
-                                                                        <a href="javascript:void(0);" (click)="closeReload()" class="btn btn-white me-1" data-bs-dismiss="modal">Close</a>
-                                                                    </div> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- modal -->
-            </ng-container>
-
-        </div>
+        
         <div class="perfil">
 
 
-            <div class="local_categoria_item" style="height: 220px;">
+            <div class="local_categoria_item" style="height: 240px;">
                 <div class="logo_local">
                     <img [src]="avatar_doctor" alt="">
                 </div>
-                <div class="contenido" style="height: 130px;">
+                <div class="contenido" style="height: auto;
+                transform: translateY(32px);">
                     <div class="info_local">
                         <h3>Dr.{{doctor.full_name}}</h3>
+                        <p>Consultorio:{{doctor.address}}</p>
                         <div class="infcita">
                             <p class="esp">{{speciality.name}}</p>
                             <p class="fech">
@@ -103,7 +57,7 @@
 
             </div>
 
-            <div class="card" style="margin-top: -10px;">
+            <div class="card" style="margin-top: 50px;">
                 <p class="monto">
                     <b>Fecha de la Cita:</b> <br>
                     {{appointment_selected.date_appointment_format}}

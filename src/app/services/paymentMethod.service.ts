@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Payment } from '../models/payment';
 import { PaymentMethod } from '../models/paymentMethod';
+import { AuthService } from './auth.service';
 
 const baseUrl = environment.url_servicios;
 
@@ -23,7 +24,10 @@ export class PaymentMethodService {
   //datos
   // payments = 'assets/dataSimulada/pago.json';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    public authService: AuthService,
+  ) { }
 
   get token():string{
     return localStorage.getItem('auth_token');
@@ -65,6 +69,20 @@ export class PaymentMethodService {
         map((resp:{ok: boolean, tipodepago: PaymentMethod}) => resp.tipodepago)
         );
   }
+  
+  getPagoByDoctor(doctor_id:number){
+    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token})
+    let URL = `${baseUrl}/paymentmethods/bydoctor/`+doctor_id;
+    return this.http.get(URL, {headers:headers});
+    
+  }
+  getActivoPagoByDoctor(doctor_id:number){
+    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token})
+    let URL = `${baseUrl}/paymentmethods/bydoctor-activo/`+doctor_id;
+    return this.http.get(URL, {headers:headers});
+    
+  }
+
 
   getActivas() {
     const url = `${baseUrl}/paymentmethods/activos`;
@@ -83,6 +101,8 @@ export class PaymentMethodService {
    const url = `${baseUrl}/paymentmethods/update/${tiposdepago.id}`;
     return this.http.put(url, tiposdepago, this.headers);
   }
+
+  
 
 
   deleteFoto(id) {

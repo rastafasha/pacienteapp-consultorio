@@ -128,7 +128,10 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        Dr. {{DOCTOR_SELECTED.doctor.full_name}}
+                                                        Dr. {{DOCTOR_SELECTED.doctor.full_name}}<br>
+                                                        Consultorio:{{DOCTOR_SELECTED.doctor.address}}<br>
+                                                        Cita:{{DOCTOR_SELECTED.doctor.precio_cita|currency}}<br>
+                                                        Horario disponible:<br><br>
                                                         <ng-container *ngFor="let SEGMENT of DOCTOR_SELECTED.segments">
                                                             <div class="radio">
                                                                 <label>

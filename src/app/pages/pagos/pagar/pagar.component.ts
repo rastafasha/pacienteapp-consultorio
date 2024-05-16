@@ -28,10 +28,12 @@ export class PagarComponent implements OnInit {
   deuda: any;
   pagoSeleccionado: Payment;
   paymentMethods: PaymentMethod;
+  tiposdepagos: any;
   
   patient_id: any;
   patient_selected: any;
   patient: any;
+  doctor_id: any;
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +51,7 @@ export class PagarComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.validarFormulario();
-    this.getTiposdepagos();
+    // this.getTiposdepagos();
     this.activatedRoute.params.subscribe((resp:any)=>{
       // console.log(resp);
       this.appointment_id = resp.id;
@@ -60,6 +62,16 @@ export class PagarComponent implements OnInit {
   }
 
 
+  getTiposdepagos(): void {
+    // return this.planesService.carga_info();
+    this.paymentMethodService.getActivas().subscribe(
+      (res:any) =>{
+        this.paymentMethods = res;
+        error => this.error = error
+        // console.log(res);
+      }
+    );
+  }
  
   
 getInfoCita(){
@@ -70,9 +82,19 @@ getInfoCita(){
       this.appointment = resp.appointment;
       this.deuda = resp.deuda;
       this.patient_id = resp.appointment.patient_id;
+      this.doctor_id = resp.appointment.doctor_id;
       
+      this.getTiposdePagoByDoctor();
     })
   }
+
+  getTiposdePagoByDoctor(){
+    this.paymentMethodService.getActivoPagoByDoctor(this.doctor_id).subscribe((resp:any)=>{
+      console.log(resp);
+      this.paymentMethods = resp.tiposdepagos;
+      // console.log(this.tiposdepagos);
+    })
+}
 
 
   validarFormulario(){
@@ -125,16 +147,7 @@ getInfoCita(){
     this.metodo = value;
   }
 
-  getTiposdepagos(): void {
-    // return this.planesService.carga_info();
-    this.paymentMethodService.getActivas().subscribe(
-      res =>{
-        this.paymentMethods = res;
-        error => this.error = error
-        // console.log(res);
-      }
-    );
-  }
+ 
 
 
 

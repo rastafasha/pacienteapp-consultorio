@@ -176,7 +176,7 @@ export class AgendarCitaComponent implements OnInit {
         date_appointment: this.date_appointment,
         speciality_id: this.speciality_id,
         doctor_schedule_join_hour_id: this.selected_segment_hour.id,
-        amount:this.speciality.price,
+        amount:this.DOCTOR_SELECTED.doctor.precio_cita,
         amount_add:0,
         method_payment:'Pendiente',
         // amount:this.amount,

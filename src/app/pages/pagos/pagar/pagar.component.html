@@ -16,8 +16,8 @@
                     <p><b>Especialidad:</b> {{appointment.speciality.name}}</p>
                     <p><b>Doctor:</b> {{appointment.doctor.full_name}}</p>
                     <p><b>Fecha de la Cita:</b> {{appointment.date_appointment_format}}</p>
-                    <p><b>Costo de la Cita:</b> ${{appointment.amount}}</p>
-                    <p><b>Monto Pendiente:</b> ${{deuda}}</p>
+                    <p><b>Costo de la Cita:</b> {{appointment.doctor.precio_cita|currency}}</p>
+                    <!-- <p><b>Monto Pendiente:</b> ${{deuda}}</p> -->
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                                                         </div>
                                                         <div class="form-group " *ngIf="deuda">
                                                             <label for="">Monto</label>
-                                                            <p>Colocar Monto a pagar: {{deuda|currency}}</p>
+                                                            <p>Colocar Monto a pagar: {{appointment.doctor.precio_cita|currency}}</p>
                                                             <input type="text" formControlName="monto" class="form-control">
                                                         </div>
                                                     </div>
