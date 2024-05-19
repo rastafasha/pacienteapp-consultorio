@@ -77,7 +77,7 @@
         
                             <section class="section dashboard carpagos ">
         
-                                <form class="form-horizontal form-material formPagar" (submit)="updateForm()" enctype="multipart/form-data" [formGroup]="PaymentRegisterForm">
+                                <form class="form-horizontal form-material formPagar" (submit)="payForm()" enctype="multipart/form-data" [formGroup]="PaymentRegisterForm">
                                     <div class="container">
         
                                         <div class="col-xs-12 col-md-8 " style="float: left;">
@@ -98,14 +98,17 @@
                                                             <input class="form-check-input" formControlName="metodo" [checked]="metodo == 'paypal'" (click)="selectedTypeCoupon('paypal')"  type="radio" value="Paypal" id="radiotipo1">
                                                             <label class="form-check-label" for="radiotipo1">Paypal</label>
                                                         </div> -->
-                                                        <div class="form-check chickd"  >
-                                                            <input class="form-check-input" formControlName="metodo"  [checked]="metodo == 'zelle'" (click)="selectedTypeCoupon('zelle')"   type="radio" value="Zelle" id="radiotipo2">
-                                                            <label class="form-check-label" for="radiotipo2">Zelle</label>
+                                                        <!-- *ngIf="paymentMethods?.tipo === 'Transferencia Dólares'" -->
+                                                        <div class="form-check chickd"   >
+                                                            <input class="form-check-input" formControlName="metodo"  [checked]="metodo == 'Transferencia Dólares'" (click)="selectedTypeCoupon('Transferencia Dólares')"   type="radio" value="Transferencia Dólares" id="radiotipo2">
+                                                            <label class="form-check-label" for="radiotipo2">Transferencia Dólares</label>
                                                         </div>
+                                                        <!-- *ngIf="paymentMethods?.tipo === 'Transferencia Bolívares'" -->
                                                         <div class="form-check chickd" >
-                                                            <input class="form-check-input" formControlName="metodo"  [checked]="metodo == 'transferencia'" (click)="selectedTypeCoupon('transferencia')"   type="radio" value="Transferencia" id="radiotipo3">
-                                                            <label class="form-check-label" for="radiotipo3">Transferencia</label>
+                                                            <input class="form-check-input" formControlName="metodo"  [checked]="metodo == 'Transferencia Bolívares'" (click)="selectedTypeCoupon('Transferencia Bolívares')"   type="radio" value="Transferencia Bolívares" id="radiotipo3">
+                                                            <label class="form-check-label" for="radiotipo3">Transferencia Bolívares</label>
                                                         </div>
+                                                        <!-- *ngIf="paymentMethods?.tipo === 'pagomovil'" -->
                                                         <div class="form-check chickd" >
                                                             <input class="form-check-input" formControlName="metodo"  [checked]="metodo == 'pagomovil'" (click)="selectedTypeCoupon('pagomovil')"   type="radio" value="Pago Movil" id="radiotipo4">
                                                             <label class="form-check-label" for="radiotipo4">Pago Movil</label>
@@ -119,7 +122,7 @@
                                                         Pagar por Paypal
                                                     </button>
                                                 </div> -->
-                                                <div class="divform" *ngIf="metodo == 'zelle'|| metodo == 'transferencia'|| metodo == 'pagomovil'|| metodo == 'efectivo'">
+                                                <div class="divform" *ngIf="metodo == 'Transferencia Dólares'|| metodo == 'Transferencia Bolívares'">
                                                     <div class="div2">
                                                         <div class="form-group ">
                                                             <label for="">Nombre Banco </label>
@@ -162,6 +165,55 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="divform" *ngIf="metodo == 'pagomovil'">
+                                                    <div class="div2">
+                                                        <div class="form-group ">
+                                                            <label for="">Nombre Banco </label>
+                                                            <input type="text" formControlName="bank_name" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="div3">
+                                                        <div class="form-group ">
+                                                            <label for="">Num. referencia </label>
+                                                            <input type="text" formControlName="referencia" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="div3">
+                                                        <div class="form-group ">
+                                                            <label for="">Num. Teléfono </label>
+                                                            <input type="text" formControlName="phone" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="div4">
+                                                        <div class="form-group " *ngIf="!deuda">
+                                                            <label for="">Monto</label>
+                                                            <input type="text" formControlName="monto" class="form-control">
+                                                        </div>
+                                                        <div class="form-group " *ngIf="deuda">
+                                                            <label for="">Monto</label>
+                                                            <p>Colocar Monto a pagar: {{appointment.doctor.precio_cita|currency}}</p>
+                                                            <input type="text" formControlName="monto" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="div7">
+                                                        <div class="form-group ">
+                                                            <label for="">Nombre y Apellido(en cuenta pagadora) </label>
+                                                            <input type="text" formControlName="nombre" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="div8">
+                                                        <div class="form-group ">
+                                                            <label for="">Email (en cuenta pagadora)</label>
+                                                            <input type="text" formControlName="email" class="form-control">
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="div9">
+                                                        <div class="form-group ">
+                                                            <label for="">Fecha del Pago</label>
+                                                            <input type="date" formControlName="fecha" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 
                                             </div>
         
@@ -185,7 +237,7 @@
                                     </div>
                                     <div class="clear"></div><br>
         
-                                    <button class="btn btn-outline-success " *ngIf="metodo == 'zelle'|| metodo == 'transferencia'|| metodo == 'pagomovil'|| metodo == 'efectivo'"  type="submit">Registrar Pago</button>
+                                    <button class="btn btn-outline-success " *ngIf="metodo == 'Transferencia Dólares'|| metodo == 'Transferencia Bolívares'|| metodo == 'pagomovil'|| metodo == 'efectivo'"  type="submit">Registrar Pago</button>
         
         
                                 </form>

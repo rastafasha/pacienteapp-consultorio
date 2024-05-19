@@ -19,6 +19,7 @@ export class PagarComponent implements OnInit {
   public PaymentRegisterForm: FormGroup;
   public cargando: boolean = true;
 
+  
   metodo:string;
   usuario:User;
   user:any;
@@ -27,13 +28,16 @@ export class PagarComponent implements OnInit {
   appointment: any;
   deuda: any;
   pagoSeleccionado: Payment;
-  paymentMethods: PaymentMethod;
+  paymentMethods: PaymentMethod [];
   tiposdepagos: any;
+  phone: any;
   
   patient_id: any;
   patient_selected: any;
   patient: any;
   doctor_id: any;
+  email: any;
+  tipopago: any[];
 
   constructor(
     private fb: FormBuilder,
@@ -92,7 +96,7 @@ getInfoCita(){
     this.paymentMethodService.getActivoPagoByDoctor(this.doctor_id).subscribe((resp:any)=>{
       console.log(resp);
       this.paymentMethods = resp.tiposdepagos;
-      // console.log(this.tiposdepagos);
+      
     })
 }
 
@@ -106,6 +110,7 @@ getInfoCita(){
       referencia: [''],
       email: [''],
       nombre: [''],
+      phone: [''],
       appointment_id: [''],
       status: ['PENDING'],
       patient_id: [''],
@@ -113,7 +118,7 @@ getInfoCita(){
       image: [''],
     })
   }
-  updateForm(){
+  payForm(){
 
     const formData = new FormData();
     formData.append('metodo', this.PaymentRegisterForm.get('metodo').value);
@@ -126,6 +131,12 @@ getInfoCita(){
     formData.append('status', 'PENDING');
     
 
+    if(this.email ){
+      formData.append('email', this.PaymentRegisterForm.get('email').value);
+    }
+    if(this.phone ){
+      formData.append('phone', this.phone);
+    }
 
     //crear
     const data = {
