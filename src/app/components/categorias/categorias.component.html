@@ -2,6 +2,7 @@
 <div >
     <!-- <ng-template #loading>Loading...</ng-template> -->
     <section class="container overflow animated fadeIn" style="display: inline-flex;" >
+        
         <div class=" otrosCategorias" *ngFor="let esp of specialities">
             <div class="categoria_home">
                 <a [routerLink]="['/app/agendar-cita', esp.id]">

@@ -25,6 +25,7 @@ export class PerfilComponent implements OnInit {
   appointment_attention:any;
   patient_selected:any;
   appointment_pendings:any;
+  user_email:any;
 
   constructor(
     public authService:AuthService,
@@ -37,6 +38,10 @@ export class PerfilComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.closeMenu();
     this.getInfoUser();
+
+    let USER = localStorage.getItem("user");
+    this.user = JSON.parse(USER ? USER: '');
+    this.user_email = this.user.email;
     
   }
 

@@ -45,6 +45,8 @@ export class AgendarCitaComponent implements OnInit {
   DOCTOR_Det_SELECTED:any;
 
   selected_segment_hour:any;
+  user:any;
+  user_id:any;
 
   
 
@@ -60,6 +62,9 @@ export class AgendarCitaComponent implements OnInit {
   ngOnInit(): void {
     // this.doctorService.closeMenuSidebar();
     window.scrollTo(0, 0);
+    let USER = localStorage.getItem("user");
+    this.user = JSON.parse(USER ? USER: '');
+    this.user_id = this.user.id;
 
     this.activatedRoute.params.subscribe((resp:any)=>{
       // console.log(resp);
@@ -168,7 +173,7 @@ export class AgendarCitaComponent implements OnInit {
     let data ={
         doctor_id: this.DOCTOR_SELECTED.doctor.id,
         // "patient_id": ,
-        user_id:this.patient.id,
+        user_id:this.user_id,
         name: this.name,
         surname: this.surname,
         n_doc: this.n_doc,
