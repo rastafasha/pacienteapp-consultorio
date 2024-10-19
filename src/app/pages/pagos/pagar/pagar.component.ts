@@ -114,6 +114,7 @@ getInfoCita(){
       appointment_id: [''],
       status: ['PENDING'],
       patient_id: [''],
+      doctor_id: [this.doctor_id],
       fecha: [''],
       image: [''],
     })
@@ -142,6 +143,7 @@ getInfoCita(){
     const data = {
       ...this.PaymentRegisterForm.value,
       patient_id: this.patient_id,
+      doctor_id: this.doctor_id,
       appointment_id: this.appointment_id,
     }
     this.paymentService.create(data)
