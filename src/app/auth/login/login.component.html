@@ -12,10 +12,13 @@
     <div class="main">
         <input type="checkbox" id="chk" aria-hidden="true">
         <img src="./assets/svg/logoHealthConnect-01.svg" alt="">
-        <h3 class="titleApp">Bienvenido</h3>
+        <h2 class="text-center text-white">Bienvenid&#64;!</h2>
+        <label for="chk" aria-hidden="true">
+            <p  class="text-light text-center" style="display: flex;
+        flex-direction: column;"> ¿Eres nuevo? </p>
+        </label>
         <div class="signup">
             <form [formGroup]="loginForm" id="loginform" (ngSubmit)="login()" autocapitalize="off">
-                <label for="chk" aria-hidden="true" ><h1>Ingresar</h1></label>
                
                 <div class="form-group ">
                     <div class="col-xs-12">
@@ -46,27 +49,24 @@
                 <button class="btn btn-primary"  (click)="login()">Entrar</button>
                 <br>
                 
-                <label for="chk" aria-hidden="true">
-                    <p  class="text-light text-center" style="display: flex;
-                flex-direction: column;"> ¿Eres nuevo? </p>
-                </label>
+                
             </form>
         </div>
 
         <div class="login">
             <img src="./assets/svg/logoHealthConnect-01.svg" alt="">
+            <label for="chk" aria-hidden="true">
+                <p  class="text-light text-center" style="display: flex;
+            flex-direction: column; color: var(--morado) !important"> ¿Ya eres Paciente? </p>
+            </label>
             
             <form [formGroup]="registerForm" (ngSubmit)="crearUsuario()" autocapitalize="off" style="margin-top: 10px;">
-                <label for="chk" aria-hidden="true">
-                    <p  class="text-light text-center" style="display: flex;
-                flex-direction: column; color: var(--morado) !important"> ¿Ya eres Paciente? </p>
-                </label>
                 
                 <label for="chk" aria-hidden="true"><h1>Registro</h1></label>
 
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input class="form-control" type="text" formControlName="name" placeholder="Nombre">
+                        <input class="form-control" type="text" formControlName="name" placeholder="Nombre y Apellido">
                     </div>
                 </div>
                 <div class="form-group ">
@@ -81,13 +81,13 @@
                 </div>
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <small>Mínimo 8 caracteres.</small>
+                        <small>Contraseña</small>
                         <input class="form-control" type="password" formControlName="password" placeholder="Contraseña">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <small>Deben ser iguales.</small>
+                        <small>Confirme Contraseña</small>
                         <input class="form-control" type="password" formControlName="password2" placeholder="Confirmar">
                     </div>
                 </div>

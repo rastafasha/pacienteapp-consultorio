@@ -17,13 +17,24 @@
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#353888', endColorstr='#774477', GradientType=0);
     /* IE6-9 */
 
-    & img {
-        width: 50%;
-        height: auto;
-        margin: auto;
-        display: flex;
-        margin-top: 30px;
-    }
+   
+}
+
+.main img {
+    width: 50%;
+    height: auto;
+    margin: auto;
+    display: flex;
+    margin-top: 30px;
+}
+.main h1 {
+    color: var(--blanco);
+    font-size: 1.3em;
+    justify-content: center;
+    display: flex;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s ease-in-out;
 }
 
 p{
@@ -50,82 +61,84 @@ p{
 .signup {
     position: relative;
     width: 100%;
-    height: 60dvh;
+    height: 45dvh;
     display: flex;
     justify-content: center;
     align-items: center;
-    & p {
-        font-size: 14px;
-        margin: 0;
-        padding: 0;
-        text-align: left;
-        display: flex;
-        width: 80%;
-        margin: auto;
-        flex-direction: row;
-        align-content: center;
-        justify-content: flex-start;
-        color: var(--blanco);
+    
+}
+.signup p {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    display: flex;
+    width: 80%;
+    margin: auto;
+    flex-direction: row;
+    align-content: center;
+    justify-content: flex-start;
+    color: var(--blanco);
 
-        color: var(--blanco);
-        display: flex;
-        margin: 30px 20px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: .5s ease-in-out;
-
-        & span {
-            color: red;
-        }
-    }
-    & label {
-        color: var(--blanco);
-        justify-content: center;
-        display: flex;
-        margin: -45px 20px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: .5s ease-in-out;
-        & h1 {
-            color: var(--blanco);
-            font-size: 1.3em;
-            justify-content: center;
-            display: flex;
-            margin: 50px 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .5s ease-in-out;
-        }
-    }
-
-    & .form-control {
-        background: #e0dede;
-        justify-content: center;
-        display: flex;
-        border: none;
-        outline: none;
-        border-radius: 5px;
-        margin: auto;
-        width: 80%;
-        margin-bottom: 20px;
-        transition: .5s ease-in-out;
-    }
-
-    & .checkbox {
-        display: flex;
-        align-content: center;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
+    color: var(--blanco);
+    display: flex;
+    margin: 30px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s ease-in-out;
 
 }
+.signup p  span {
+    color: red;
+}
+.signup label {
+    color: var(--blanco);
+    justify-content: center;
+    display: flex;
+    margin: -45px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+
+.signup label  h1 {
+        color: var(--blanco);
+        font-size: 1.3em;
+        justify-content: center;
+        display: flex;
+        /* margin: 50px 20px; */
+        font-weight: bold;
+        cursor: pointer;
+        transition: .5s ease-in-out;
+    
+}
+
+.signup .form-control {
+    background: #e0dede;
+    justify-content: center;
+    display: flex;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin: auto;
+    width: 80%;
+    margin-bottom: 20px;
+    transition: .5s ease-in-out;
+}
+
+.signup .checkbox {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 
 label {
     color: var(--blanco);
     justify-content: center;
     display: flex;
-    margin: 60px;
     font-weight: bold;
     cursor: pointer;
     transition: .5s ease-in-out;
@@ -157,7 +170,7 @@ button {
 
 
 .login {
-    height: 85dvh;
+    height: 90dvh;
     display: flex;
     position: absolute;
     width: 100%;
@@ -169,56 +182,56 @@ button {
     transition: .8s ease-in-out;
     justify-content: center;
     align-content: center;
-
-
-    & img {
-        width: 30%;
-        height: auto;
-        margin: auto;
-        display: flex;
-        margin-top: 30px;
-    }
-
-    & .form-control {
-        background: #e0dede;
-        justify-content: center;
-        display: flex;
-        border: none;
-        outline: none;
-        border-radius: 5px;
-        margin: auto;
-        width: auto;
-        margin-bottom: 20px;
-        transition: .5s ease-in-out;
-    }
-
-    & input {
-        justify-content: center;
-        display: flex;
-        border-radius: 5px;
-    }
-    & label {
-        color: var(--morado);
-        transform: scale(.6);
-        justify-content: center;
-        display: flex;
-        font-weight: bold;
-        cursor: pointer;
-        margin: 0;
-        transition: .5s ease-in-out;
-        & h1 {
-            color: var(--morado);
-            font-size: 1.3em;
-            justify-content: center;
-            display: flex;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .5s ease-in-out;
-            transform: translate(0px, -10px)
-        }
-    }
-
     
+}
+
+.login img {
+    width: 30%;
+    height: auto;
+    margin: auto;
+    display: flex;
+    margin-top: 15px;
+}
+
+.login .form-control {
+    background: #e0dede;
+    justify-content: center;
+    display: flex;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin: auto;
+    height: 25px;
+    width: auto;
+    margin-bottom: 20px;
+    transition: .5s ease-in-out;
+}
+
+.login input {
+    justify-content: center;
+    display: flex;
+    border-radius: 5px;
+}
+.login label {
+    color: var(--morado);
+    transform: scale(.6);
+    justify-content: center;
+    display: flex;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0;
+    transition: .5s ease-in-out;
+    
+}
+.login label h1 {
+    color: var(--morado);
+    font-size: 1.3em;
+    justify-content: center;
+    display: flex;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+    transform: translate(0px, -10px)
 }
 
 
@@ -277,9 +290,11 @@ button {
         width: 350px;
         height: 520px;
         border-radius: 0px;
-        & img {
-            width: 25%;
-        }
+        
+    }
+
+    .main img {
+        width: 25%;
     }
 
     .login {
@@ -297,12 +312,11 @@ button {
 
 @media(max-width:375px) {
     #chk:checked~.login {
-        transform: translateY(-640px);
-    padding-top: 0px;
+        transform: translateY(-100dvh);
     }
     .login {
-        height: 100vh;
-        padding-top: 60px;
+        height: calc(90dvh);
+        padding: 90px 0px;
         box-shadow: 0px -6px 16px #000;
     }
 
@@ -319,7 +333,7 @@ button {
     .signup{
         position: relative;
         width: 100%;
-        height: 80vh;
+        height: 60vh;
     }
 }
 
