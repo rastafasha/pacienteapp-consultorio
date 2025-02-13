@@ -106,7 +106,7 @@ login(){
       }
       
     },(error) => {
-      Swal.fire('Error', error.error.msg, 'error');
+      Swal.fire('Error', error.error, 'error');
       this.errors = error.error;
     }
     )

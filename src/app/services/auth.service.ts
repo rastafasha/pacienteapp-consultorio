@@ -8,6 +8,7 @@ import { catchError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RegisterForm } from '../auth/interfaces/register-form.interface';
 import { LoginForm } from '../auth/interfaces/login-form.interface';
+import Swal from 'sweetalert2';
 
 const url_servicios = environment.url_servicios;
 
@@ -89,7 +90,8 @@ export class AuthService {
         return result;
       }),
       catchError((error:any) => {
-        console.log(error);
+        Swal.fire('Error', error.error.error, 'error');
+        // console.log(error.error.error);
         return of(undefined);
       })
     )
