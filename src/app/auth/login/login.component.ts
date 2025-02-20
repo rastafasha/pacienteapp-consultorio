@@ -128,7 +128,7 @@ crearUsuario(){
       Swal.fire('Registrado!', `Ya puedes ingresar`, 'success');
       this.ngOnInit();
     },(error) => {
-      // Swal.fire('Error', error.error.msg, 'error');
+      Swal.fire('Error', error.error.msg, 'error');
       this.errors = error.error;
     }
   );
