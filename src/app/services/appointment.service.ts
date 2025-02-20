@@ -74,6 +74,8 @@ export class AppointmentService {
     return this.http.get(URL,{headers:headers});
   }
 
+  
+
 
   getLaboratoryByAppointment(appointment_id:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
