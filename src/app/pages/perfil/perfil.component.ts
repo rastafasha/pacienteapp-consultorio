@@ -11,8 +11,9 @@ import { UserService } from 'src/app/services/user.service';
 export class PerfilComponent implements OnInit {
   loading:boolean;
   obs$ = of(1).pipe(delay(500));
+  public cargando: boolean = true;
   
-  
+  option_selected:number = 1;
 
   user:any;
   usuario:any;
@@ -25,7 +26,6 @@ export class PerfilComponent implements OnInit {
   appointment_attention:any;
   patient_selected:any;
   appointment_pendings:any;
-  user_email:any;
 
   constructor(
     public authService:AuthService,
@@ -38,39 +38,22 @@ export class PerfilComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.closeMenu();
     this.getInfoUser();
-
-    let USER = localStorage.getItem("user");
-    this.user = JSON.parse(USER ? USER: '');
-    this.user_email = this.user.email;
     
   }
 
   getInfoUser(){
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
+    this.cargando = true;
+    this.userService.showPatientByNdoc(this.user.id).subscribe((resp:any)=>{
+      this.cargando = false;
       // console.log(resp);
-      this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
+      this.patient = resp.patient;
       this.usuario = resp;
-      // console.log('usuario', this.usuario);
-      // console.log('appointments', this.appointments);
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-
-      this.getPatient();
+      this.patient_id = resp.patient.id;
     })
   }
 
-  getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
-      // console.log('todo appointment',resp);
-      this.appointments= resp.appointments;
-      this.num_appointment= resp.num_appointment;
-      this.money_of_appointments= resp.money_of_appointments;
-      this.num_appointment_pendings= resp.num_appointment_pendings;
-      this.patient_selected= resp.patient;
-      this.appointment_pendings= resp.appointment_pendings.data;
-      this.appointment_attention= resp.appointments.data;
-      // console.log('appointment_pendings',this.appointment_pendings);
-    })
+  optionSelected(value:number){
+    this.option_selected = value;
   }
+
 }

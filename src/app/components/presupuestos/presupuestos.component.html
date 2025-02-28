@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row presupuestos">
+        <div class="card">
+           
+            <div class="card-body" *ngIf="!presupuestoSelected">
+                <ul *ngFor="let presupuesto of presupuestosList" >
+                    <li >
+                        <p><b>Fecha:</b> {{presupuesto.date_presupuesto_format}}</p>
+                        <!-- <p>{{presupuesto.amount|currency}}</p> -->
+                        <button class="btn btn-outline-success btn-sm" (click)="selectedPayment(presupuesto)"><i class="fa fa-eye"></i></button>
+                    </li>
+
+                </ul>
+
+                
+            </div>
+            <div class="card-body " *ngIf="presupuestoSelected">
+                    <span class="d-flex justify-content-end">
+                        <button class="btn btn-outline-success btn-sm" (click)="back()">Cerrar</button>
+                    </span>
+                    <app-presupuesto-detalle [presupuestoSelected]="presupuestoSelected"></app-presupuesto-detalle>
+                
+            </div>
+        </div>
+    </div>
+</div>

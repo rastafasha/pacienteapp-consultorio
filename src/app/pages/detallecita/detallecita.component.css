@@ -32,9 +32,13 @@
     margin: auto;
 }
 
+.modal {
+    top: -180px;
+}
+
 @media(max-width:768px){
     .pdf-content {
-        height: 95vh;
+        height: auto;
     }
 }
 

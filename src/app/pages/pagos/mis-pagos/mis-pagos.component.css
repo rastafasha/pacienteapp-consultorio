@@ -11,3 +11,17 @@ p{
     margin-bottom: 5px;
     justify-content: space-around;
 }
+
+.pago{
+    display: flex;
+    justify-content: space-between;
+}
+.pago ul{
+    margin: 0;
+    padding: 0;
+}
+.pago ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}

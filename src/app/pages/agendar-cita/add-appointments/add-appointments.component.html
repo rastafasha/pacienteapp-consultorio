@@ -1,6 +1,9 @@
-<app-categorias></app-categorias>
-<div class="container animated fadeInUp" style="padding-top: 20px;">
-    
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <app-loading ></app-loading>
+</div>
+<!-- <app-categorias></app-categorias> -->
+<app-backButtn></app-backButtn>
+<div class="container animated fadeInUp" *ngIf="!cargando" style="padding-top: 20px;">
     <div class="row">
         <!-- paciente -->
         <div class="col-sm-12">
@@ -11,12 +14,12 @@
                         <div class="row align-items-center" >
                             <div class="col-12">
                                 <div class="form-heading">
-                                    <h4>Appointment Details</h4>
+                                    <h4>Solicitar Cita</h4>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">  
                                 <div class="form-group local-forms">
-                                    <label >Date Of Appointment  <span class="login-danger">*</span></label>
+                                    <label >Fecha  <span class="login-danger">*</span></label>
                                     <input  type="date" class="form-control datetimepicker" name="date_appointment" [(ngModel)]="date_appointment"   >
                                     <!-- <datepicker #picker></datepicker>
                                     <datepicker-toggle matIconSuffix [for]="picker"></datepicker-toggle> -->
@@ -35,7 +38,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <div class="form-group local-forms">
-                                    <label >Speciality <span class="login-danger">*</span></label>
+                                    <label >Especialidad <span class="login-danger">*</span></label>
                                     <select class="form-control form-select-solid fw-bolder" name="categorie"
                                         placeholder="Selec. Categoria" [(ngModel)]="speciality_id" (change)="selectCategory($event)">
                                         <ng-container *ngFor="let data of specialities">
@@ -128,8 +131,8 @@
                         <!-- validaciones -->
                         </div>
                         <!-- disponibilidad -->
-                        <!-- paciente -->
-                        <div class="row align-items-center py-4" >
+                        <!-- paciente Nuevo -->
+                        <div class="row align-items-center py-4" *ngIf="!patient_selected" >
                             <div class="col-12 py-4">
                                 <h4>Datos del Paciente</h4>
                                 <button type="button" class="btn btn-dark btn-sm" (click)="resetPatient()">Reset</button>
@@ -137,28 +140,78 @@
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
                                     <label >N.Documento <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="n_doc" [(ngModel)]="n_doc" type="text"  >
+                                    <input class="form-control" name="n_doc"  [(ngModel)]="n_doc" type="text"  >
                                     <!-- <input class="form-control" (keyup)="filterPatient()" name="n_doc" [(ngModel)]="n_doc" type="text"  > -->
                                     <button type="button" class="btn btn-dark btn-sm" (click)="filterPatient()">Filtrar</button>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-4">  
                                 <div class="form-group local-forms">
-                                    <label >First Name <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="name" [(ngModel)]="name" type="text"  >
+                                    <label >Nombre <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="name"  [(ngModel)]="name" type="text"  >
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
-                                    <label >Last Name <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="surname" [(ngModel)]="surname" type="text"  >
+                                    <label >Apellido <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="surname"  [(ngModel)]="surname" type="text"  >
                                 </div>
                             </div>
                            
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
-                                    <label >Mobile <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="phone" [(ngModel)]="phone" type="text"  >
+                                    <label >Teléfono <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="phone"  [(ngModel)]="phone" type="text"  >
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">  
+                                <div class="form-group local-forms">
+                                    <label >Nombre Acompañante <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="name_companion" [(ngModel)]="name_companion" type="text"  >
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">  
+                                <div class="form-group local-forms">
+                                    <label >Apellido Acompañante <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="surname_companion" [(ngModel)]="surname_companion" type="text"  >
+                                </div>
+                            </div>
+                        </div>
+                        <!-- paciente Nuevo -->
+
+
+
+                        <!-- paciente -->
+                        <div class="row align-items-center py-4" *ngIf="patient_selected" >
+                            <div class="col-12 py-4">
+                                <h4>Datos del Paciente</h4>
+                                <!-- <button type="button" class="btn btn-dark btn-sm" (click)="resetPatient()">Reset</button> -->
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label >N.Documento <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="n_doc"  [(ngModel)]="n_doc" type="text"  >
+                                    <!-- <input class="form-control" (keyup)="filterPatient()" name="n_doc" [(ngModel)]="n_doc" type="text"  > -->
+                                    <!-- <button type="button" class="btn btn-dark btn-sm" (click)="filterPatient()">Filtrar</button> -->
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-4">  
+                                <div class="form-group local-forms">
+                                    <label >Nombre <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="name" disabled [(ngModel)]="name" type="text"  >
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label >Apellido <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="surname" disabled [(ngModel)]="surname" type="text"  >
+                                </div>
+                            </div>
+                           
+                            <div class="col-12 col-md-6 col-xl-4">
+                                <div class="form-group local-forms">
+                                    <label >Teléfono <span class="login-danger">*</span></label>
+                                    <input class="form-control" name="phone" disabled [(ngModel)]="phone" type="text"  >
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">  
@@ -177,7 +230,7 @@
                         <!-- paciente -->
                         <!-- pago -->
                         
-                        <div class="row align-items-center py-4" >
+                        <!-- <div class="row align-items-center py-4" >
                             <div class="col-12 py-4">
                                 <h4>Datos de Pago</h4>
                                 
@@ -212,7 +265,7 @@
                             </div>
                             
                             
-                        </div>
+                        </div> -->
                         <!-- pago -->
 
                         

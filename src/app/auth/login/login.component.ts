@@ -38,11 +38,12 @@ export class LoginComponent implements OnInit {
   public formSumitted = false;
   public registerForm = this.fb.group({
     name: ['', Validators.required],
-    email: [ '', [Validators.required] ],
+    surname: ['', Validators.required],
+    email: [ '', [Validators.required, Validators.email] ],
     n_doc: ['', Validators.required],
     password: ['', Validators.required],
     password2: ['', Validators.required],
-    // role: ['GUEST'],
+    role: ['GUEST'],
     // terminos: [false, Validators.required],
 
   }, {
@@ -65,6 +66,7 @@ export class LoginComponent implements OnInit {
    
   }
   username: FormControl<any>;
+
 ngOnInit(){
   
   this.loginForm = this.fb.group({

@@ -1,0 +1,15 @@
+.backbotton{
+    display: flex;
+    position: fixed;
+    color: var(--negro);
+    background-color: var(--blanco);
+    z-index: 99;
+    width: 100vw;
+    top: 10px;
+    left: 0;
+    padding-left: 10px;
+    padding-top: 15px;
+}
+.backbotton i{
+    padding-right: 5px;
+}

@@ -7,6 +7,8 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { PublicidadComponent } from './publicidad/publicidad.component';
 import { CitasComponent } from './citas/citas.component';
 import { SignosvitalesComponent } from './signosvitales/signosvitales.component';
+import { PresupuestosComponent } from './presupuestos/presupuestos.component';
+import { PresupuestoDetalleComponent } from './presupuesto-detalle/presupuesto-detalle.component';
 
 
 
@@ -16,14 +18,17 @@ import { SignosvitalesComponent } from './signosvitales/signosvitales.component'
     CategoriasComponent,
     PublicidadComponent,
     CitasComponent,
-    SignosvitalesComponent
+    SignosvitalesComponent,
+    PresupuestosComponent,
+    PresupuestoDetalleComponent
   ],
   exports: [
     GridHomeComponent,
     CategoriasComponent,
     PublicidadComponent,
     CitasComponent,
-    SignosvitalesComponent
+    SignosvitalesComponent,
+    PresupuestosComponent
   ],
   imports: [
     CommonModule,

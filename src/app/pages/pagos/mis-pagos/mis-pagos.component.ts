@@ -47,25 +47,13 @@ export class MisPagosComponent implements OnInit {
   getInfoUser(){
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
       // console.log(resp);
-      this.patient = resp.patient.data;
-      // console.log('patient', this.patient);
+      this.patient_selected = resp.patient;
       this.usuario = resp;
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-      
-      this.getPatient();
+      this.patient_id = resp.patient.id;
       this.getPatientPayments();
     })
   }
 
-  getPatient(){
-    this.cargando = true;
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
-      this.cargando = false;
-      this.patient_selected= resp.patient;
-      this.appointments= resp.appointments;
-    })
-  }
 
 
   getPatientPayments(){

@@ -12,6 +12,7 @@ export class User {
     last_name: string = "";
     token: string = "";
     is_active: number = 0;
+    n_doc: number = 0;
     created_at: string = "";
     image: string = "";
     role?: 'SUPERADMIN' | 'ADMIN' | 'MEMBER' | 'GUEST';

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-appointments',
@@ -41,28 +42,45 @@ export class AddAppointmentsComponent {
   DOCTOR_SELECTED:any;
 
   selected_segment_hour:any;
+  cargando:boolean= false;
 
-  
+  user:any;
+  patient_selected:any;
+  nuevo_usuario:any;
 
   constructor(
     public appointmentService:AppointmentService,
-    public authService:AuthService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
+    public userService:UserService,
+        public authService:AuthService,
   ){
-
+    this.user = this.authService.user;
   }
 
   ngOnInit(): void {
     this.authService.closeMenu();
+    this.authService.getLocalStorage();
     window.scrollTo(0, 0); 
-
+    this.cargando = true;
     this.appointmentService.listConfig().subscribe((resp:any)=>{
+      this.cargando = false;
       this.hours = resp.hours;
       this.specialities = resp.specialities;
     })
+
+    this.user;
+    console.log(this.user);
+    
+    this.getInfoUser();
   }
 
+  getInfoUser(){
+    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
+      this.patient_selected = resp.patient;
+      this.filterPatient();
+    })
+  }
   filtro(){
     let data = {
       date_appointment:this.date_appointment,
@@ -73,6 +91,8 @@ export class AddAppointmentsComponent {
       // console.log(resp);
       this.DOCTORS = resp.doctors;
     })
+
+    this.getPrice();
   }
 
   countDisponibilidad(DOCTOR:any){
@@ -90,7 +110,7 @@ export class AddAppointmentsComponent {
   }
 
   filterPatient(){
-    this.appointmentService.getPatient(this.n_doc+"").subscribe((resp:any)=>{
+    this.appointmentService.getPatient(this.patient_selected.n_doc+"").subscribe((resp:any)=>{
       // console.log(resp);
       this.patient = resp;
       if(resp.menssage === 403){
@@ -114,6 +134,15 @@ export class AddAppointmentsComponent {
         this.n_doc= 0;
   }
 
+  getPrice(){
+    this.appointmentService.showSpeciality(this.speciality_id).subscribe((resp:any)=>{
+      console.log('speciality',resp);
+      this.speciality = resp;
+      
+    })
+
+  }
+
   save(){
     this.text_validation = '';
 
@@ -123,8 +152,9 @@ export class AddAppointmentsComponent {
     }
     if(!this.name ||!this.surname|| !this.n_doc || !this.phone 
       || !this.date_appointment|| !this.speciality_id 
-      || !this.selected_segment_hour || !this.amount 
-      || !this.amount_add || !this.method_payment){
+      || !this.selected_segment_hour 
+     
+    ){
       this.text_validation = "Los campos son Necesarios(Segmento de hora, fecha, especialidad, paciente, pago)";
       return;
     }
@@ -142,15 +172,17 @@ export class AddAppointmentsComponent {
         "date_appointment": this.date_appointment,
         "speciality_id": this.speciality_id,
         "doctor_schedule_join_hour_id": this.selected_segment_hour.id,
-        amount:this.amount,
-        amount_add:this.amount_add,
-        method_payment:this.method_payment,
+        amount:this.speciality.price,
+        amount_add:0,
+        method_payment:'Pendiente',
     }
-
+    this.cargando = true;
     this.appointmentService.storeAppointment(data).subscribe((resp:any)=>{
       // console.log(resp);
+
       // this.text_success = "La Cita medica se ha creado";
       Swal.fire('Exito!', `La Cita medica se ha creado, favor espere la notificacion de confirmacion para procesar el pago`, 'success');
+      this.cargando = false;
       this.router.navigate(['/app/lista']);
     })
   }

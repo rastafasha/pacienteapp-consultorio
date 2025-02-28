@@ -13,13 +13,13 @@ import { UserService } from 'src/app/services/user.service';
 export class GridHomeComponent implements OnInit {
 
   // @Input() childMessage:any=[]; //recibe la data
+  @Input() usuario:any=[]; //recibe la data
   // @Output() userV: EventEmitter<any>  = new EventEmitter();// envia la data
   public cargando: boolean = true;
 
   
   user:any;
-  usuario:any;
-  patient:any = [];
+  // patient:any = [];
   appointments:any;
   appointment:any;
   patient_id:number;
@@ -33,9 +33,6 @@ export class GridHomeComponent implements OnInit {
   appointment_checkeds:any;
   recetas:any;
   settting:any;
-  doctor_id:any;
-  address:any;
-  mobile:any;
 
   constructor(
     public authService:AuthService,
@@ -43,63 +40,56 @@ export class GridHomeComponent implements OnInit {
     public configService:ConfigService,
     public appoitmentService:AppointmentService,
   ) { 
-    this.user = this.authService.user;
+    // this.user = this.authService.user;
   }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
-    this.getInfoUser();
     this.getConfig();
+    
+    // this.usuario = this.usuario.patient;
+
+    // if(this.usuario === null || !this.usuario){
+    //   this.usuario = this.authService.user;
+    // }
+
+    
+    this.getPatient();
     
   }
 
   getConfig(){
     this.configService.getAllConfig().subscribe((resp:any)=>{
-      // console.log(resp);
       this.settting = resp.settings.data[0]
-      // console.log(this.settting);
     })
   }
 
-  getInfoUser(){
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      
-      // console.log(resp);
-      this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
-      this.usuario = resp;
-      // console.log('usuario', this.usuario);
-      // console.log('appointments', this.appointments);
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-
-      this.getPatient();
-    })
-  }
 
   getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
-      console.log('todo appointment',resp);
+    this.userService.showPatientProfile(this.usuario.id).subscribe((resp:any)=>{
+      console.log(resp);
       this.patient_selected= resp.patient;
       this.appointments= resp.appointments;
-      this.doctor_id= resp.patient.doctor_id;
-      this.address= resp.patient.doctor.address;
-      this.mobile= resp.patient.doctor.mobile;
-      // this.appointment_checkeds= resp.appointment_checkeds.data[0];
-      // console.log(this.appointment_checkeds);
+      this.appointment_checkeds= resp.appointment_checkeds.data[0];
       this.appointment_pendings= resp.appointment_pendings.data;
-      this.appointment_attention= resp.appointments[0].appointment_attention;
+      // this.appointment_attention= resp.appointments[0].appointment_attention;
+
+      this.num_appointment= resp.num_appointment;
+      this.money_of_appointments= resp.money_of_appointments;
+      this.num_appointment_pendings= resp.num_appointment_pendings;
 
       if(resp.appointments[0].appointment_attention){
         this.recetas= resp.appointments[0].appointment_attention.receta_medica;
       }
-      this.appointment= resp.appointments[0];
+      if(this.appointment_checkeds.status === 2 ){
+        this.appointment_checkeds;
+      }
+      this.appointment= resp.appointments;
       
     })
   }
-
 
 
    openOrange(){

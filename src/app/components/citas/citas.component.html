@@ -1,13 +1,13 @@
-<div *ngIf="!patient">
+<!-- <div *ngIf="!usuario">
     <h2 class="notiene">Usted no tiene registro medico con esta Clínica.</h2>
-</div>
-<div *ngIf="!appointment_pendings">
+</div> -->
+<div *ngIf="num_appointment === 0">
     <h2 class="notiene">No tienes citas pendientes.</h2>
 </div>
 
 <div  >
     
-    <section class="container animated fadeInUp " style="margin-bottom: 30px;" *ngIf="patient">
+    <section class="container animated fadeInUp " style="margin-bottom: 30px;" *ngIf="num_appointment > 0">
         <h4>Citas pendientes </h4>
         <div class="overflow" >
             <div class="locales_categorias" style="width: 236vw;" >

@@ -33,11 +33,11 @@
                             <span></span>
                             <span></span>
                         </a>
-                        <div *ngIf="!patient.avatar">
+                        <div *ngIf="!patient?.avatar">
                             <img src="./assets/svg/user-login.svg" alt="">
                         </div>
-                        <div *ngIf="patient.avatar">
-                            <img [src]="patient.avatar" alt="">
+                        <div *ngIf="patient?.avatar">
+                            <img [src]="patient?.avatar" alt="">
                         </div>
                         <div class="sidemenu">
                             <a href="javascript:void(0)" (click)="closeMenu()" class="close"></a>
@@ -45,7 +45,7 @@
                                 <ul>
                                     <li>
                                         <a routerLink="/app/home">
-                                            <i class="fa fa-info-circle"></i>&nbsp;Hola {{patient.name}}!
+                                            <i class="fa fa-info-circle"></i>&nbsp;Hola {{patient?.name}}!
                                         </a>
                                     </li>
                                     <li>

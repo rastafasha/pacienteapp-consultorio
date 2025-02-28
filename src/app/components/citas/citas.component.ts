@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from 'express-serve-static-core';
 import { of, delay } from 'rxjs';
@@ -13,9 +13,9 @@ import { UserService } from 'src/app/services/user.service';
 export class CitasComponent implements OnInit {
 
   // public cargando: boolean = true;
+  @Input() usuario:any=[]; //recibe la data
   
   user:any;
-  usuario:any;
   patient_id:number;
   patient:any = [];
   appointments:any;
@@ -38,36 +38,21 @@ export class CitasComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
-    this.getInfoUser();
 
+    this.usuario = this.usuario.patient;
+    this.getAppointments();
     
   }
   
   
 
-  getInfoUser(){
-    
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      // console.log(resp);
-      this.patient = resp.patient.data;
-      // console.log('patient', this.patient);
-      this.usuario = resp;
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-      
-      this.getPatient();
-    })
-  }
+ 
 
-  getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
+  getAppointments(){
+    this.userService.showPatientProfile(this.usuario.id ).subscribe((resp:any)=>{
       // console.log('todo appointment',resp);
-      this.patient_selected= resp.patient;
       this.appointments= resp.appointments;
       this.appointment_pendings= resp.appointment_pendings.data;
-      // this.num_appointment= resp.num_appointment;
-      // this.money_of_appointments= resp.money_of_appointments;
-      // this.num_appointment_pendings= resp.num_appointment_pendings;
     })
   }
 

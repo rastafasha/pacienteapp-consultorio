@@ -90,6 +90,10 @@ getInfoCita(){
     })
   }
 
+  selectDoc(FILE:any){
+    this.file_selected = FILE;
+  }
+
   getFilesLaboratory(){
     this.appoitmentService.getLaboratoryByAppointment(this.appointment_selectedId).subscribe((resp:any)=>{
       console.log(resp);

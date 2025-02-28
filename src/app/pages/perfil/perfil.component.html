@@ -1,75 +1,95 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <app-loading ></app-loading>
+</div>
 
-<div *ngIf="obs$ | async as obs; else loading" >
-    <div *ngIf="!patient">
-        <h2 class="notiene">Usted no tiene registro medico con esta Clínica.</h2>
+<div class="container pt-3">
+    <app-backButtn></app-backButtn>
+    <div class="row">
+        <div class="tab-content-set" *ngIf="!cargando">
+            <ul class="nav">
+                <li>
+                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 1}" (click)="optionSelected(1)">Perfil</a>
+                </li>
+                <li >
+                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 2}" (click)="optionSelected(2)">Presupuestos</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <ng-template #loading>Loading...</ng-template>
-    <section class="container animated fadeInUp " style=" padding-top: 30px; padding-bottom: 50px;" *ngIf="patient">
-        
-        <div class="perfil" >
-                    
-            
-            <div class="local_categoria_item" style="height: 220px;">
-                <div class="logo_local">
-                    <img [src]="patient.avatar" alt="">
-                </div>
-                <div class="contenido" style="height: 130px;">
-                    <div class="info_local">
-                        <h3>{{patient.full_name}}</h3>
-                        <div class="infcita">
-                            <p class="esp"><b>N.Doc</b><br>
-                                {{patient.n_doc}}</p>
-                            <p class="fech"><b>Teléfono</b><br>
-                                {{patient.phone}}</p>
-                            <p class="monto">
-                                <b>Nacimiento:</b> <br>
-                                {{patient.birth_date}}
-                            </p>
-                            <p class="pagado">
-                                <b>Profesión:</b> <br>
-                                {{patient.education}}
+    <div class="notiene" *ngIf="!patient && option_selected == 1">
+        <p >Usted no tiene registro medico con esta Clínica.</p>
+        <p>Revise la pestaña Presupuestos, si tiene un presupuesto con esta clínica, puede verlo allí.</p>
+
+    </div>
+    
+    <ng-container *ngIf="option_selected == 1">
+        <section class="container animated fadeInUp mt-4" style=" padding-top: 30px; padding-bottom: 50px;" *ngIf="patient">
+                
+            <div class="perfil" >
+                <div class="local_categoria_item" style="height: 220px;">
+                    <div class="logo_local">
+                        <img [src]="patient.avatar" alt="">
+                    </div>
+                    <div class="contenido" style="height: 130px;">
+                        <div class="info_local">
+                            <h3>{{patient.full_name}}</h3>
+                            <div class="infcita">
+                                <p class="esp"><b>N.Doc</b><br>
+                                    {{patient.n_doc}}</p>
+                                <p class="fech"><b>Teléfono</b><br>
+                                    {{patient.phone}}</p>
+                                <p class="monto">
+                                    <b>Nacimiento:</b> <br>
+                                    {{patient.birth_date}}
+                                </p>
+                                <p class="pagado">
+                                    <b>Profesión:</b> <br>
+                                    {{patient.education}}
+                                    
+                                </p>
                                 
-                            </p>
-                            
+                            </div>
+                        </div>
+                        <div class="calificacion">
+                            <span *ngIf="patient.gender === 1"> <i class="fa fa-user"></i>&nbsp;Masculino</span>
+                                    <span *ngIf="patient.gender === 2"> <i class="fa fa-user"></i>&nbsp;Femenino</span>
                         </div>
                     </div>
-                    <div class="calificacion">
-                        <span *ngIf="patient.gender === 1"> <i class="fa fa-user"></i>&nbsp;Masculino</span>
-                                <span *ngIf="patient.gender === 2"> <i class="fa fa-user"></i>&nbsp;Femenino</span>
-                    </div>
+                    
                 </div>
-                
+                <div class="card" style="margin-top: 15px;">
+                    <p class="monto">
+                        <b>Motivo Registro:</b> <br>
+                        {{patient.current_desease}}
+                    </p>
+                    <p class="monto">
+                        <b>Atnt. Alergico:</b> <br>
+                        {{patient.antecedent_alerg}}
+                    </p>
+                    <p class="pagado">
+                        <b>Atnt. Personal:</b> <br>
+                        {{patient.antecedent_personal}}
+                    </p>
+                    <p class="tiemp">
+                        <b>Atnt. Familiar:</b> <br>
+                        {{patient.antecedent_family}}
+                    </p>
+                    <p class="tiemp">
+                        <b>Dirección:</b> <br>
+                        {{patient.address}}
+                    </p>
+                </div>
             </div>
+        
+        </section>
+    </ng-container>
 
-            <div class="card" style="margin-top: 15px;">
-                <p class="monto">
-                    <b>Email Paciente:</b> <br>
-                    {{user_email}}
-                </p>
-                <p class="monto">
-                    <b>Motivo Registro:</b> <br>
-                    {{patient.current_desease}}
-                </p>
-                <p class="monto">
-                    <b>Atnt. Alergico:</b> <br>
-                    {{patient.antecedent_alerg}}
-                </p>
-                <p class="pagado">
-                    <b>Atnt. Personal:</b> <br>
-                    {{patient.antecedent_personal}}
-                </p>
-                <p class="tiemp">
-                    <b>Atnt. Familiar:</b> <br>
-                    {{patient.antecedent_family}}
-                </p>
-                <p class="tiemp">
-                    <b>Dirección:</b> <br>
-                    {{patient.address}}
-                </p>
-            </div>
-            
-        </div>
-    
-    </section>
-
+    <ng-container *ngIf="option_selected == 2">
+        <section style="margin-bottom: 30px; padding-top: 40px; ">
+        
+            <app-presupuestos></app-presupuestos>
+        
+        </section>
+    </ng-container>
 </div>
+
