@@ -89,6 +89,7 @@ export class GridHomeComponent implements OnInit {
       this.mobile= resp.patient.doctor.mobile;
       // this.appointment_checkeds= resp.appointment_checkeds.data[0];
       // console.log(this.appointment_checkeds);
+      this.num_appointment= resp.num_appointment;
       this.appointment_pendings= resp.appointment_pendings.data;
       this.appointment_attention= resp.appointments[0].appointment_attention;
 

@@ -1,0 +1,17 @@
+.presupuestodetalle{
+    display: flex;
+    
+}
+.presupuestodetalle ul{
+    list-style-type: disc;
+}
+.presupuestodetalle li,
+.presupuestodetalle p{
+    font-size: 16px;
+
+}
+.presupuestodetalle p{
+    margin: 0;
+    padding: 0;
+
+}

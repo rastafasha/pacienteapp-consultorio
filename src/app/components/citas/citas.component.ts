@@ -65,7 +65,7 @@ export class CitasComponent implements OnInit {
       this.patient_selected= resp.patient;
       this.appointments= resp.appointments;
       this.appointment_pendings= resp.appointment_pendings.data;
-      // this.num_appointment= resp.num_appointment;
+      this.num_appointment= resp.num_appointment;
       // this.money_of_appointments= resp.money_of_appointments;
       // this.num_appointment_pendings= resp.num_appointment_pendings;
     })

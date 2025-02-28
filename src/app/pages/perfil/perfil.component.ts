@@ -12,7 +12,9 @@ export class PerfilComponent implements OnInit {
   loading:boolean;
   obs$ = of(1).pipe(delay(500));
   
+  public cargando: boolean = true;
   
+  option_selected:number = 1;
 
   user:any;
   usuario:any;
@@ -72,5 +74,9 @@ export class PerfilComponent implements OnInit {
       this.appointment_attention= resp.appointments.data;
       // console.log('appointment_pendings',this.appointment_pendings);
     })
+  }
+
+  optionSelected(value:number){
+    this.option_selected = value;
   }
 }

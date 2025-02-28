@@ -8,7 +8,7 @@
     </div>
 </div> -->
 
-<div *ngIf="patient.ta !== 'null' || patient.temperature !== 'null' || patient.fc !== 'null' || patient.fr !== 'null'">
+<div *ngIf="patient.temperature > 0">
     <div class="container animated fadeInUp">
         <h4>Signos Vitales</h4>
         <div class="card">
