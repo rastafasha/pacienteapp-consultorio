@@ -50,12 +50,9 @@ export class HomeComponent implements OnInit {
     this.cargando = true;
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
       this.cargando = false;
-      // console.log(resp);
       this.patient = resp.patient.data;
-      // console.log('patient', this.patient);
       this.usuario = resp;
       this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
       
       this.getPatient();
     })

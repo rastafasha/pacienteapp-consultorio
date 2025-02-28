@@ -1,4 +1,4 @@
-<app-categorias></app-categorias>
+<!-- <app-categorias></app-categorias> -->
 <div class="container animated fadeInUp" style="padding-top: 20px;">
     
     <div class="row">
@@ -11,12 +11,12 @@
                         <div class="row align-items-center" >
                             <div class="col-12">
                                 <div class="form-heading">
-                                    <h4>Appointment Details</h4>
+                                    <h4>Agendar una Cita Medica</h4>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">  
                                 <div class="form-group local-forms">
-                                    <label >Date Of Appointment  <span class="login-danger">*</span></label>
+                                    <label >Fecha para la cita <span class="login-danger">*</span></label>
                                     <input  type="date" class="form-control datetimepicker" name="date_appointment" [(ngModel)]="date_appointment"   >
                                     <!-- <datepicker #picker></datepicker>
                                     <datepicker-toggle matIconSuffix [for]="picker"></datepicker-toggle> -->
@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <div class="form-group local-forms">
-                                    <label >Speciality <span class="login-danger">*</span></label>
+                                    <label >Especialidad<span class="login-danger">*</span></label>
                                     <select class="form-control form-select-solid fw-bolder" name="categorie"
                                         placeholder="Selec. Categoria" [(ngModel)]="speciality_id" (change)="selectCategory($event)">
                                         <ng-container *ngFor="let data of specialities">
@@ -132,32 +132,40 @@
                         <div class="row align-items-center py-4" >
                             <div class="col-12 py-4">
                                 <h4>Datos del Paciente</h4>
-                                <button type="button" class="btn btn-dark btn-sm" (click)="resetPatient()">Reset</button>
+                                <button type="button" class="btn btn-light btn-sm" (click)="resetPatient()">Reset</button>
+                            </div>
+                            <div class="alert alert-warning">
+                                <strong>Nota:</strong> 
+                                <p>
+                                    Si al filtrar por su identificación no aparece, 
+                                es debido a que se requiere un registro adicional en el consultorio.<br>
+                                Puede solicitar para usted algún familiar o amigo que se registre en el consultorio.
+                                </p>
                             </div>
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
                                     <label >N.Documento <span class="login-danger">*</span></label>
                                     <input class="form-control" name="n_doc" [(ngModel)]="n_doc" type="text"  >
                                     <!-- <input class="form-control" (keyup)="filterPatient()" name="n_doc" [(ngModel)]="n_doc" type="text"  > -->
-                                    <button type="button" class="btn btn-dark btn-sm" (click)="filterPatient()">Filtrar</button>
+                                    <button type="button" class="btn btn-light btn-sm" (click)="filterPatient()">Filtrar</button>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-4">  
                                 <div class="form-group local-forms">
-                                    <label >First Name <span class="login-danger">*</span></label>
+                                    <label >Nombre <span class="login-danger">*</span></label>
                                     <input class="form-control" name="name" [(ngModel)]="name" type="text"  >
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
-                                    <label >Last Name <span class="login-danger">*</span></label>
+                                    <label >Apellido <span class="login-danger">*</span></label>
                                     <input class="form-control" name="surname" [(ngModel)]="surname" type="text"  >
                                 </div>
                             </div>
                            
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
-                                    <label >Mobile <span class="login-danger">*</span></label>
+                                    <label >Teléfono <span class="login-danger">*</span></label>
                                     <input class="form-control" name="phone" [(ngModel)]="phone" type="text"  >
                                 </div>
                             </div>

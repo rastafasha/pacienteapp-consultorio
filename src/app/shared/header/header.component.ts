@@ -32,20 +32,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     
     this.authService.getLocalStorage();
+    this.authService.getLocalDarkMode();
     this.getInfoUser()
     this.getSettings()
-    this.authService.getLocalDarkMode();
   }
 
   getInfoUser(){
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      // console.log('todo',resp);
+      console.log(resp);
       this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
       this.user = resp.user.data[0];
-      // console.log('user', this.user);
-      // console.log('patient', this.patient);
-      // this.usuario = resp;
     })
   }
 
