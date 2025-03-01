@@ -6,7 +6,7 @@
     <p class="notiene">Hola!,<br> Aun no posee citas médicas con nosotros.</p>
     <p class="text-center">si deseas, solicita una de nuestra categoría disponible</p>
 </div>
-<div *ngIf="usuario && num_appointment === 0">
+<div *ngIf="usuario &&  patient.num_appointment === 0">
     <p class="notiene">Hola!,<br> Aun no registro médico con nosotros.</p>
     <p class="text-center">si deseas, solicita una de nuestra categoría disponible</p>
 </div>
@@ -19,7 +19,7 @@
         </div>
     </div>
 </div> -->
-<section class="grid_home" *ngIf="num_appointment > 0" >
+<section class="grid_home" *ngIf="patient.num_appointment > 0" >
     
     <div class="container">
         <div class="parent">

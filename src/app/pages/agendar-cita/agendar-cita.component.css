@@ -11,7 +11,7 @@
 
 
 .listadoctors{
-    height: 50vh;
+    height: auto;
     overflow: hidden;
     overflow-y: scroll;
 }

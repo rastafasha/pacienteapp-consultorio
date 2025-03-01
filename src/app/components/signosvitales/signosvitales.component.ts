@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, delay } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,16 +11,15 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SignosvitalesComponent implements OnInit {
   // public cargando: boolean = true;
+  @Input() patient:any;
+  @Input() usuario:any;
 
   user:any;
-  usuario:any;
   patient_id:number;
-  patient:any = [];
   appointments:any;
   num_appointment:any;
   money_of_appointments:any;
   num_appointment_pendings:any;
-  patient_selected:any;
   appointment_pendings:any;
 
   constructor(
@@ -37,36 +36,29 @@ export class SignosvitalesComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
-    this.getInfoUser();
+
+    this.patient;
+    console.log('usuario',this.usuario);
+    console.log(this.patient);
+    // this.getInfoUser();
 
     
   }
   
   
 
-  getInfoUser(){
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      // console.log(resp);
-      this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
-      this.usuario = resp;
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-      
-      this.getPatient();
-    })
-  }
+  // getInfoUser(){
+  //   this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
+  //     this.patient = resp.patient.data[0];
+  //     this.usuario = resp;
+  //     if (this.patient != undefined) {
+  //       this.getPatient();
+  //     } else {
+  //       console.error('Patient data is undefined');
+  //     }
+  //   })
+  // }
 
-  getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
-      // console.log('appoiments',resp);
-      this.appointments= resp.appointments;
-      this.num_appointment= resp.num_appointment;
-      this.money_of_appointments= resp.money_of_appointments;
-      this.num_appointment_pendings= resp.num_appointment_pendings;
-      this.patient_selected= resp.patient;
-      this.appointment_pendings= resp.appointment_pendings.data;
-    })
-  }
+ 
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -10,26 +10,21 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class FooterComponent implements OnInit {
 
-  user: User;
-  patient: User;
+  @Input() usuario:any;
+  @Input() patient:any;
   constructor(
     private userService: UserService,
     private authService: AuthService,
   ) { 
-    this.user = this.authService.user;
+    // this.user = this.authService.user;
   }
 
   ngOnInit(): void {
     this.authService.getLocalStorage();
-    this.getInfoUser();
+    // this.getInfoUser();
+    this.usuario
+    this.patient
   }
 
-  getInfoUser(){
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      console.log(resp);
-      this.patient = resp.patient.data[0];
-      this.user = resp.user.data[0];
-    })
-  }
-
+  
 }

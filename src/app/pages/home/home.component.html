@@ -10,7 +10,8 @@
 
 <div class="col-12" *ngIf="!cargando">
     <!-- grid_home -->
-    <app-grid-home></app-grid-home>
+    <app-grid-home [patient]="patient" [patient_selected]="patient_selected" 
+    [usuario]="usuario"></app-grid-home>
     <!-- grid_home -->
     <!-- otrosCategorias -->
     <app-categorias></app-categorias>
@@ -22,12 +23,14 @@
     <!-- publicidad -->
     <br>
     <!-- Todas las citas -->
-    <app-citas></app-citas>
+    <app-citas [patient]="patient"  [patient_selected]="patient_selected" 
+    [usuario]="usuario" ></app-citas>
     
     <!-- Todas las citas -->
     <br>
     <!-- signos vitales -->
-    <app-signosvitales></app-signosvitales>
+    <app-signosvitales [patient]="patient"  [patient_selected]="patient_selected" 
+    [usuario]="usuario"></app-signosvitales>
     <!-- signos vitales -->
     
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -11,9 +11,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit {
   year: number = new Date().getFullYear();
+  @Input() usuario:any;
+  @Input() patient:any;
+  
   user:any;
-  patient:any = [];
-  usuario:any = [];
   public settings:any;
   public setting_selectedId:any;
   public avatar_setting:any;
@@ -33,7 +34,9 @@ export class HeaderComponent implements OnInit {
     
     this.authService.getLocalStorage();
     this.authService.getLocalDarkMode();
-    this.getInfoUser()
+    this.usuario
+    this.patient
+    // this.getInfoUser()
     this.getSettings()
   }
 

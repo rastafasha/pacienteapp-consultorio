@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { of, delay } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,9 +16,12 @@ export class PerfilComponent implements OnInit {
   
   option_selected:number = 1;
 
+  @Input() usuario:any;
+    @Input() patient:any;
+
   user:any;
-  usuario:any;
-  patient:any;
+  // usuario:any;
+  // patient:any;
   appointments:any;
   patient_id:number;
   num_appointment:any;
@@ -41,30 +44,29 @@ export class PerfilComponent implements OnInit {
     this.authService.closeMenu();
     this.getInfoUser();
 
-    let USER = localStorage.getItem("user");
-    this.user = JSON.parse(USER ? USER: '');
-    this.user_email = this.user.email;
+    // let USER = localStorage.getItem("user");
+    // this.user = JSON.parse(USER ? USER: '');
+    // this.user_email = this.user.email;
+
     
   }
 
   getInfoUser(){
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      // console.log(resp);
       this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
       this.usuario = resp;
-      // console.log('usuario', this.usuario);
-      // console.log('appointments', this.appointments);
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
 
-      this.getPatient();
+      if (this.patient != undefined) {
+        this.getPatient();
+      } else {
+        console.error('Patient data is undefined');
+      }
     })
   }
 
   getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
-      // console.log('todo appointment',resp);
+    if (this.patient) {
+      this.userService.showPatientProfile(this.patient.id).subscribe((resp: any) => {
       this.appointments= resp.appointments;
       this.num_appointment= resp.num_appointment;
       this.money_of_appointments= resp.money_of_appointments;
@@ -72,11 +74,11 @@ export class PerfilComponent implements OnInit {
       this.patient_selected= resp.patient;
       this.appointment_pendings= resp.appointment_pendings.data;
       this.appointment_attention= resp.appointments.data;
-      // console.log('appointment_pendings',this.appointment_pendings);
     })
+    }
   }
 
-  optionSelected(value:number){
+  optionSelected(value: number) {
     this.option_selected = value;
   }
 }

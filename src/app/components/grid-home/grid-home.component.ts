@@ -16,10 +16,11 @@ export class GridHomeComponent implements OnInit {
   // @Output() userV: EventEmitter<any>  = new EventEmitter();// envia la data
   public cargando: boolean = true;
 
+  @Input() usuario:any;
+  @Input() patient:any;
+  @Input() patient_selected:any;
   
   user:any;
-  usuario:any;
-  patient:any = [];
   appointments:any;
   appointment:any;
   patient_id:number;
@@ -28,7 +29,6 @@ export class GridHomeComponent implements OnInit {
   money_of_appointments:any;
   num_appointment_pendings:any;
   appointment_attention:any;
-  patient_selected:any;
   appointment_pendings:any;
   appointment_checkeds:any;
   recetas:any;
@@ -50,6 +50,8 @@ export class GridHomeComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
+    this.patient_selected
+    console.log(this.patient_selected);
     this.getInfoUser();
     this.getConfig();
     
@@ -66,21 +68,19 @@ export class GridHomeComponent implements OnInit {
   getInfoUser(){
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
       
-      // console.log(resp);
       this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
       this.usuario = resp;
-      // console.log('usuario', this.usuario);
-      // console.log('appointments', this.appointments);
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-
-      this.getPatient();
+      
+      if (this.patient != undefined) {
+        this.getPatient();
+      } else {
+        console.error('Patient data is undefined');
+      }
     })
   }
 
   getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
+    this.userService.showPatientProfile(this.patient.id).subscribe((resp:any)=>{
       console.log('todo appointment',resp);
       this.patient_selected= resp.patient;
       this.appointments= resp.appointments;

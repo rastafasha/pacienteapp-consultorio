@@ -6,10 +6,14 @@
             <img src="./assets/svg/hogar.svg" alt="">
             <p>Home</p>
         </a>
-        <a *ngIf="!patient"  [routerLink]="['/app/agendar-cita/form/', user.id]" routerLinkActive="active" class="modal-footer-staff">
+        <a *ngIf="!patient"  [routerLink]="['/app/agendar-cita/']" routerLinkActive="active" class="modal-footer-staff">
             <img src="./assets/svg/prismaticos.svg" alt="">
             <p>Crear Cita </p>
         </a>
+        <!-- <a *ngIf="!patient"  [routerLink]="['/app/agendar-cita/', user.id]" routerLinkActive="active" class="modal-footer-staff">
+            <img src="./assets/svg/prismaticos.svg" alt="">
+            <p>Crear Cita </p>
+        </a> -->
         <a *ngIf="patient"  routerLink="/app/lista" routerLinkActive="active" class="modal-footer-staff">
             <img src="./assets/svg/prismaticos.svg" alt="">
             <p>Lista </p>
