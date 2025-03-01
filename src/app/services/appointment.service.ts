@@ -19,24 +19,24 @@ export class AppointmentService {
 
   listConfig(){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token})
-    let URL = url_servicios+'/appointment/config';
+    let URL = url_servicios+'/appointments/config';
     return this.http.get(URL, {headers:headers});
   }
   listAppointementAtendidas(){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token})
-    let URL = url_servicios+'/appointment/atendidas';
+    let URL = url_servicios+'/appointments/atendidas';
     return this.http.get(URL, {headers:headers});
   }
 
   lisFiter(data:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
-    let URL = url_servicios+"/appointment/filter";
+    let URL = url_servicios+"/appointments/filter";
     return this.http.post(URL,data, {headers:headers});
   }
 
   getPatient(n_doc:string =''){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
-    let URL = url_servicios+"/appointment/patient?n_doc="+n_doc;
+    let URL = url_servicios+"/appointments/patient?n_doc="+n_doc;
     return this.http.get(URL, {headers:headers});
   }
   
@@ -44,13 +44,13 @@ export class AppointmentService {
 
   storeAppointment(data:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
-    let URL = url_servicios+"/appointment/store";
+    let URL = url_servicios+"/appointments/store";
     return this.http.post(URL,data, {headers:headers});
   }
   
   showAppointment(appointment_id:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
-    let URL = url_servicios+"/appointment/show/"+appointment_id;
+    let URL = url_servicios+"/appointments/show/"+appointment_id;
     return this.http.get(URL,{headers:headers});
   }
   showSpeciality(speciality:any){
@@ -61,7 +61,7 @@ export class AppointmentService {
 
   editAppointment(data:any, appointment_id:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
-    let URL = url_servicios+"/appointment/update/"+appointment_id;
+    let URL = url_servicios+"/appointments/update/"+appointment_id;
     return this.http.put(URL,data,{headers:headers});
   }
   

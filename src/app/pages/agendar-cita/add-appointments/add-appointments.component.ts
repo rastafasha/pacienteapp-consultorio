@@ -144,7 +144,7 @@ export class AddAppointmentsComponent {
         "doctor_schedule_join_hour_id": this.selected_segment_hour.id,
         amount:this.amount,
         amount_add:this.amount_add,
-        method_payment:this.method_payment,
+        method_payment:'Pendiente',
     }
 
     this.appointmentService.storeAppointment(data).subscribe((resp:any)=>{
