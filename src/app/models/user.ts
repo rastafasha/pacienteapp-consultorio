@@ -44,6 +44,7 @@ export class User {
 }
 
 export class Patient {
+    id:number;
         user:User;
     appointments:any;
     appointment:any;
@@ -60,4 +61,5 @@ export class Patient {
     doctor_id:number;
     address:string;
     mobile:string;
+    temperature:number;
 }

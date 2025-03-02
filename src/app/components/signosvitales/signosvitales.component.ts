@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, delay } from 'rxjs';
+import { Patient, User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,8 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SignosvitalesComponent implements OnInit {
   // public cargando: boolean = true;
-  @Input() patient:any;
-  @Input() usuario:any;
+  @Input() patient:Patient;
+  @Input() usuario:User;
 
   user:any;
   patient_id:number;
@@ -45,25 +46,11 @@ export class SignosvitalesComponent implements OnInit {
     }
     console.log('usuario',this.usuario);
     console.log(this.patient);
-    // this.getInfoUser();
 
     
   }
   
   
-
-  // getInfoUser(){
-  //   this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-  //     this.patient = resp.patient.data[0];
-  //     this.usuario = resp;
-  //     if (this.patient != undefined) {
-  //       this.getPatient();
-  //     } else {
-  //       console.error('Patient data is undefined');
-  //     }
-  //   })
-  // }
-
  
 
 }

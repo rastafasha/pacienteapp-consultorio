@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { of, delay } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { Patient, User } from 'src/app/models/user';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -17,27 +17,27 @@ export class GridHomeComponent implements OnInit {
   // @Output() userV: EventEmitter<any>  = new EventEmitter();// envia la data
   public cargando: boolean = true;
 
-  @Input() usuario:any;
-  @Input() patient:any;
-  @Input() patient_selected:any;
+  @Input() usuario:User;
+  @Input() patient:Patient;
   
   user:any;
   appointments:any;
   appointment:any;
   patient_id:number;
   appointment_id:number;
-  num_appointment:any;
-  money_of_appointments:any;
-  num_appointment_pendings:any;
-  appointment_attention:any;
-  appointment_pendings:any;
-  appointment_checkeds:any;
-  recetas:any;
-  settting:any;
-  doctor_id:any;
-  address:any;
-  mobile:any;
-  usuario_selected:any;
+  num_appointment:number;
+  money_of_appointments:number;
+  num_appointment_pendings:number;
+  appointment_attention:any=[];
+  appointment_pendings:number;
+  appointment_checkeds:number;
+  recetas:any=[];
+  settting:any=[];
+  doctor_id:number;
+  address:string;
+  mobile:string;
+  usuario_selected:any=[];
+  patient_selected:any=[];
   n_doc?:number;
 
   constructor(
@@ -53,8 +53,7 @@ export class GridHomeComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
-    this.patient_selected
-    console.log(this.patient_selected);
+    this.patient_selected;
     if(this.usuario){
       this.getInfoUser();
     }
@@ -91,7 +90,7 @@ export class GridHomeComponent implements OnInit {
 
   getPatient(){
     this.userService.showPatientProfile(this.patient.id).subscribe((resp:any)=>{
-      console.log('todo appointment',resp);
+      // console.log('todo appointment',resp);
       this.patient_selected= resp.patient;
       this.appointments= resp.appointments;
       this.doctor_id= resp.patient.doctor_id;
