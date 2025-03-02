@@ -28,6 +28,7 @@ describe('CategoriasComponent', () => {
             provide: SwUpdate,
             useValue: {} // Mock SwUpdate
         },
+    
     ],
     })
     .compileComponents();
