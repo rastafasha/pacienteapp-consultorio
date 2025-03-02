@@ -53,7 +53,7 @@
               "outputHashing": "all"
             },
             "paciente": {
-              "outputPath": "dist/paciente_consultorio",
+              "outputPath": "dist/pconsultorio",
               "index": {
                 "input": "src/env/paciente/index.html",
                 "output": "index.html"
@@ -68,7 +68,6 @@
                 "src/.htaccess",
                 "src/assets",
                 "src/manifest.webmanifest",
-                "src/env/paciente/manifest.webmanifest",
                   "src/env/paciente/QR/**",
                 {
                   "glob": "_redirects",
@@ -79,11 +78,6 @@
                   "glob": "**.*",
                   "input": "src/env/paciente/QR",
                   "output": "/QR/"
-                },
-                {
-                  "glob": "**.*",
-                  "input": "src/env/paciente/manifest.webmanifest",
-                  "output": "src/manifest.webmanifest"
                 }
                 
               ],
