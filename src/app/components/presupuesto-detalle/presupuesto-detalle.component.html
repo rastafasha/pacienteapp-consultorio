@@ -1,11 +1,11 @@
 <div class="row presupuestodetalle">
     <div class="col-md-12">
-        <p>Doctor: {{presupuesto.doctor.full_name}}</p>
-        <p>Especialidad: {{presupuesto.speciality.name}}</p>
-        <p>Fecha: {{presupuesto.date_presupuesto_format}}</p>
-        <p>Descripción: {{presupuesto.description}}</p>
+        <p>Doctor: {{presupuesto?.doctor?.full_name}}</p>
+        <p>Especialidad: {{presupuesto?.speciality?.name}}</p>
+        <p>Fecha: {{presupuesto?.date_presupuesto_format}}</p>
+        <p>Descripción: {{presupuesto?.description}}</p>
         <p>Diagnóstico
-            :{{presupuesto.diagnostico
+            :{{presupuesto?.diagnostico
         }}</p>
     </div>
 </div>
@@ -22,6 +22,6 @@
 </ul>
 <div class="row">
     <div class="col-md-12 d-flex justify-content-end">
-        <h4>{{presupuesto.amount|currency}}</h4>
+        <h4>{{presupuesto?.amount|currency}}</h4>
     </div>
 </div>

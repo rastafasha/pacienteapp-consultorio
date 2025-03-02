@@ -38,7 +38,7 @@ export class GridHomeComponent implements OnInit {
   address:any;
   mobile:any;
   usuario_selected:any;
-  n_doc!:User;
+  n_doc?:number;
 
   constructor(
     public authService:AuthService,
@@ -46,7 +46,7 @@ export class GridHomeComponent implements OnInit {
     public configService:ConfigService,
     public appoitmentService:AppointmentService,
   ) { 
-    this.user = this.authService.user;
+    // this.user = this.authService.user;
   }
 
   ngOnInit(): void {
@@ -55,8 +55,9 @@ export class GridHomeComponent implements OnInit {
     this.authService.closeMenu();
     this.patient_selected
     console.log(this.patient_selected);
-    this.usuario;
-    this.getInfoUser();
+    if(this.usuario){
+      this.getInfoUser();
+    }
     this.getConfig();
     
   }

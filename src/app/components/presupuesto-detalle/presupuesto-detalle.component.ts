@@ -11,7 +11,7 @@ import { PresupuestoService } from 'src/app/services/presupuesto.service';
 })
 export class PresupuestoDetalleComponent implements OnInit {
 private usuario: User;
-  @Input() presupuestoSelected: Presupuesto;
+  @Input() presupuestoSelected?: Presupuesto;
   presupuesto: Presupuesto;
   medical: Medical;
   presupuesto_id:number;
@@ -32,7 +32,11 @@ private usuario: User;
         this.presupuestoService.byId(this.presupuestoSelected.id).subscribe((resp:any)=>{
       // console.log(resp);
       this.presupuesto = resp.presupuesto;
-      this.medical = resp.presupuesto.medical
+      if (resp.presupuesto && resp.presupuesto.medical) {
+        this.medical = resp.presupuesto.medical; // Ensure medical is defined
+      } else {
+        console.error('Medical data is undefined');
+      }
         })
     } else {
         console.error('presupuestoSelected is undefined');
