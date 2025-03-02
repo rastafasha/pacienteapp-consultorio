@@ -1,6 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 
 import { CategoriasComponent } from './categorias.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
+import { of } from 'rxjs';
 
 describe('CategoriasComponent', () => {
   let component: CategoriasComponent;
@@ -8,7 +12,23 @@ describe('CategoriasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CategoriasComponent ]
+      declarations: [ CategoriasComponent ],
+      imports: [
+        HttpClientModule, // Add HttpClientModule to imports
+    ],
+    providers: [
+        {
+            provide: ActivatedRoute,
+            useValue: {
+                params: of({}), // Mock params observable
+                snapshot: { params: {} } // Mock snapshot
+            }
+        },
+        {
+            provide: SwUpdate,
+            useValue: {} // Mock SwUpdate
+        },
+    ],
     })
     .compileComponents();
 
@@ -21,3 +41,5 @@ describe('CategoriasComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+

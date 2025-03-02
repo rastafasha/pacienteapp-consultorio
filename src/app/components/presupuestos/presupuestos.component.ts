@@ -29,10 +29,14 @@ export class PresupuestosComponent implements OnInit {
   }
 
   listaPresupuestos(){
-    this.presupuestoService.byPatient(this.usuario.n_doc).subscribe((resp:any)=>{
+    if (this.usuario && this.usuario.n_doc) {
+        this.presupuestoService.byPatient(this.usuario.n_doc).subscribe((resp:any)=>{
       console.log(resp);
       this.presupuestosList = resp.presupuestos.data;
-    })
+        })
+    } else {
+        console.error('User data is undefined or n_doc is missing');
+    }
   }
   selectedPayment(presupuesto:any){
     this.presupuestoSelected = presupuesto

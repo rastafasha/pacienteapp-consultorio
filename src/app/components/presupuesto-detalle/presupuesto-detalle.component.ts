@@ -28,10 +28,14 @@ private usuario: User;
   }
 
   getPresupuesto(){
-    this.presupuestoService.byId(this.presupuestoSelected.id).subscribe((resp:any)=>{
-      console.log(resp);
+    if (this.presupuestoSelected) {
+        this.presupuestoService.byId(this.presupuestoSelected.id).subscribe((resp:any)=>{
+      // console.log(resp);
       this.presupuesto = resp.presupuesto;
       this.medical = resp.presupuesto.medical
-    })
+        })
+    } else {
+        console.error('presupuestoSelected is undefined');
+    }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { of, delay } from 'rxjs';
+import { User } from 'src/app/models/user';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -36,6 +37,8 @@ export class GridHomeComponent implements OnInit {
   doctor_id:any;
   address:any;
   mobile:any;
+  usuario_selected:any;
+  n_doc!:User;
 
   constructor(
     public authService:AuthService,
@@ -52,6 +55,7 @@ export class GridHomeComponent implements OnInit {
     this.authService.closeMenu();
     this.patient_selected
     console.log(this.patient_selected);
+    this.usuario;
     this.getInfoUser();
     this.getConfig();
     
@@ -66,10 +70,15 @@ export class GridHomeComponent implements OnInit {
   }
 
   getInfoUser(){
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
+    this.userService.showPatientByNdoc(this.usuario.n_doc).subscribe((resp:any)=>{
       
-      this.patient = resp.patient.data[0];
-      this.usuario = resp;
+      if (this.user && this.user.n_doc) {
+        this.patient = resp.patient.data[0];
+      } else {
+        console.error('User data is undefined or n_doc is missing');
+        return; // Exit if user data is not valid
+      }
+      this.usuario_selected = resp;
       
       if (this.patient != undefined) {
         this.getPatient();
