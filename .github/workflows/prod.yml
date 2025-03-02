@@ -24,6 +24,7 @@ jobs:
     #   run: npm run build:prod
     - name: Testing
       run: npm run test:prod
+      
     # - name: Deploying
     #   uses: SamKirkland/FTP-Deploy-Action@4.3.3
     #   with:
