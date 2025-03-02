@@ -2,7 +2,7 @@
     <div class="row presupuestos">
         <div class="card">
            
-            <div class="card-body" *ngIf="!presupuestoSelected">
+            <div class="card-body" *ngIf="!ispresupuestoSelected">
                 <ul *ngFor="let presupuesto of presupuestosList" >
                     <li >
                         <p><b>Fecha:</b> {{presupuesto.date_presupuesto_format}}</p>
@@ -14,7 +14,7 @@
 
                 
             </div>
-            <div class="card-body " *ngIf="presupuestoSelected">
+            <div class="card-body " *ngIf="ispresupuestoSelected">
                     <span class="d-flex justify-content-end">
                         <button class="btn btn-outline-success btn-sm" (click)="back()">Cerrar</button>
                     </span>

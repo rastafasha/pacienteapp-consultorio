@@ -14,7 +14,7 @@ export class PresupuestosComponent implements OnInit {
   private usuario: User;
   private presupuesto: Presupuesto;
   public presupuestosList: Presupuesto[];
-  presupuestoSelected = false;
+  ispresupuestoSelected = false;
   constructor(
     private presupuestoService:PresupuestoService,
     private authService:AuthService,
@@ -24,7 +24,7 @@ export class PresupuestosComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.presupuestoSelected = false;
+    this.ispresupuestoSelected = false;
     this.listaPresupuestos();
   }
 
@@ -39,10 +39,10 @@ export class PresupuestosComponent implements OnInit {
     }
   }
   selectedPayment(presupuesto:any){
-    this.presupuestoSelected = presupuesto
+    this.ispresupuestoSelected = presupuesto
     
   }
   back(){
-    this.presupuestoSelected = null;
+    this.ispresupuestoSelected = null;
   }
 }
