@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { RegisterForm } from '../auth/interfaces/register-form.interface';
 import { LoginForm } from '../auth/interfaces/login-form.interface';
 import Swal from 'sweetalert2';
+import { User } from '../models/user';
 
 const url_servicios = environment.url_servicios;
 
@@ -17,7 +18,7 @@ const url_servicios = environment.url_servicios;
 })
 export class AuthService {
 
-  user:any;
+  user:User;
   token:any;
 
   constructor(
@@ -35,10 +36,10 @@ export class AuthService {
         this.user = JSON.parse(USER ? USER: '');
         this.router.navigateByUrl('/app/home');
       }else{
-        this.user = null;
+        this.user = null; // Set user to null if not found
         this.router.navigateByUrl('/login');
       }
-      // console.log(this.user);
+      console.log(this.user); // Log the user data for debugging
       
    }
 
