@@ -52,6 +52,55 @@
               ],
               "outputHashing": "all"
             },
+            "paciente": {
+              "outputPath": "dist/paciente_consultorio",
+              "index": {
+                "input": "src/env/paciente/index.html",
+                "output": "index.html"
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.paciente.ts"
+                }
+              ],
+              "assets": [
+                "src/.htaccess",
+                "src/assets",
+                "src/manifest.webmanifest",
+                "src/env/paciente/manifest.webmanifest",
+                  "src/env/paciente/QR/**",
+                {
+                  "glob": "_redirects",
+                  "input": "src",
+                  "output": "/"
+                },
+                {
+                  "glob": "**.*",
+                  "input": "src/env/paciente/QR",
+                  "output": "/QR/"
+                },
+                {
+                  "glob": "**.*",
+                  "input": "src/env/paciente/manifest.webmanifest",
+                  "output": "src/manifest.webmanifest"
+                }
+                
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "75kb",
+                  "maximumError": "90kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,

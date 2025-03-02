@@ -7,6 +7,7 @@
     "start:dev": "ng serve --port 4203",
     "start:prod": "ng build && lite-server -p 8080 --baseDir dist/pacienteapp-consultorio",
     "build": "ng build",
+    "build:paciente": "ng build --configuration paciente",
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
