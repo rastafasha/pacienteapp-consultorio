@@ -7,8 +7,12 @@
     "start:dev": "ng serve --port 4203",
     "start:prod": "ng build && lite-server -p 8080 --baseDir dist/pacienteapp-consultorio",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:prod": "ng test --browsers=ChromeHeadless --watch=false --code-coverage",
+    "test:dev": "ng test --browsers=ChromeHeadless --watch=true --code-coverage",
+    "lint": "ng eslint . --fix"
   },
   "private": true,
   "dependencies": {
