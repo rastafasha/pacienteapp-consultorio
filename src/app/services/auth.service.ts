@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-// import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-// import {tap, map, catchError, } from 'rxjs/operators';
-import { catchError, map, of, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { RegisterForm } from '../auth/interfaces/register-form.interface';
-import { LoginForm } from '../auth/interfaces/login-form.interface';
+import { User } from '../models/user';
 import Swal from 'sweetalert2';
+import { RegisterForm } from '../auth/interfaces/register-form.interface';
 
 const url_servicios = environment.url_servicios;
 
@@ -17,7 +14,7 @@ const url_servicios = environment.url_servicios;
 })
 export class AuthService {
 
-  user:any;
+  user:User;
   token:any;
 
   constructor(
@@ -35,10 +32,10 @@ export class AuthService {
         this.user = JSON.parse(USER ? USER: '');
         this.router.navigateByUrl('/app/home');
       }else{
-        this.user = null;
+        this.user = null; // Set user to null if not found
         this.router.navigateByUrl('/login');
       }
-      // console.log(this.user);
+      console.log(this.user); // Log the user data for debugging
       
    }
 

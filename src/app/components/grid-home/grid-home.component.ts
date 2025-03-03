@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { of, delay } from 'rxjs';
+import { Patient, User } from 'src/app/models/user';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -16,26 +17,28 @@ export class GridHomeComponent implements OnInit {
   // @Output() userV: EventEmitter<any>  = new EventEmitter();// envia la data
   public cargando: boolean = true;
 
+  @Input() usuario:User;
+  @Input() patient:Patient;
   
   user:any;
-  usuario:any;
-  patient:any = [];
   appointments:any;
   appointment:any;
   patient_id:number;
   appointment_id:number;
-  num_appointment:any;
-  money_of_appointments:any;
-  num_appointment_pendings:any;
-  appointment_attention:any;
-  patient_selected:any;
-  appointment_pendings:any;
-  appointment_checkeds:any;
-  recetas:any;
-  settting:any;
-  doctor_id:any;
-  address:any;
-  mobile:any;
+  num_appointment:number;
+  money_of_appointments:number;
+  num_appointment_pendings:number;
+  appointment_attention:any=[];
+  appointment_pendings:number;
+  appointment_checkeds:number;
+  recetas:any=[];
+  settting:any=[];
+  doctor_id:number;
+  address:string;
+  mobile:string;
+  usuario_selected:any=[];
+  patient_selected:any=[];
+  n_doc?:number;
 
   constructor(
     public authService:AuthService,
@@ -43,14 +46,17 @@ export class GridHomeComponent implements OnInit {
     public configService:ConfigService,
     public appoitmentService:AppointmentService,
   ) { 
-    this.user = this.authService.user;
+    // this.user = this.authService.user;
   }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
-    this.getInfoUser();
+    this.patient_selected;
+    if(this.usuario){
+      this.getInfoUser();
+    }
     this.getConfig();
     
   }
@@ -64,24 +70,24 @@ export class GridHomeComponent implements OnInit {
   }
 
   getInfoUser(){
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      
-      // console.log(resp);
-      this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
-      this.usuario = resp;
-      // console.log('usuario', this.usuario);
-      // console.log('appointments', this.appointments);
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-
-      this.getPatient();
-    })
+    if (this.usuario && this.usuario.n_doc) {
+        this.userService.showPatientByNdoc(this.usuario.n_doc).subscribe((resp:any)=>{
+          this.patient = resp.patient.data[0];
+          
+          this.usuario_selected = resp;
+          
+          if (this.patient != undefined) {
+            this.getPatient();
+          } else {
+            console.error('Patient data is undefined');
+          }
+        })
+    }
   }
 
   getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
-      console.log('todo appointment',resp);
+    this.userService.showPatientProfile(this.patient.id).subscribe((resp:any)=>{
+      // console.log('todo appointment',resp);
       this.patient_selected= resp.patient;
       this.appointments= resp.appointments;
       this.doctor_id= resp.patient.doctor_id;
@@ -89,6 +95,7 @@ export class GridHomeComponent implements OnInit {
       this.mobile= resp.patient.doctor.mobile;
       // this.appointment_checkeds= resp.appointment_checkeds.data[0];
       // console.log(this.appointment_checkeds);
+      this.num_appointment= resp.num_appointment;
       this.appointment_pendings= resp.appointment_pendings.data;
       this.appointment_attention= resp.appointments[0].appointment_attention;
 

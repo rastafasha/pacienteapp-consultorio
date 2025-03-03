@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { User } from '../models/user';
+import { Observer } from 'rxjs';
 declare var $:any;
 const url_servicios = environment.url_servicios;
 
@@ -19,13 +21,13 @@ export class UserService {
   showPatientByNdoc(n_doc:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token})
     let URL = url_servicios+'/user/show/ndoc/'+n_doc;
-    return this.http.get(URL, {headers:headers});
+    return this.http.get<User>(URL, {headers:headers});
   }
 
   showPatientProfile(user_id:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
     let URL = url_servicios+"/patients/profile/"+user_id;
-    return this.http.get(URL,{headers:headers});
+    return this.http.get<User>(URL,{headers:headers});
   }
 
 

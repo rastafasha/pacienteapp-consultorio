@@ -37,7 +37,8 @@ const routes: Routes = [
     redirectTo: 'login',
   },
   // { path: '', redirectTo: '/app', pathMatch: 'full' },
-  { path: '**', component: PagesComponent },
+  { path: 'login', component: LoginComponent }, // Add route for login
+  { path: '**', component: PagesComponent }, // Catch-all route
 
 
 ];
