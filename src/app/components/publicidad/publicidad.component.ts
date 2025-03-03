@@ -19,7 +19,7 @@ export class PublicidadComponent implements OnInit {
 
   ngOnInit(): void {
     this.publicidadService.listPublicidadActivos().subscribe((resp:any)=>{
-      console.log(resp);
+      // console.log(resp);
       this.pubs = resp.pubs.data;
     })
   }

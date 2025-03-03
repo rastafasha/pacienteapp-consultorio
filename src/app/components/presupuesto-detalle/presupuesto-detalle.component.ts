@@ -11,7 +11,7 @@ import { PresupuestoService } from 'src/app/services/presupuesto.service';
 })
 export class PresupuestoDetalleComponent implements OnInit {
 private usuario: User;
-  @Input() presupuestoSelected?: Presupuesto;
+  @Input() presupuestoSelected: Presupuesto;
   presupuesto: Presupuesto;
   medical: Medical;
   presupuesto_id:number;
@@ -24,6 +24,7 @@ private usuario: User;
    }
 
   ngOnInit(): void {
+    this.presupuestoSelected;
     this.getPresupuesto();
   }
 

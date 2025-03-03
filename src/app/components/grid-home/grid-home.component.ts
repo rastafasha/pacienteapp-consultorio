@@ -70,22 +70,19 @@ export class GridHomeComponent implements OnInit {
   }
 
   getInfoUser(){
-    this.userService.showPatientByNdoc(this.usuario.n_doc).subscribe((resp:any)=>{
-      
-      if (this.user && this.user.n_doc) {
-        this.patient = resp.patient.data[0];
-      } else {
-        console.error('User data is undefined or n_doc is missing');
-        return; // Exit if user data is not valid
-      }
-      this.usuario_selected = resp;
-      
-      if (this.patient != undefined) {
-        this.getPatient();
-      } else {
-        console.error('Patient data is undefined');
-      }
-    })
+    if (this.usuario && this.usuario.n_doc) {
+        this.userService.showPatientByNdoc(this.usuario.n_doc).subscribe((resp:any)=>{
+          this.patient = resp.patient.data[0];
+          
+          this.usuario_selected = resp;
+          
+          if (this.patient != undefined) {
+            this.getPatient();
+          } else {
+            console.error('Patient data is undefined');
+          }
+        })
+    }
   }
 
   getPatient(){

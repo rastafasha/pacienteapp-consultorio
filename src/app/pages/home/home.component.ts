@@ -60,13 +60,11 @@ export class HomeComponent implements OnInit {
       this.cargando = false;
       this.patient = resp.patient.data;
       this.usuario = resp.user.data;
-      console.log(resp);
+      // console.log(resp);
       if (this.patient != undefined) {
         this.getPatient();
         // this.patient_id = resp.patient.data[0].id;
-      } else {
-        console.error('Patient data is undefined');
-      }
+      } 
     })
   }
 

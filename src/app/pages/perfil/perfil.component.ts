@@ -16,8 +16,8 @@ export class PerfilComponent implements OnInit {
   
   option_selected:number = 1;
 
-  @Input() usuario:any;
-    @Input() patient:any;
+  // @Input() usuario:any;
+  //   @Input() patient:any;
 
   user:any;
   // usuario:any;
@@ -31,6 +31,8 @@ export class PerfilComponent implements OnInit {
   patient_selected:any;
   appointment_pendings:any;
   user_email:any;
+  patient:any=[];
+  usuario:any=[];
 
   constructor(
     public authService:AuthService,
@@ -52,16 +54,19 @@ export class PerfilComponent implements OnInit {
   }
 
   getInfoUser(){
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      this.patient = resp.patient.data[0];
-      this.usuario = resp;
+    if (this.user && this.user.n_doc) {
+      this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
+        this.patient = resp.patient.data[0];
+        this.usuario = resp;
 
-      if (this.patient != undefined) {
-        this.getPatient();
-      } else {
-        console.error('Patient data is undefined');
-      }
-    })
+        if (this.patient != undefined) {
+          this.getPatient();
+        } else {
+          console.error('Patient data is undefined');
+        }
+      })
+    }
+
   }
 
   getPatient(){

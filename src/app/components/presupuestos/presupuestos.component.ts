@@ -34,9 +34,7 @@ export class PresupuestosComponent implements OnInit {
         console.log(resp);
         this.presupuestosList = resp.presupuestos.data;
       });
-    } else {
-      console.error('User data is undefined or n_doc is missing');
-    }
+    } 
   }
 
   selectedPayment(presupuesto: Presupuesto) {

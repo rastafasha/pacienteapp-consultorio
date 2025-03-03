@@ -44,8 +44,8 @@ export class SignosvitalesComponent implements OnInit {
     } else {
         console.error('Patient data is undefined');
     }
-    console.log('usuario',this.usuario);
-    console.log(this.patient);
+    // console.log('usuario',this.usuario);
+    // console.log(this.patient);
 
     
   }
