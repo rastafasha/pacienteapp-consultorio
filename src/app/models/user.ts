@@ -12,6 +12,7 @@ export class User {
     last_name: string = "";
     token: string = "";
     is_active: number = 0;
+    n_doc: number = 0;
     created_at: string = "";
     image: string = "";
     role?: 'SUPERADMIN' | 'ADMIN' | 'MEMBER' | 'GUEST';
@@ -38,5 +39,27 @@ export class User {
     //   }
 
     // }
+    
 
+}
+
+export class Patient {
+    id:number;
+        user:User;
+    appointments:any;
+    appointment:any;
+    patient_id:number;
+    appointment_id:number;
+    num_appointment:number;
+    money_of_appointments:number;
+    num_appointment_pendings:number;
+    appointment_attention:any;
+    appointment_pendings:any;
+    appointment_checkeds:any;
+    recetas:any;
+    settting:any;
+    doctor_id:number;
+    address:string;
+    mobile:string;
+    temperature:number;
 }

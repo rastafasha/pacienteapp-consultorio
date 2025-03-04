@@ -11,7 +11,7 @@ import { PagarComponent } from './pagos/pagar/pagar.component';
 import { MisPagosComponent } from './pagos/mis-pagos/mis-pagos.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { LegalComponent } from './legal/legal.component';
-import { FormularioCitaComponent } from './agendar-cita/formulario-cita/formulario-cita.component';
+import { LoginComponent } from '../auth/login/login.component';
 
 //pages
 
@@ -21,6 +21,9 @@ const childRoutes: Routes = [
     { path: '',  component: HomeComponent, data:{title:'app'} },
 
     {
+    path:'login', component:LoginComponent
+    },
+    {
     path:'lista', component:ListaComponent
     },
     {
@@ -28,9 +31,6 @@ const childRoutes: Routes = [
     },
     {
       path:'agendar-cita', component:AddAppointmentsComponent
-    },
-    {
-      path:'agendar-cita/form/:id', component:FormularioCitaComponent
     },
     {
       path:'perfil-doctor/:id', component:DoctorProfileComponent

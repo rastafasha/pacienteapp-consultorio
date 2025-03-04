@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CitasComponent } from './citas.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
+import { of } from 'rxjs';
 
 describe('CitasComponent', () => {
   let component: CitasComponent;
@@ -8,7 +12,23 @@ describe('CitasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CitasComponent ]
+      declarations: [ CitasComponent ],
+      imports: [
+                  HttpClientModule, // Add HttpClientModule to imports
+              ],
+              providers: [
+                  {
+                      provide: ActivatedRoute,
+                      useValue: {
+                          params: of({}), // Mock params observable
+                          snapshot: { params: {} } // Mock snapshot
+                      }
+                  },
+                  {
+                      provide: SwUpdate,
+                      useValue: {} // Mock SwUpdate
+                  },
+              ],
     })
     .compileComponents();
 

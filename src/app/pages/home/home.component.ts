@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { of, delay } from 'rxjs';
+import { Patient, User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -15,15 +16,21 @@ export class HomeComponent implements OnInit {
   
   
   user:any;
-  usuario:any;
+  patient:Patient;
+  patient_selected:Patient;
+  usuario:User;
   patient_id:number;
-  patient:any = [];
   appointments:any;
   num_appointment:any;
   money_of_appointments:any;
   num_appointment_pendings:any;
-  patient_selected:any;
   appointment_pendings:any;
+  doctor_id:number;
+  address:string;
+  mobile:string;
+  appointment_attention:any;
+  recetas:any = [];
+  appointment:any;
 
   constructor(
     public authService:AuthService,
@@ -41,31 +48,48 @@ export class HomeComponent implements OnInit {
     this.authService.closeMenu();
     this.getInfoUser();
 
+
+
     
   }
   
   
-
   getInfoUser(){
     this.cargando = true;
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
       this.cargando = false;
-      // console.log(resp);
       this.patient = resp.patient.data;
-      // console.log('patient', this.patient);
-      this.usuario = resp;
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-      
-      this.getPatient();
+      this.usuario = resp.user.data;
+      // console.log(resp);
+      if (this.patient != undefined) {
+        this.getPatient();
+        // this.patient_id = resp.patient.data[0].id;
+      } 
     })
   }
 
   getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
-      // console.log(resp);
-      this.patient_selected= resp.patient;
+    this.userService.showPatientProfile(this.patient).subscribe((resp:any)=>{
+      console.log('paciente y appointment',resp);
+      this.patient_selected= resp;
+      this.appointments= resp.appointments;
+      this.doctor_id= resp.patient.doctor_id;
+      this.address= resp.patient.doctor.address;
+      this.mobile= resp.patient.doctor.mobile;
+      // this.appointment_checkeds= resp.appointment_checkeds.data[0];
+      // console.log(this.appointment_checkeds);
+      this.num_appointment= resp.num_appointment;
+      this.appointment_pendings= resp.appointment_pendings.data;
+      this.appointment_attention= resp.appointments[0].appointment_attention;
+
+      if(resp.appointments[0].appointment_attention){
+        this.recetas= resp.appointments[0].appointment_attention.receta_medica;
+      }
+      this.appointment= resp.appointments[0];
     })
   }
+
+
+  
 
 }

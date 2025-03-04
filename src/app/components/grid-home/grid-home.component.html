@@ -1,5 +1,14 @@
-<div *ngIf="!patient">
+<!-- <div *ngIf="!patient">
     <h2 class="notiene">Bienvenido, Aun no posee citas médicas.</h2>
+</div> -->
+
+<div *ngIf="usuario && !patient">
+    <p class="notiene">Hola!,<br> Aun no posee citas médicas con nosotros.</p>
+    <p class="text-center">si deseas, solicita una de nuestra categoría disponible</p>
+</div>
+<div *ngIf="usuario &&  patient?.num_appointment === 0">
+    <p class="notiene">Hola!,<br> Aun no registro médico con nosotros.</p>
+    <p class="text-center">si deseas, solicita una de nuestra categoría disponible</p>
 </div>
 <!-- <div class="row animated fadeIn fast" *ngIf="cargando">
     <div class="col-12">
@@ -10,7 +19,7 @@
         </div>
     </div>
 </div> -->
-<section class="grid_home"  >
+<section class="grid_home" *ngIf="patient?.num_appointment > 0" >
     
     <div class="container">
         <div class="parent">

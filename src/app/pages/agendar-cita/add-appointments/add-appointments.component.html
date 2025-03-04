@@ -1,4 +1,4 @@
-<app-categorias></app-categorias>
+<!-- <app-categorias></app-categorias> -->
 <div class="container animated fadeInUp" style="padding-top: 20px;">
     
     <div class="row">
@@ -11,12 +11,12 @@
                         <div class="row align-items-center" >
                             <div class="col-12">
                                 <div class="form-heading">
-                                    <h4>Appointment Details</h4>
+                                    <h4>Agendar una Cita Medica</h4>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">  
                                 <div class="form-group local-forms">
-                                    <label >Date Of Appointment  <span class="login-danger">*</span></label>
+                                    <label >Fecha para la cita <span class="login-danger">*</span></label>
                                     <input  type="date" class="form-control datetimepicker" name="date_appointment" [(ngModel)]="date_appointment"   >
                                     <!-- <datepicker #picker></datepicker>
                                     <datepicker-toggle matIconSuffix [for]="picker"></datepicker-toggle> -->
@@ -35,11 +35,11 @@
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <div class="form-group local-forms">
-                                    <label >Speciality <span class="login-danger">*</span></label>
+                                    <label >Especialidad<span class="login-danger">*</span></label>
                                     <select class="form-control form-select-solid fw-bolder" name="categorie"
                                         placeholder="Selec. Categoria" [(ngModel)]="speciality_id" (change)="selectCategory($event)">
                                         <ng-container *ngFor="let data of specialities">
-                                            <option [value]="data.id">{{data.name}} | {{data.price | currency}}</option>
+                                            <option [value]="data.id">{{data.name}}</option>
                                         </ng-container>
                                     </select>
                                 </div>
@@ -54,25 +54,57 @@
                         <!-- consulta -->
                         <!-- disponibilidad -->
                         <div class="row align-items-center" >
-                            <div class="col-12">
-                                <div class="headtabla">
-                                    <h4>Doctor</h4>
-                                        <h4>Disponibilidad</h4>
-                                        <h4>Ver</h4>
+                            <div class="col-12 listadoctors" >
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre Doctor</th>
+                                                <!-- <th>Detalle</th> -->
+                                                <th>Disp.</th>
+                                                <th>Ver</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngFor="let DOCTOR of DOCTORS let i = index;">
+                                                <tr>
+                                                    <td>{{DOCTOR.doctor.full_name}}</td>
+                                                    <!-- <td>
+                                                        <button type="button" class="btn btn-primary btn-sm" (click)="showDetail(DOCTOR)"><i class="fa fa-eye"></i></button>
+                                                    </td> -->
+                                                    <td>{{countDisponibilidad(DOCTOR)}}</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btn-sm" (click)="showSegment(DOCTOR,i)">+</button>
+                                                        <!-- <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/agendar-cita/form/', DOCTOR.doctor.id]" >+</button> -->
+                                                        <!-- <a class="btn btn-primary btn-sm" [routerLink]="['/agendar-cita/form/', DOCTOR.doctor.id]"><i class="fa-solid fa-eye m-r-5"></i> View</a> -->
+                                                    </td>
+                                                </tr>
+                                                
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="datosdoctor">
-                                    <ng-container *ngFor="let DOCTOR of DOCTORS">
-                                        <div class="col-xs-12 col-sm-6">
-                                            {{DOCTOR.doctor.full_name}}
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6">
-                                            {{countDisponibilidad(DOCTOR)}}
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6">
-                                            <button type="button" class="btn btn-primary btn-sm" (click)="showSegment(DOCTOR)">+</button>
-                                        </div>
-                                        
-                                    </ng-container>
+                            </div>
+                            <div class="col-12" *ngIf="DOCTOR_Det_SELECTED">
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Info</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{DOCTOR_Det_SELECTED.doctor.full_name}}<br>
+                                                    Cita: {{DOCTOR_Det_SELECTED.doctor.precio_cita|currency}}<br>
+                                                    tel: {{DOCTOR_Det_SELECTED.doctor.mobile}}<br>
+                                                    Dir: {{DOCTOR_Det_SELECTED.doctor.address}}</td>
+                                                <td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    <button class="btn btn-outline-success btn-sm" (click)="back()">Cerrar</button>
                                 </div>
                             </div>
                             <div class="col-12" *ngIf="DOCTOR_SELECTED">
@@ -129,35 +161,43 @@
                         </div>
                         <!-- disponibilidad -->
                         <!-- paciente -->
-                        <div class="row align-items-center py-4" >
+                        <div class="row align-items-center py-4" *ngIf="selected_segment_hour" >
                             <div class="col-12 py-4">
                                 <h4>Datos del Paciente</h4>
-                                <button type="button" class="btn btn-dark btn-sm" (click)="resetPatient()">Reset</button>
+                                <button type="button" class="btn btn-light btn-sm" (click)="resetPatient()">Reset</button>
+                            </div>
+                            <div class="alert alert-warning">
+                                <strong>Nota:</strong> 
+                                <p>
+                                    Si al filtrar por su identificación no aparece, 
+                                es debido a que se requiere un registro adicional en el consultorio.<br>
+                                Puede solicitar para usted algún familiar o amigo que se registre en el consultorio.
+                                </p>
                             </div>
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
                                     <label >N.Documento <span class="login-danger">*</span></label>
                                     <input class="form-control" name="n_doc" [(ngModel)]="n_doc" type="text"  >
                                     <!-- <input class="form-control" (keyup)="filterPatient()" name="n_doc" [(ngModel)]="n_doc" type="text"  > -->
-                                    <button type="button" class="btn btn-dark btn-sm" (click)="filterPatient()">Filtrar</button>
+                                    <button type="button" class="btn btn-light btn-sm" (click)="filterPatient()">Filtrar</button>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-4">  
                                 <div class="form-group local-forms">
-                                    <label >First Name <span class="login-danger">*</span></label>
+                                    <label >Nombre <span class="login-danger">*</span></label>
                                     <input class="form-control" name="name" [(ngModel)]="name" type="text"  >
                                 </div>
                             </div>
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
-                                    <label >Last Name <span class="login-danger">*</span></label>
+                                    <label >Apellido <span class="login-danger">*</span></label>
                                     <input class="form-control" name="surname" [(ngModel)]="surname" type="text"  >
                                 </div>
                             </div>
                            
                             <div class="col-12 col-md-6 col-xl-4">
                                 <div class="form-group local-forms">
-                                    <label >Mobile <span class="login-danger">*</span></label>
+                                    <label >Teléfono <span class="login-danger">*</span></label>
                                     <input class="form-control" name="phone" [(ngModel)]="phone" type="text"  >
                                 </div>
                             </div>
@@ -177,7 +217,7 @@
                         <!-- paciente -->
                         <!-- pago -->
                         
-                        <div class="row align-items-center py-4" >
+                        <!-- <div class="row align-items-center py-4" *ngIf="selected_segment_hour" >
                             <div class="col-12 py-4">
                                 <h4>Datos de Pago</h4>
                                 
@@ -212,7 +252,7 @@
                             </div>
                             
                             
-                        </div>
+                        </div> -->
                         <!-- pago -->
 
                         

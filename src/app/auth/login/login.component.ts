@@ -36,19 +36,7 @@ export class LoginComponent implements OnInit {
 
   // Registro
   public formSumitted = false;
-  public registerForm = this.fb.group({
-    name: ['', Validators.required],
-    email: [ '', [Validators.required] ],
-    n_doc: ['', Validators.required],
-    password: ['', Validators.required],
-    password2: ['', Validators.required],
-    // role: ['GUEST'],
-    // terminos: [false, Validators.required],
-
-  }, {
-    validators: this.passwordsIguales('password', 'password2')
-
-  });
+  public registerForm ;
   // Registro
 
   errors:any = null;
@@ -59,7 +47,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
-    private usuarioService: UserService,
     
   ) {
    
@@ -74,10 +61,24 @@ ngOnInit(){
 
   });
   this.authService.getLocalStorage();
+  this.validador();
   
 }
 
-
+validador(){
+  this.registerForm = this.fb.group({
+    name: ['', Validators.required],
+    surname: ['', Validators.required],
+    email: ['', [Validators.required]],
+    n_doc: ['', Validators.required],
+    password: ['', Validators.required],
+    password2: ['', Validators.required],
+    // role: ['GUEST'],
+    // terminos: [false, Validators.required],
+  }, {
+    validators: this.passwordsIguales('password', 'password2')
+  });
+}
 
 login(){
   if(!this.loginForm){

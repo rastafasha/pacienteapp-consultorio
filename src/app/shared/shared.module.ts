@@ -4,6 +4,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-installer.component';
+import { BackButtnComponent } from './backButtn/backButtn.component';
 
 
 
@@ -11,12 +12,14 @@ import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-inst
   declarations: [
     FooterComponent,
     HeaderComponent,
-    PwaNotifInstallerComponent
+    PwaNotifInstallerComponent,
+    BackButtnComponent
   ],
   exports: [
     FooterComponent,
     HeaderComponent,
-    PwaNotifInstallerComponent
+    PwaNotifInstallerComponent,
+    BackButtnComponent
   ],
   imports: [
     CommonModule,

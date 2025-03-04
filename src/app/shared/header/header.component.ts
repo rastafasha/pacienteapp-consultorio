@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -11,9 +11,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit {
   year: number = new Date().getFullYear();
+  @Input() usuario:any;
+  @Input() patient:any;
+  
   user:any;
-  patient:any = [];
-  usuario:any = [];
   public settings:any;
   public setting_selectedId:any;
   public avatar_setting:any;
@@ -32,20 +33,18 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     
     this.authService.getLocalStorage();
-    this.getInfoUser()
-    this.getSettings()
     this.authService.getLocalDarkMode();
+    this.usuario
+    this.patient
+    // this.getInfoUser()
+    this.getSettings()
   }
 
   getInfoUser(){
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      // console.log('todo',resp);
+      console.log(resp);
       this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
       this.user = resp.user.data[0];
-      // console.log('user', this.user);
-      // console.log('patient', this.patient);
-      // this.usuario = resp;
     })
   }
 

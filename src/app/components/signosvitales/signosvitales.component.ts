@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, delay } from 'rxjs';
+import { Patient, User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,17 +12,17 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SignosvitalesComponent implements OnInit {
   // public cargando: boolean = true;
+  @Input() patient:Patient;
+  @Input() usuario:User;
 
   user:any;
-  usuario:any;
   patient_id:number;
-  patient:any = [];
   appointments:any;
   num_appointment:any;
   money_of_appointments:any;
   num_appointment_pendings:any;
-  patient_selected:any;
   appointment_pendings:any;
+  temperature: number; // Declare temperature as a number
 
   constructor(
     public authService:AuthService,
@@ -37,36 +38,19 @@ export class SignosvitalesComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
-    this.getInfoUser();
+
+    if (this.patient) {
+        this.temperature = this.patient.temperature; // Initialize temperature from patient object
+    } else {
+        console.error('Patient data is undefined');
+    }
+    // console.log('usuario',this.usuario);
+    // console.log(this.patient);
 
     
   }
   
   
-
-  getInfoUser(){
-    this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      // console.log(resp);
-      this.patient = resp.patient.data[0];
-      // console.log('patient', this.patient);
-      this.usuario = resp;
-      this.patient_id = resp.patient.data[0].id;
-      // console.log(this.patient_id);
-      
-      this.getPatient();
-    })
-  }
-
-  getPatient(){
-    this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
-      // console.log('appoiments',resp);
-      this.appointments= resp.appointments;
-      this.num_appointment= resp.num_appointment;
-      this.money_of_appointments= resp.money_of_appointments;
-      this.num_appointment_pendings= resp.num_appointment_pendings;
-      this.patient_selected= resp.patient;
-      this.appointment_pendings= resp.appointment_pendings.data;
-    })
-  }
+ 
 
 }

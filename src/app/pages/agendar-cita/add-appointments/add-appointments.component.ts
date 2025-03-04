@@ -15,6 +15,8 @@ export class AddAppointmentsComponent {
   public text_validation:string = '';
   public text_success:string = '';
 
+  
+
   hours:any;
   hour:any;
   specialities:any;
@@ -39,6 +41,7 @@ export class AddAppointmentsComponent {
   DOCTORS:any = [];
   DOCTOR:any = [];
   DOCTOR_SELECTED:any;
+  DOCTOR_Det_SELECTED:any;
 
   selected_segment_hour:any;
 
@@ -88,6 +91,11 @@ export class AddAppointmentsComponent {
   selecSegment(SEGMENT:any){
     this.selected_segment_hour = SEGMENT;
   }
+
+  showDetail(DOCTOR:any){
+    this.DOCTOR_Det_SELECTED = DOCTOR;
+  }
+
 
   filterPatient(){
     this.appointmentService.getPatient(this.n_doc+"").subscribe((resp:any)=>{
@@ -144,7 +152,7 @@ export class AddAppointmentsComponent {
         "doctor_schedule_join_hour_id": this.selected_segment_hour.id,
         amount:this.amount,
         amount_add:this.amount_add,
-        method_payment:this.method_payment,
+        method_payment:'Pendiente',
     }
 
     this.appointmentService.storeAppointment(data).subscribe((resp:any)=>{

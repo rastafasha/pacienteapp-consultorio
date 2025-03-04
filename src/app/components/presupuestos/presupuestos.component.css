@@ -1,0 +1,13 @@
+.presupuestos{
+    display: flex;
+    justify-content: space-between;
+}
+.presupuestos ul{
+    margin: 0;
+    padding: 0;
+}
+.presupuestos ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
