@@ -35,7 +35,7 @@ export class AuthService {
         this.user = null; // Set user to null if not found
         this.router.navigateByUrl('/login');
       }
-      console.log(this.user); // Log the user data for debugging
+      // console.log(this.user); // Log the user data for debugging
       
    }
 

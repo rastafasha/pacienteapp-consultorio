@@ -39,7 +39,7 @@
                                     <select class="form-control form-select-solid fw-bolder" name="categorie"
                                         placeholder="Selec. Categoria" [(ngModel)]="speciality_id" (change)="selectCategory($event)">
                                         <ng-container *ngFor="let data of specialities">
-                                            <option [value]="data.id">{{data.name}} | {{data.price | currency}}</option>
+                                            <option [value]="data.id">{{data.name}}</option>
                                         </ng-container>
                                     </select>
                                 </div>
@@ -83,6 +83,28 @@
                                             </ng-container>
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                            <div class="col-12" *ngIf="DOCTOR_Det_SELECTED">
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Info</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{DOCTOR_Det_SELECTED.doctor.full_name}}<br>
+                                                    Cita: {{DOCTOR_Det_SELECTED.doctor.precio_cita|currency}}<br>
+                                                    tel: {{DOCTOR_Det_SELECTED.doctor.mobile}}<br>
+                                                    Dir: {{DOCTOR_Det_SELECTED.doctor.address}}</td>
+                                                <td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    <button class="btn btn-outline-success btn-sm" (click)="back()">Cerrar</button>
                                 </div>
                             </div>
                             <div class="col-12" *ngIf="DOCTOR_SELECTED">
@@ -195,7 +217,7 @@
                         <!-- paciente -->
                         <!-- pago -->
                         
-                        <div class="row align-items-center py-4" *ngIf="selected_segment_hour" >
+                        <!-- <div class="row align-items-center py-4" *ngIf="selected_segment_hour" >
                             <div class="col-12 py-4">
                                 <h4>Datos de Pago</h4>
                                 
@@ -230,7 +252,7 @@
                             </div>
                             
                             
-                        </div>
+                        </div> -->
                         <!-- pago -->
 
                         

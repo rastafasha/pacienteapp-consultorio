@@ -227,46 +227,6 @@
                         </div>
                         <!-- paciente -->
 
-                        <!-- pago -->
-                        
-                        <div class="row align-items-center py-4" *ngIf="selected_segment_hour" >
-                            <div class="col-12 py-4">
-                                <h4>Datos de Pago</h4>
-                                
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-4">  
-                                    <div class="form-group local-forms">
-                                        <label >Costo de la cita <span class="login-danger">*</span></label>
-                                        <input class="form-control" name="amount" [(ngModel)]="amount" type="number"  >
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group local-forms">
-                                        <label >Metodo de Pago <span class="login-danger">*</span></label>
-                                        <select [(ngModel)]="method_payment" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Select Payment Method">
-                                            <option value="Efectivo">Efectivo</option>
-                                            <option value="Transferencia">Transferencia</option>
-                                            <option value="Zelle">Zelle</option>
-                                            <option value="Square">Square</option>
-                                            <option value="Pago Movil">Pago Movil</option>
-                                            <option value="T.Debito">T.Debito</option>
-                                            <option value="T.Credito">T.Credito</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">  
-                                    <div class="form-group local-forms">
-                                        <label >Monto del Adelanto <span class="login-danger">*</span></label>
-                                        <input class="form-control" name="amount_add" [(ngModel)]="amount_add" type="number"  >
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            
-                        </div>
-                        <!-- pago -->
-
                         
                         <div class="row align-items-center" >
                             <div class="col-12">

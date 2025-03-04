@@ -39,6 +39,8 @@ export class AppointmentService {
     let URL = url_servicios+"/appointments/patient?n_doc="+n_doc;
     return this.http.get(URL, {headers:headers});
   }
+
+  
   
   
 
@@ -63,6 +65,36 @@ export class AppointmentService {
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
     let URL = url_servicios+"/appointments/update/"+appointment_id;
     return this.http.put(URL,data,{headers:headers});
+  }
+
+  
+  lisFiterByDoctor(data:any, doctor_id:number){
+    const headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
+    const URL = url_servicios+"/appointments/filterbydoctor/"+doctor_id;
+    return this.http.post(URL,data, {headers:headers});
+  }
+  listAppointmentDocts(
+    doctor_id:any, 
+    page=1, 
+    search='', 
+    search_patient='',
+    date= '',
+  ){
+    const headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
+    let LINK = "";
+    if(search){
+      LINK+="&search="+search;
+    }
+    if(search_patient){
+      LINK+="&search_patient="+search_patient;
+      }
+    
+    if(date){
+      LINK+="&date="+date;
+    }
+    
+    const URL = url_servicios+'/appointments/byDoctor/'+doctor_id+'/?page='+page+LINK;
+    return this.http.get(URL, {headers:headers});
   }
   
 
