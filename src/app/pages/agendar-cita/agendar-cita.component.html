@@ -238,7 +238,8 @@
                                 <div class="col-12 col-md-4">  
                                     <div class="form-group local-forms">
                                         <label >Costo de la cita <span class="login-danger">*</span></label>
-                                        <input class="form-control" name="amount" [(ngModel)]="amount" type="number"  >
+                                        <p>{{DOCTOR_SELECTED.precio_cita|currency}}</p>
+                                        <!-- <input class="form-control" name="precio_cita" [(ngModel)]="[{{DOCTOR_SELECTED.precio_cita}}]" disabled type="number"  > -->
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">

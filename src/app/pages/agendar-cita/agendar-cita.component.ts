@@ -147,6 +147,40 @@ export class AgendarCitaComponent implements OnInit {
     })
   }
 
+  filtroDoctor(){
+    // this.isfiltered = false;
+    const data = {
+
+    date_appointment:this.date_appointment,
+    hour:this.hour,
+    speciality_id:this.speciality_id
+  }
+  this.appointmentService.lisFiterByDoctor(data, this.DOCTOR_SELECTED.id).subscribe((resp: any) => {
+    // if (resp && resp.doctor && Array.isArray(resp.doctor)) {
+    console.log('doctor filtrado',resp);
+    // this.isfiltered = false;
+   
+    if (resp.message === 403 || resp.doctor.length === 0) {
+      // Swal.fire('Actualizado', this.text_validation, 'success');
+      this.text_validation = resp.message_text;
+      Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title: this.text_validation,
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }else{
+      
+      this.DOCTOR = resp.doctor;
+      console.log(resp.doctor);
+      // this.isfiltered = true;
+    }
+    
+
+  });
+}
+
   resetPatient(){
     this.name= '';
         this.surname= '';
