@@ -27,18 +27,27 @@ export class AuthService {
 
   
   
-    getLocalStorage(){
-      if(localStorage.getItem('token') && localStorage.getItem('user')){
-        let USER = localStorage.getItem('user');
-        this.user = JSON.parse(USER ? USER: '');
-        this.router.navigateByUrl('/app/home');
-      }else{
-        this.user = null; // Set user to null if not found
-        this.router.navigateByUrl('/login');
-      }
-      // console.log(this.user); // Log the user data for debugging
-      
-   }
+  getLocalStorage(){
+    // Get current URL to check if we're on change-password route
+    const currentUrl = window.location.href;
+    
+    // Allow change-password route with token to work without being logged in
+    if (currentUrl.includes('/change-password') && currentUrl.includes('token=')) {
+      this.user = null;
+      return; // Don't redirect, allow access to change-password page
+    }
+    
+    if(localStorage.getItem('token') && localStorage.getItem('user')){
+      let USER = localStorage.getItem('user');
+      this.user = JSON.parse(USER ? USER: '');
+      this.router.navigateByUrl('/app/home');
+    }else{
+      this.user = null; // Set user to null if not found
+      this.router.navigateByUrl('/login');
+    }
+    // console.log(this.user); // Log the user data for debugging
+    
+ }
 
    saveLocalStorage(auth:any){
     if(auth && auth.access_token){

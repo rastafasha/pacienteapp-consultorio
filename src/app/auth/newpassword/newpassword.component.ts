@@ -26,14 +26,13 @@ export class NewpasswordComponent implements OnInit {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private authService: AuthService,
-  ) {
-
-    activatedRouter.queryParams.subscribe(params =>{
-      this.passwordForm.resetToken = params['token']
-    })
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.activatedRouter.queryParams.subscribe(params =>{
+      this.passwordForm.resetToken = params['token'];
+      console.log('Token received:', this.passwordForm.resetToken);
+    });
   }
 
 
