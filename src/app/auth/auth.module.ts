@@ -6,19 +6,19 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../shared/shared.module';
-// import { PasswordresetComponent } from './passwordreset/passwordreset.component';
-// import { NewpasswordComponent } from './newpassword/newpassword.component';
+import { PasswordresetComponent } from './passwordreset/passwordreset.component';
+import { NewpasswordComponent } from './newpassword/newpassword.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    // PasswordresetComponent,
-    // NewpasswordComponent,
+    PasswordresetComponent,
+    NewpasswordComponent,
   ],
   exports: [
     LoginComponent,
-    // PasswordresetComponent,
-    // NewpasswordComponent
+    PasswordresetComponent,
+    NewpasswordComponent
   ],
   imports: [
     CommonModule,

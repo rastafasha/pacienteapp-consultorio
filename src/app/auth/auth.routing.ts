@@ -2,15 +2,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { LoginComponent } from './login/login.component';
-// import { PasswordresetComponent } from './passwordreset/passwordreset.component';
-// import { NewpasswordComponent } from './newpassword/newpassword.component';
+import { NewpasswordComponent } from './newpassword/newpassword.component';
+import { PasswordresetComponent } from './passwordreset/passwordreset.component';
 
 const routes: Routes = [
 
 
     { path: 'login', component: LoginComponent },
-    // { path: 'password-reset', component: PasswordresetComponent },
-    // { path: 'change-password', component: NewpasswordComponent },
+    { path: 'password-reset', component: PasswordresetComponent },
+    { path: 'change-password', component: NewpasswordComponent },
 ];
 
 @NgModule({

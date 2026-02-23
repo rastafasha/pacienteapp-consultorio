@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import Swal from 'sweetalert2';
 import { RegisterForm } from '../auth/interfaces/register-form.interface';
+import { PasswordForm } from '../auth/interfaces/password-form.interface';
 
 const url_servicios = environment.url_servicios;
 
@@ -136,6 +137,26 @@ getLocalDarkMode(){
   // console.log(this.user);
   
 }
+
+
+  forgotPassword(formData:any){
+    return this.http.post(`${url_servicios}/forgot-password`, formData)
+
+  }
+
+  changePassword(formData:any){
+    return this.http.post(`${url_servicios}/change-forgot-password`, formData)
+
+  }
+
+  resetPassword(formData:PasswordForm){
+    return this.http.post(`${url_servicios}/reset-password`, formData)
+
+  }
+  newPassword(formData:PasswordForm){
+    return this.http.post(`${url_servicios}/change-password`, formData)
+
+  }
   
 
 }

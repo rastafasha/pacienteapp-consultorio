@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
   }
 
   getPatient(){
-    this.userService.showPatientProfile(this.patient).subscribe((resp:any)=>{
+    this.userService.showPatientProfile(this.user.id).subscribe((resp:any)=>{
       console.log('paciente y appointment',resp);
       this.patient_selected= resp;
       this.appointments= resp.appointments;
