@@ -1,7 +1,7 @@
 {
     "dir": "ltr",
-    "name": "Health Connect | Consultorio",
-    "short_name": "Health Connect | Consultorio",
+    "name": "klyntic | Consultorio",
+    "short_name": "klyntic | Consultorio",
     "theme_color": "#513081",
     "description": "App to connect health clinics and patients.",
     "display": "standalone",
