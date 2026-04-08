@@ -1,93 +1,90 @@
-<app-skeleton-loader *ngIf="cargando" [rows]="10" [columns]="1"></app-skeleton-loader>
+<app-skeleton-loader *ngIf="cargando" [rows]="3" [columns]="1"></app-skeleton-loader>
 
-<div class="container pt-3" *ngIf="!cargando" >
+<div class="container pt-3" *ngIf="!cargando">
     <app-backButtn></app-backButtn>
-   <div class="row">
-     <div class="tab-content-set" >
+    <div class="row">
+        <div class="tab-content-set">
             <ul class="nav">
                 <li>
-                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 1}" (click)="optionSelected(1)">Perfil</a>
+                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 1}"
+                        (click)="optionSelected(1)">Perfil</a>
                 </li>
-                <li >
-                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 2}" (click)="optionSelected(2)">Presupuestos</a>
+                <li>
+                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 2}"
+                        (click)="optionSelected(2)">Presupuestos</a>
                 </li>
             </ul>
         </div>
-    <div class="notiene" *ngIf="!patient && option_selected == 1">
-        <p >Usted no tiene registro medico con esta Clínica.</p>
-        <!-- <p>Revise la pestaña Presupuestos, si tiene un presupuesto con esta clínica, puede verlo allí.</p> -->
+        <div class="notiene" *ngIf="!patient && option_selected == 1">
+            <p>Usted no tiene registro medico con esta Clínica.</p>
+            <!-- <p>Revise la pestaña Presupuestos, si tiene un presupuesto con esta clínica, puede verlo allí.</p> -->
 
-    </div>
-    
-    <ng-container *ngIf="option_selected == 1">
-        <section class=" animated fadeInUp " *ngIf="patient">
-                
-            <div class="perfil" >
-                <div class="local_categoria_item" style="height: 220px;">
-                    <div class="logo_local">
-                        <img [src]="patient.avatar" alt="">
-                    </div>
-                    <div class="contenido" style="height: auto;">
-                        <div class="info_local">
-                            <h3>{{patient.full_name}}</h3>
-                            <div class="infcita">
-                                <p class="esp"><b>N.Doc</b><br>
-                                    {{patient.n_doc}}</p>
-                                <p class="fech"><b>Teléfono</b><br>
-                                    {{patient.phone}}</p>
-                                <p class="monto" *ngIf="patient.birth_date">
-                                    <b>Nacimiento:</b> <br>
-                                    {{patient.birth_date}}
-                                </p>
-                                <p class="pagado" *ngIf="patient.education">
-                                    <b>Profesión:</b> <br>
-                                    {{patient.education}}
-                                    
-                                </p>
-                                
+        </div>
+
+        <ng-container *ngIf="option_selected == 1">
+            <section class=" animated fadeInUp " *ngIf="patient">
+
+                <div class="perfil">
+                    <div class="local_categoria_item" style="height: 220px;">
+                        <div class="logo_local">
+                            <img [src]="patient.avatar" alt="">
+                        </div>
+                        <div class="contenido" style="height: auto;">
+                            <div class="info_local">
+                                <h3>{{patient.full_name}}</h3>
+                                <div class="infcita">
+                                    <p class="esp"><b>N.Doc</b><br>
+                                        {{patient.n_doc}}</p>
+                                    <p class="fech"><b>Teléfono</b><br>
+                                        {{patient.phone}}</p>
+                                    <p class="monto" *ngIf="patient.birth_date">
+                                        <b>Nacimiento:</b> <br>
+                                        {{patient.birth_date}}
+                                    </p>
+                                    <p class="pagado" *ngIf="patient.education">
+                                        <b>Profesión:</b> <br>
+                                        {{patient.education}}
+
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="calificacion">
+                                <span *ngIf="patient.gender === 1"> <i class="fa fa-user"></i>&nbsp;Masculino</span>
+                                <span *ngIf="patient.gender === 2"> <i class="fa fa-user"></i>&nbsp;Femenino</span>
                             </div>
                         </div>
-                        <div class="calificacion">
-                            <span *ngIf="patient.gender === 1"> <i class="fa fa-user"></i>&nbsp;Masculino</span>
-                                    <span *ngIf="patient.gender === 2"> <i class="fa fa-user"></i>&nbsp;Femenino</span>
-                        </div>
+
                     </div>
-                    
+                    <div class="card" style="margin-top: 15px; margin-bottom: 100px;" *ngIf="patient.antecedent_personal">
+                        <p class="monto">
+                            <b>Motivo Registro:</b> <br>
+                            {{patient.current_desease}}
+                        </p>
+                        <p class="monto">
+                            <b>Atnt. Alergico:</b> <br>
+                            {{patient.antecedent_alerg}}
+                        </p>
+                        <p class="pagado">
+                            <b>Atnt. Personal:</b> <br>
+                            {{patient.antecedent_personal}}
+                        </p>
+                        <p class="tiemp">
+                            <b>Atnt. Familiar:</b> <br>
+                            {{patient.antecedent_family}}
+                        </p>
+                        <p class="tiemp">
+                            <b>Dirección:</b> <br>
+                            {{patient.address}}
+                        </p>
+                    </div>
                 </div>
-                <div class="card" style="margin-top: 15px;" *ngIf="patient.antecedent_personal">
-                    <p class="monto">
-                        <b>Motivo Registro:</b> <br>
-                        {{patient.current_desease}}
-                    </p>
-                    <p class="monto">
-                        <b>Atnt. Alergico:</b> <br>
-                        {{patient.antecedent_alerg}}
-                    </p>
-                    <p class="pagado">
-                        <b>Atnt. Personal:</b> <br>
-                        {{patient.antecedent_personal}}
-                    </p>
-                    <p class="tiemp">
-                        <b>Atnt. Familiar:</b> <br>
-                        {{patient.antecedent_family}}
-                    </p>
-                    <p class="tiemp">
-                        <b>Dirección:</b> <br>
-                        {{patient.address}}
-                    </p>
-                </div>
-            </div>
-        
-        </section>
-    </ng-container>
 
-    <ng-container *ngIf="option_selected == 2">
-        <section style="margin-bottom: 30px; padding-top: 40px; ">
-        
+            </section>
+        </ng-container>
+
+        <ng-container *ngIf="option_selected == 2">
             <app-presupuestos></app-presupuestos>
-        
-        </section>
-    </ng-container>
-   </div>
+        </ng-container>
+    </div>
 </div>
-

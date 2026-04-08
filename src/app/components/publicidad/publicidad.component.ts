@@ -18,9 +18,11 @@ export class PublicidadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.cargando = true;
     this.publicidadService.listPublicidadActivos().subscribe((resp:any)=>{
       // console.log(resp);
       this.pubs = resp.pubs.data;
+       this.cargando = false;
     })
   }
   

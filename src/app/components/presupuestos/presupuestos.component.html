@@ -5,14 +5,14 @@
             <div class="card-body" *ngIf="!ispresupuestoSelected">
                 <ul *ngFor="let presupuesto of presupuestosList" >
                     <li >
-                        <p><b>Fecha:</b> {{presupuesto.date_presupuesto_format}}</p>
+                        <p><b>Fecha:</b> {{presupuesto.date_presupuesto_format|date}}</p>
+                        <p><b>Doctor:</b> {{presupuesto.doctor.full_name}}</p>
+                        <p><b>Especialidad:</b> {{presupuesto.doctor.speciality.name}}</p>
                         <!-- <p>{{presupuesto.amount|currency}}</p> -->
                         <button class="btn btn-outline-success btn-sm" (click)="selectedPayment(presupuesto)"><i class="fa fa-eye"></i></button>
                     </li>
 
                 </ul>
-
-                
             </div>
             <div class="card-body " *ngIf="ispresupuestoSelected">
                     <span class="d-flex justify-content-end">

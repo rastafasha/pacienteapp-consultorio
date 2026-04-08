@@ -17,20 +17,10 @@ export class PagesComponent implements OnInit {
 
   @Input() usuario:any;
   @Input() patient:any;
-
-  // public user: User;
-  // id:number;
-
-
   constructor(
-    private userService: UserService,
-    private activatedRoute: ActivatedRoute,
-  ) { 
-    
-  }
+  ) {}
 
   ngOnInit(): void {
-    // this.getUser();
   }
 
 

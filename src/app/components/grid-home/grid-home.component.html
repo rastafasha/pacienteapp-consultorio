@@ -1,6 +1,5 @@
-<!-- <div *ngIf="!patient">
-    <h2 class="notiene">Bienvenido, Aun no posee citas médicas.</h2>
-</div> -->
+<app-skeleton-loader *ngIf="cargando" [rows]="2" [columns]="2"></app-skeleton-loader>
+
 
 <div *ngIf="usuario && !patient">
     <p class="notiene">Hola!,<br> Aun no posee citas médicas con nosotros.</p>
@@ -10,16 +9,8 @@
     <p class="notiene">Hola!,<br> Aun no registro médico con nosotros.</p>
     <p class="text-center">si deseas, solicita una de nuestra categoría disponible</p>
 </div>
-<!-- <div class="row animated fadeIn fast" *ngIf="cargando">
-    <div class="col-12">
-        <div class="alert alert-info text-center">
-            <div class="alert-heading">Cargando</div>
-            <i class="fa fa-spin fa-refresh fa-1x"></i>
-            <p class="mb-0">Por favor espere</p>
-        </div>
-    </div>
-</div> -->
-<section class="grid_home" *ngIf="num_appointment > 0" >
+
+<section class="grid_home" *ngIf="num_appointment > 0 && !cargando" >
     
     <div class="container">
         <div class="parent">

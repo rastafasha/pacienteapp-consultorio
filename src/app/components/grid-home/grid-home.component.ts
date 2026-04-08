@@ -66,6 +66,7 @@ export class GridHomeComponent implements OnInit {
   }
 
   getPatientInfo(){
+    this.cargando = true
     this.userService.showPatientProfile(this.patient.id).subscribe((resp:any)=>{
       this.patient_selected= resp.patient;
       this.appointments= resp.appointments;
@@ -83,7 +84,7 @@ export class GridHomeComponent implements OnInit {
         this.recetas = [];
       }
       this.appointment = resp.appointments?.[0] || null;
-      
+      this.cargando = false
     })
   }
 

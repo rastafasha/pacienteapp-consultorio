@@ -3,7 +3,7 @@
     
     <div class="row">
         <!-- paciente -->
-        <div class="col-sm-12">
+        <div class="col-sm-12" style="padding-bottom: 100px;" >
             <div class="card">
                 <div class="card-body">
                     <form>
@@ -58,7 +58,7 @@
 
                         <!-- disponibilidad -->
                         <div class="row align-items-center" >
-                            <div class="col-12 listadoctors" *ngIf="!DOCTOR_Det_SELECTED ">
+                            <div class="col-12 listadoctors" *ngIf="selecteDoc ">
                                 <div class="table-responsive">
                                     <table class="table mb-0">
                                         <thead>
@@ -171,61 +171,6 @@
                         <!-- validaciones -->
                         </div>
                         <!-- disponibilidad -->
-                        <!-- paciente -->
-                        <div class="row align-items-center py-4" *ngIf="selected_segment_hour" >
-                            <div class="col-12 py-4">
-                                <h4>Datos del Paciente</h4>
-                                <button type="button" class="btn btn-primary btn-sm" (click)="resetPatient()">Reset</button>
-                            </div>
-                            <div class="alert alert-warning">
-                                <strong>Nota:</strong> 
-                                <p>
-                                    Si al filtrar por su identificación no aparece, 
-                                es debido a que se requiere un registro adicional en el consultorio.<br>
-                                Puede solicitar para usted algún familiar o amigo que se registre en el consultorio.
-                                </p>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-4">
-                                <div class="form-group local-forms">
-                                    <label >N.Documento <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="n_doc" [(ngModel)]="n_doc" type="text"  >
-                                    <!-- <input class="form-control" (keyup)="filterPatient()" name="n_doc" [(ngModel)]="n_doc" type="text"  > -->
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="filterPatient()">Filtrar</button>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-4">  
-                                <div class="form-group local-forms">
-                                    <label >First Name <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="name" [(ngModel)]="name" type="text"  >
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-4">
-                                <div class="form-group local-forms">
-                                    <label >Last Name <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="surname" [(ngModel)]="surname" type="text"  >
-                                </div>
-                            </div>
-                           
-                            <div class="col-12 col-md-6 col-xl-4">
-                                <div class="form-group local-forms">
-                                    <label >Mobile <span class="login-danger">*</span></label>
-                                    <input class="form-control" name="phone" [(ngModel)]="phone" type="text"  >
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-3">  
-                                <div class="form-group local-forms">
-                                    <label >Nombre Acompañante</label>
-                                    <input class="form-control" name="name_companion" [(ngModel)]="name_companion" type="text"  >
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-3">  
-                                <div class="form-group local-forms">
-                                    <label >Apellido Acompañante </label>
-                                    <input class="form-control" name="surname_companion" [(ngModel)]="surname_companion" type="text"  >
-                                </div>
-                            </div>
-                        </div>
-                        <!-- paciente -->
 
                         
                         <div class="row align-items-center" >

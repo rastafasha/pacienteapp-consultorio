@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter, map } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,21 +15,28 @@ export class AppComponent {
   isOnline: boolean;
   modalVersion: boolean;
   modalPwaEvent: any;
-  modalPwaPlatform: string|undefined;
+  modalPwaPlatform: string | undefined;
 
   constructor(
     private swUpdate: SwUpdate,
     private platform: Platform,
-    ) {
+    public toastr: ToastrService,
+  ) {
     this.isOnline = false;
     this.modalVersion = false;
   }
 
   public ngOnInit(): void {
-    this.updateOnlineStatus();
 
-    window.addEventListener('online',  this.updateOnlineStatus.bind(this));
-    window.addEventListener('offline', this.updateOnlineStatus.bind(this));
+    window.addEventListener('online', () => {
+      this.isOnline = true;
+      this.toastr.success('Conexión restablecida');
+    });
+
+    window.addEventListener('offline', () => {
+      this.isOnline = false;
+      this.toastr.error('Se ha perdido la conexión');
+    });
 
     if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates.pipe(
@@ -43,10 +51,6 @@ export class AppComponent {
     this.loadModalPwa();
   }
 
-  private updateOnlineStatus(): void {
-    this.isOnline = window.navigator.onLine;
-    console.info(`isOnline=[${this.isOnline}]`);
-  }
 
   public updateVersion(): void {
     this.modalVersion = false;

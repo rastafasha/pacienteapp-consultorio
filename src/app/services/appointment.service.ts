@@ -40,10 +40,6 @@ export class AppointmentService {
     return this.http.get(URL, {headers:headers});
   }
 
-  
-  
-  
-
   storeAppointment(data:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
     let URL = url_servicios+"/appointments/store";
@@ -59,12 +55,6 @@ export class AppointmentService {
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
     let URL = url_servicios+"/specialities/show/"+speciality;
     return this.http.get(URL,{headers:headers});
-  }
-
-  editAppointment(data:any, appointment_id:any){
-    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
-    let URL = url_servicios+"/appointments/update/"+appointment_id;
-    return this.http.put(URL,data,{headers:headers});
   }
 
   
@@ -105,9 +95,6 @@ export class AppointmentService {
     let URL = url_servicios+"/appointment-atention/show/"+appointment_id;
     return this.http.get(URL,{headers:headers});
   }
-
-  
-
 
   getLaboratoryByAppointment(appointment_id:any){
     let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});

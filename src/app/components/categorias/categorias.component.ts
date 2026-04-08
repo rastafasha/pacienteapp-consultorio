@@ -9,7 +9,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 })
 export class CategoriasComponent implements OnInit {
   specialities:any;
-  loading:boolean;
+  cargando:boolean;
   obs$ = of(1).pipe(delay(500));
 
   constructor(
@@ -17,9 +17,11 @@ export class CategoriasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.cargando = true
     this.appointmentService.listConfig().subscribe((resp:any)=>{
       
       this.specialities = resp.specialities;
+       this.cargando = false
     })
   }
   

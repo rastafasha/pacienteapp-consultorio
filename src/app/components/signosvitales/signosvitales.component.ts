@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./signosvitales.component.css']
 })
 export class SignosvitalesComponent implements OnInit {
-  // public cargando: boolean = true;
+  cargando = false;
   @Input() patient:Patient;
   @Input() usuario:User;
 
@@ -40,9 +40,10 @@ export class SignosvitalesComponent implements OnInit {
     this.authService.getLocalStorage();
     this.authService.closeMenu();
     this.patient_selected = this.patient;
-
+    this.cargando = true;
     if (this.patient_selected) {
-        this.temperature = this.patient_selected.temperature; // Initialize temperature from patient object
+      this.temperature = this.patient_selected.temperature; // Initialize temperature from patient object
+      this.cargando = false;
     } else {
         console.error('Patient data is undefined');
     }

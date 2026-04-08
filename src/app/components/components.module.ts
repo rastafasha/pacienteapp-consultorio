@@ -7,9 +7,9 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { PublicidadComponent } from './publicidad/publicidad.component';
 import { CitasComponent } from './citas/citas.component';
 import { SignosvitalesComponent } from './signosvitales/signosvitales.component';
-import { Presupuesto } from '../models/presupuesto';
 import { PresupuestoDetalleComponent } from './presupuesto-detalle/presupuesto-detalle.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -35,7 +35,8 @@ import { PresupuestosComponent } from './presupuestos/presupuestos.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    SharedModule
   ]
 })
 export class ComponentsModule { }

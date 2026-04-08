@@ -43,6 +43,7 @@ export class AgendarCitaComponent implements OnInit {
   DOCTOR:any = [];
   DOCTOR_SELECTED:any;
   DOCTOR_Det_SELECTED:any;
+  selecteDoc:boolean = false
 
   selected_segment_hour:any;
   user:any;
@@ -94,9 +95,9 @@ export class AgendarCitaComponent implements OnInit {
       speciality_id:this.specilityie_id
     }
     this.appointmentService.lisFiter(data).subscribe((resp:any)=>{
-      console.log(resp);
       this.DOCTORS = resp.doctors;
     })
+    this.selecteDoc =true
   }
 
   countDisponibilidad(DOCTOR:any){
@@ -123,30 +124,7 @@ export class AgendarCitaComponent implements OnInit {
     // this.DOCTOR_SELECTED = !this.DOCTOR_SELECTED;
   }
 
-  precioCita(){
-
-  }
-
-  filterPatient(){
-    this.appointmentService.getPatient(this.n_doc+"").subscribe((resp:any)=>{
-      // console.log(resp);
-      this.patient = resp;
-      if(resp.menssage === 403){
-        this.name= '';
-        this.surname= '';
-        this.phone= '';
-        this.n_doc= 0;
-        // this.text_validation = "Este documento no existe en nuestra base de datos";
-        // Swal.fire('Info!', `Este documento no existe en nuestra base de datos, deseas registrarlo?`, 'info');
-      }else{
-        this.name= resp.name;
-        this.surname= resp.surname;
-        this.phone= resp.phone;
-        this.n_doc= resp.n_doc;
-      }
-    })
-  }
-
+  
   filtroDoctor(){
     // this.isfiltered = false;
     const data = {
@@ -181,13 +159,7 @@ export class AgendarCitaComponent implements OnInit {
   });
 }
 
-  resetPatient(){
-    this.name= '';
-        this.surname= '';
-        this.phone= '';
-        this.n_doc= 0;
-  }
-
+  
   save(){
     this.text_validation = '';
 
@@ -197,8 +169,7 @@ export class AgendarCitaComponent implements OnInit {
     //   this.text_validation = "El Monto ingresado como adelanto no puede ser mayor al costo de la cita medica";
     //   return;
     // }
-    if(!this.name ||!this.surname || !this.phone 
-      || !this.date_appointment|| !this.speciality_id
+    if( !this.date_appointment|| !this.speciality_id
       || !this.selected_segment_hour ){
       this.text_validation = "Los campos son Necesarios(Segmento de hora, fecha, especialidad, paciente, pago)";
       return;
@@ -206,23 +177,17 @@ export class AgendarCitaComponent implements OnInit {
 
     let data ={
         doctor_id: this.DOCTOR_SELECTED.doctor.id,
-        // "patient_id": ,
-        user_id:this.user_id,
-        name: this.name,
-        surname: this.surname,
-        n_doc: this.n_doc,
-        phone: this.phone,
-        name_companion: this.name_companion,
-        surname_companion: this.surname_companion,
+        patient_id:this.user_id,
+        name: this.user.name,
+        surname: this.user.surname,
+        n_doc: this.user.n_doc,
+        phone: this.user.phone,
         date_appointment: this.date_appointment,
         speciality_id: this.speciality_id,
         doctor_schedule_join_hour_id: this.selected_segment_hour.id,
         amount:this.DOCTOR_SELECTED.doctor.precio_cita,
-        amount_add:0,
-        method_payment:'Pendiente',
-        // amount:this.amount,
-        // amount_add:this.amount_add,
-        // method_payment:this.method_payment,
+        status_pay:2,
+        status: 1
       }
 
     this.appointmentService.storeAppointment(data).subscribe((resp:any)=>{
@@ -234,12 +199,6 @@ export class AgendarCitaComponent implements OnInit {
   }
 
   cancel(){
-    this.name= '';
-    this.surname= '';
-    this.phone= '';
-    this.n_doc= 0;
-    this.name_companion= '';
-    this.surname_companion= '';
     this.date_appointment= '';
     this.hour= '';
     this.selected_segment_hour.id = 0;
