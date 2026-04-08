@@ -1,19 +1,11 @@
-<div class="row animated fadeIn fast" *ngIf="cargando">
-    <div class="col-12">
-        <div class="alert alert-info text-center">
-            <div class="alert-heading">Cargando</div>
-            <i class="fa fa-spin fa-refresh fa-1x"></i>
-            <p class="mb-0">Por favor espere</p>
-        </div>
-    </div>
-</div>
-
-<div  *ngIf="!cargando">
+<app-skeleton-loader *ngIf="cargando" [rows]="10" [columns]="1"></app-skeleton-loader>
+<div class="container pt-3" *ngIf="!cargando">
     <app-backButtn></app-backButtn>
     <div *ngIf="!patient">
         <h2 class="notiene">Usted no tiene registro medico con esta Clínica.</h2>
     </div>
-    <div class="tab-content-set">
+   <div class="row">
+     <div class="tab-content-set">
         <ul class="nav">
             <li>
                 <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 1}" (click)="optionSelected(1)">Pendientes</a>
@@ -27,7 +19,7 @@
         </ul>
     </div>
     <ng-container *ngIf="option_selected == 1">
-        <section class="container " style="margin-bottom: 30px; padding-top: 40px; " *ngIf="patient" >
+        <section class="container " *ngIf="patient" >
         
             <div class="" >
                 <ng-container *ngFor="let appoitmentp of appointment_pendings">
@@ -154,6 +146,7 @@
         
         </section>
     </ng-container>
+   </div>
    
 
 </div>

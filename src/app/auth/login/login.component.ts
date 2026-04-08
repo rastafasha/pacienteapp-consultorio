@@ -17,8 +17,6 @@ declare const gapi: any;
   styleUrls: [ './login.component.css' ]
 })
 export class LoginComponent implements OnInit {
-  name = new FormControl();
-  surname = new FormControl();
   email = new FormControl();
   password = new FormControl();
   n_doc = new FormControl();
@@ -26,6 +24,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted = false;
+  isLoading = false;
   returnUrl: string;
   loginError: string;
   error = null;
@@ -40,7 +39,7 @@ export class LoginComponent implements OnInit {
   // Registro
 
   errors:any = null;
-
+  public currentStep: number = 1; 
   
 
   constructor(
@@ -67,8 +66,6 @@ ngOnInit(){
 
 validador(){
   this.registerForm = this.fb.group({
-    name: ['', Validators.required],
-    surname: ['', Validators.required],
     email: ['', [Validators.required]],
     n_doc: ['', Validators.required],
     password: ['', Validators.required],
@@ -81,6 +78,7 @@ validador(){
 }
 
 login(){
+  this.isLoading = true;
   if(!this.loginForm){
     return;
   }
@@ -99,6 +97,7 @@ login(){
         localStorage.removeItem('email');
       }
       this.authService.getLocalStorage();
+      this.isLoading = false;
       if(localStorage.getItem('user')){
         setTimeout(()=>{
           this.router.navigateByUrl('/app');
@@ -114,27 +113,55 @@ login(){
     // console.log(this.user)
 }
 
+nextStep() {
+    const name = this.registerForm.get('name');
+    const surname = this.registerForm.get('surname');
+    const n_doc = this.registerForm.get('n_doc');
 
+    if (name?.invalid || surname?.invalid || n_doc?.invalid) {
+      name?.markAsTouched();
+      surname?.markAsTouched();
+      n_doc?.markAsTouched();
+      return;
+    }
+    this.currentStep = 2;
+  }
+
+  prevStep() {
+    this.currentStep = 1;
+  }
 
 
 // Registro
 crearUsuario(){
+  this.isLoading = true; // Cámbialo a true al empezar
   this.formSumitted = true;
-  // if(this.registerForm.invalid){
-  //   return;
-  // }
 
   this.authService.crearUsuario(this.registerForm.value).subscribe(
-    resp =>{
-      Swal.fire('Registrado!', `Ya puedes ingresar`, 'success');
-      this.ngOnInit();
-    },(error) => {
-      Swal.fire('Error', error.error.msg, 'error');
+    resp => {
+      this.isLoading = false;
+      Swal.fire('¡Registrado!', 'Cuenta vinculada con éxito. Ya puedes ingresar.', 'success');
+      this.router.navigateByUrl('/login'); // Es mejor redirigir al login
+    },
+    (error) => {
+      this.isLoading = false;
+      
+      // Si el error es porque el paciente no existe en el consultorio
+      let mensajeError = "No se pudo completar el registro";
+      
+      if (error.status === 404) {
+          mensajeError = "No encontramos tu registro en el consultorio. Por favor, contacta a tu médico.";
+      } else if (error.error && typeof error.error === 'object') {
+          // Si son errores de validación (email duplicado, etc)
+          mensajeError = Object.values(error.error).join(" / ");
+      }
+
+      Swal.fire('Error', mensajeError, 'error');
       this.errors = error.error;
     }
   );
-  return false;
 }
+
 
 campoNoValido(campo: string): boolean {
   if(this.registerForm.get(campo).invalid && this.formSumitted){

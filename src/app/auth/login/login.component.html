@@ -1,35 +1,29 @@
- <!-- Errors -->
- <!-- <div *ngIf="errors?.email" class="alert alert-danger mt-3 ">
-    {{ errors?.email }}
-</div>
-<div *ngIf="errors?.password" class="alert alert-danger mt-3 ">
-    {{ errors?.password }}
-</div>
-<div *ngIf="errors?.error" class="alert alert-danger mt-3 ">
-    {{ errors?.error }}
-</div> -->
 <div class="loginregister animated fadeIn">
     <div class="main">
         <input type="checkbox" id="chk" aria-hidden="true">
-        <img src="./assets/svg/logoklintic.svg" alt="">
+        <img src="./assets/svg/logoklintic.svg"  alt="">
         <h2 class="text-center text-white">Bienvenid&#64;!</h2>
         <label for="chk" aria-hidden="true">
-            <p  class="text-light text-center" style="display: flex;
+            <p class="text-light text-center botonregistrar" style="display: flex;
         flex-direction: column;"> ¿Eres nuevo? </p>
         </label>
-        <div class="signup">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <!-- login -->
+        <div *ngIf="!isLoading" class="signup">
             <form [formGroup]="loginForm" id="loginform" (ngSubmit)="login()" autocapitalize="off">
-               
+
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input type="text" id="email" formControlName="email" class="form-control" placeholder="Correo Electrónico" required>
+                        <input type="text" id="email" formControlName="email" class="form-control"
+                            placeholder="Correo Electrónico" required>
 
                     </div>
                 </div>
                 <div class="form-group ">
                     <div class="col-xs-12">
 
-                        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Contraseña" required>
+                        <input type="password" formControlName="password" class="form-control" id="password"
+                            placeholder="Contraseña" required>
                     </div>
                 </div>
 
@@ -46,69 +40,72 @@
                         <!-- <br> Don't have an account? <a routerLink="/registro" class="text-primary m-l-5"><b>Sign Up</b></a> -->
                     </div>
                 </div>
-                <button class="btn btn-primary"  (click)="login()">Entrar</button>
+                <button class="btn btn-primary" (click)="login()">Entrar</button>
                 <br>
-                
-                
+
+
             </form>
         </div>
-
-        <div class="login">
-            <img src="./assets/svg/logoklintic.svg" alt="">
+        <!-- registro -->
+        <div *ngIf="!isLoading" class="login">
+            <!-- <img src="./assets/svg/logoklintic.svg" alt=""> -->
             <label for="chk" aria-hidden="true">
-                <p  class="text-light text-center" style="display: flex;
-            flex-direction: column; color: var(--morado) !important"> ¿Ya eres Paciente? </p>
+                <p class="text-light text-center botoninicio" style="display: flex;
+            flex-direction: column; "> ¿Ya eres Paciente? </p>
             </label>
-            
-            <form [formGroup]="registerForm" (ngSubmit)="crearUsuario()" autocapitalize="off" style="margin-top: 10px;">
-                
-                <label for="chk" aria-hidden="true"><h1>Registro</h1></label>
 
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" formControlName="name" placeholder="Nombre">
+            <form [formGroup]="registerForm" (ngSubmit)="crearUsuario()" autocapitalize="off" style="margin-top: 10px;">
+
+                <label for="chk" aria-hidden="true">
+                    <h1>Registro</h1>
+                </label>
+
+                <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" formControlName="n_doc" placeholder="Num.Id">
+
+                        </div>
                     </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" formControlName="surname" placeholder="Apellido">
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" formControlName="email" placeholder="Correo">
+
+                        </div>
                     </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" formControlName="email" placeholder="Correo">
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <small>Contraseña</small>
+                            <input class="form-control" type="password" formControlName="password"
+                                placeholder="Contraseña">
+
+                        </div>
                     </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <input class="form-control" type="text" formControlName="n_doc" placeholder="Num.Id">
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <small>Confirme Contraseña</small>
+                            <input class="form-control" type="password" formControlName="password2"
+                                placeholder="Confirmar">
+
+                        </div>
                     </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-xs-12">
-                        <small>Contraseña</small>
-                        <input class="form-control" type="password" formControlName="password" placeholder="Contraseña">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <small>Confirme Contraseña</small>
-                        <input class="form-control" type="password" formControlName="password2" placeholder="Confirmar">
-                    </div>
-                </div>
+
                 <div class="row">
                     <div class="col text-danter">
-                        <p *ngIf="campoNoValido('name')"><span>*</span> El Usuario es obligatorio</p>
                         <p *ngIf="campoNoValido('n_doc')"><span>*</span> El Id es obligatorio</p>
                         <p *ngIf="campoNoValido('email')"><span>*</span> El Correo es obligatorio y debe ser valido</p>
                         <!-- <p *ngIf="aceptaTerminos()"><span>*</span> Debe aceptar los términos de uso</p> -->
                         <p *ngIf="passwordNoValido()"><span>*</span> La Contraseña deben ser iguales </p>
                     </div>
                 </div>
-                <button class="btn btn-outline-success" (click)="crearUsuario()">Registrar</button>
+                <!-- Buttons -->
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-outline-success" (click)="crearUsuario()">Registrar</button>
+                    </div>
+                </div>
+
             </form>
         </div>
     </div>
 </div>
 
-<app-pwa-notif-installer></app-pwa-notif-installer>

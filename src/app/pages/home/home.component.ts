@@ -47,9 +47,6 @@ export class HomeComponent implements OnInit {
     this.authService.getLocalStorage();
     this.authService.closeMenu();
     this.getInfoUser();
-
-
-
     
   }
   
@@ -58,19 +55,19 @@ export class HomeComponent implements OnInit {
     this.cargando = true;
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
       this.cargando = false;
-      this.patient = resp.patient.data;
-      this.usuario = resp.user.data;
+      this.patient = resp.patient.data[0];
+      this.usuario = resp.user[0];
       // console.log(resp);
-      if (this.patient != undefined) {
-        this.getPatient();
-        // this.patient_id = resp.patient.data[0].id;
-      } 
+      // if (this.patient != undefined) {
+      //   this.getPatient();
+      //   // this.patient_id = resp.patient.data[0].id;
+      // } 
     })
   }
 
   getPatient(){
     this.userService.showPatientProfile(this.user.id).subscribe((resp:any)=>{
-      console.log('paciente y appointment',resp);
+      // console.log('paciente y appointment',resp);
       this.patient_selected= resp;
       this.appointments= resp.appointments;
       this.doctor_id= resp.patient.doctor_id;
@@ -80,12 +77,14 @@ export class HomeComponent implements OnInit {
       // console.log(this.appointment_checkeds);
       this.num_appointment= resp.num_appointment;
       this.appointment_pendings= resp.appointment_pendings.data;
-      this.appointment_attention= resp.appointments[0].appointment_attention;
+      this.appointment_attention = resp.appointments?.[0]?.appointment_attention || null;
 
-      if(resp.appointments[0].appointment_attention){
-        this.recetas= resp.appointments[0].appointment_attention.receta_medica;
+      if (resp.appointments?.[0]?.appointment_attention) {
+        this.recetas = resp.appointments[0].appointment_attention.receta_medica;
+      } else {
+        this.recetas = [];
       }
-      this.appointment= resp.appointments[0];
+      this.appointment = resp.appointments?.[0] || null;
     })
   }
 

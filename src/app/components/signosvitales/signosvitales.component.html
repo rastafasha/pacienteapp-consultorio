@@ -8,57 +8,57 @@
     </div>
 </div> -->
 
-<div *ngIf="patient?.temperature > 0 || patient?.temperature != undefined">
+<div *ngIf="patient_selected?.temperature > 0 || patient_selected?.temperature != undefined">
     <div class="container animated fadeInUp">
         <h4>Signos Vitales</h4>
         <div class="card">
             <div class="heading-detail">
-                <p style="margin: 0; padding: 0; padding-bottom: 10px;">Registrado: {{patient.created_at|date}}</p>
+                <p style="margin: 0; padding: 0; padding-bottom: 10px;">Registrado: {{patient_selected.created_at|date}}</p>
             </div>
             <div class="skill-blk">
                 <div class="skill-statistics">
                     <div class="skills-head">
                         <h5>Presión Arterial (mm/hg)</h5>
-                        <p>{{patient.ta}}</p>
+                        <p>{{patient_selected.ta}}</p>
                     </div>
                     <div class="progress mb-0"  >
-                        <div class="progress-bar bg-operations" role="progressbar" [style.width]="patient.ta+''+'%'"  [attr.aria-valuenow]="patient.ta" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-operations" role="progressbar" [style.width]="patient_selected.ta+''+'%'"  [attr.aria-valuenow]="patient_selected.ta" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
                 <div class="skill-statistics">
                     <div class="skills-head">
                         <h5>Temperatura (•C)</h5>
-                        <p>{{patient.temperature}}</p>
+                        <p>{{patient_selected.temperature}}</p>
                     </div>
                     <div class="progress mb-0"  >
-                        <div class="progress-bar bg-haemoglobin" role="progressbar" [style.width]="patient.temperature+''+'%'"  [attr.aria-valuenow]="patient.temperature" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-haemoglobin" role="progressbar" [style.width]="patient_selected.temperature+''+'%'"  [attr.aria-valuenow]="patient_selected.temperature" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
                 <div class="skill-statistics">
                     <div class="skills-head">
                         <h5>Frecuencia Cardiaca (por minuto)</h5>
-                        <p>{{patient.fc}}</p>
+                        <p>{{patient_selected.fc}}</p>
                     </div>
                     <div class="progress mb-0"  >
-                        <div class="progress-bar bg-statistics" role="progressbar" [style.width]="patient.fc+''+'%'"  [attr.aria-valuenow]="patient.fc" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-statistics" role="progressbar" [style.width]="patient_selected.fc+''+'%'"  [attr.aria-valuenow]="patient_selected.fc" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
                 <div class="skill-statistics">
                     <div class="skills-head">
                         <h5>Frecuencia Respiratoria (por minuto) </h5>
-                        <p>{{patient.fr}}</p>
+                        <p>{{patient_selected.fr}}</p>
                     </div>
                     <div class="progress mb-0"  >
-                        <div class="progress-bar bg-visit" role="progressbar" [style.width]="patient.fr+''+'%'"  [attr.aria-valuenow]="patient.fr" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-visit" role="progressbar" [style.width]="patient_selected.fr+''+'%'"  [attr.aria-valuenow]="patient_selected.fr" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
                 <div class="skill-statistics">
                     <div class="skills-head">
                         <h5>Peso (Kg) </h5>
-                        <p>{{patient.peso}}</p>
+                        <p>{{patient_selected.peso}}</p>
                     </div>
                     <div class="progress mb-0"  >
-                        <div class="progress-bar bg-visit" role="progressbar" [style.width]="patient.peso+''+'%'"  [attr.aria-valuenow]="patient.peso" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-visit" role="progressbar" [style.width]="patient_selected.peso+''+'%'"  [attr.aria-valuenow]="patient.peso" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>

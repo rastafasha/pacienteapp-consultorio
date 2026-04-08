@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
   public setting_selectedId:any;
   public avatar_setting:any;
   public name_setting:any;
+  notificacionesPendientes=1;
 
   constructor(
     public authService:AuthService,

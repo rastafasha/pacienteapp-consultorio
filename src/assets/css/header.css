@@ -244,33 +244,40 @@
 
 .top {
     display: flex;
-    /* padding-top: 20px; */
-    justify-content: center;
-    /* align-items: center; */
+    justify-content: start;
     flex: auto;
     position: relative;
     left: 0px;
     top: 1px;
+    flex-direction: column;
 }
 
 .top h2 {
-    font-size: 16px;
+    font-size: 20px;
     width: 60px;
     text-align: right !important;
+    padding: 0;
+    margin: 0;
+}
+.top h4 {
+    font-size: 18px !important;
+    width: 60px;
+    text-align: right !important;
+    padding: 0;
+    margin: 0;
+    padding-left: 5px;
 }
 
 .clinicaname{
-    border-left: 1px solid var(--black);
     display: flex;
     flex-wrap: wrap;
     width: 112px;
     height: 33px;
-    margin-left: 5px;
+    
     
 }
 .clinicaname h4{
     font-size: 12px;
-    padding-left: 5px;
 }
 
 @media(max-width:1024px) {}

@@ -24,7 +24,7 @@ export class CitasComponent implements OnInit {
   num_appointment:any;
   money_of_appointments:any;
   num_appointment_pendings:any;
-  appointment_pendings:any;
+  appointment_pendings:any [];
 
   constructor(
     public authService:AuthService,
@@ -42,9 +42,28 @@ export class CitasComponent implements OnInit {
     this.usuario;
 
     this.patient;
-    
+    console.log(this.patient)
+    this.getPatientInfo();
     
   }
+
+  getPatientInfo(){
+    this.userService.showPatientProfile(this.patient.id).subscribe((resp:any)=>{
+      // this.appointment_checkeds= resp.appointment_checkeds.data[0];
+      console.log(resp);
+      this.num_appointment= resp.num_appointment;
+      this.appointment_pendings= resp.appointment_pendings.data;
+      // this.appointment_attention = resp.appointments?.[0]?.appointment_attention || null;
+      // if (resp.appointments?.[0]?.appointment_attention) {
+      //   this.recetas = resp.appointments[0].appointment_attention.receta_medica;
+      // } else {
+      //   this.recetas = [];
+      // }
+      // this.appointment = resp.appointments?.[0] || null;
+      
+    })
+  }
+
   
 
 }

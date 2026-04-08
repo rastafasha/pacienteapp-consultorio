@@ -23,7 +23,8 @@ export class SignosvitalesComponent implements OnInit {
   num_appointment_pendings:any;
   appointment_pendings:any;
   temperature: number; // Declare temperature as a number
-
+  patient_selected:any=[];
+  
   constructor(
     public authService:AuthService,
    
@@ -38,9 +39,10 @@ export class SignosvitalesComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
+    this.patient_selected = this.patient;
 
-    if (this.patient) {
-        this.temperature = this.patient.temperature; // Initialize temperature from patient object
+    if (this.patient_selected) {
+        this.temperature = this.patient_selected.temperature; // Initialize temperature from patient object
     } else {
         console.error('Patient data is undefined');
     }

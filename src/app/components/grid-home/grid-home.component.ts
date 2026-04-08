@@ -53,41 +53,20 @@ export class GridHomeComponent implements OnInit {
     window.scrollTo(0, 0);
     this.authService.getLocalStorage();
     this.authService.closeMenu();
-    this.patient_selected;
-    if(this.usuario){
-      this.getInfoUser();
-    }
+    this.patient_selected = this.patient;
     this.getConfig();
+    this.getPatientInfo();
     
   }
 
   getConfig(){
     this.configService.getAllConfig().subscribe((resp:any)=>{
-      // console.log(resp);
       this.settting = resp.settings.data[0]
-      // console.log(this.settting);
     })
   }
 
-  getInfoUser(){
-    if (this.usuario && this.usuario.n_doc) {
-        this.userService.showPatientByNdoc(this.usuario.n_doc).subscribe((resp:any)=>{
-          this.patient = resp.patient.data[0];
-          
-          this.usuario_selected = resp;
-          
-          if (this.patient != undefined) {
-            this.getPatient();
-          } else {
-            console.error('Patient data is undefined');
-          }
-        })
-    }
-  }
-
-  getPatient(){
+  getPatientInfo(){
     this.userService.showPatientProfile(this.patient.id).subscribe((resp:any)=>{
-      // console.log('todo appointment',resp);
       this.patient_selected= resp.patient;
       this.appointments= resp.appointments;
       this.doctor_id= resp.patient.doctor_id;
@@ -97,12 +76,13 @@ export class GridHomeComponent implements OnInit {
       // console.log(this.appointment_checkeds);
       this.num_appointment= resp.num_appointment;
       this.appointment_pendings= resp.appointment_pendings.data;
-      this.appointment_attention= resp.appointments[0].appointment_attention;
-
-      if(resp.appointments[0].appointment_attention){
-        this.recetas= resp.appointments[0].appointment_attention.receta_medica;
+      this.appointment_attention = resp.appointments?.[0]?.appointment_attention || null;
+      if (resp.appointments?.[0]?.appointment_attention) {
+        this.recetas = resp.appointments[0].appointment_attention.receta_medica;
+      } else {
+        this.recetas = [];
       }
-      this.appointment= resp.appointments[0];
+      this.appointment = resp.appointments?.[0] || null;
       
     })
   }

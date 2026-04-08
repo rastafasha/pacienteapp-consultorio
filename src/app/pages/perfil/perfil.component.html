@@ -1,12 +1,9 @@
-<!-- <div class="row animated fadeIn fast" *ngIf="cargando">
-    <app-loading ></app-loading>
-</div> -->
+<app-skeleton-loader *ngIf="cargando" [rows]="10" [columns]="1"></app-skeleton-loader>
 
-<div class="container pt-3" >
+<div class="container pt-3" *ngIf="!cargando" >
     <app-backButtn></app-backButtn>
-    <div class="row" style="margin-top: -30px;">
-        <!-- *ngIf="!cargando && usuario " -->
-        <div class="tab-content-set" >
+   <div class="row">
+     <div class="tab-content-set" >
             <ul class="nav">
                 <li>
                     <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 1}" (click)="optionSelected(1)">Perfil</a>
@@ -16,7 +13,6 @@
                 </li>
             </ul>
         </div>
-    </div>
     <div class="notiene" *ngIf="!patient && option_selected == 1">
         <p >Usted no tiene registro medico con esta Clínica.</p>
         <!-- <p>Revise la pestaña Presupuestos, si tiene un presupuesto con esta clínica, puede verlo allí.</p> -->
@@ -24,14 +20,14 @@
     </div>
     
     <ng-container *ngIf="option_selected == 1">
-        <section class=" animated fadeInUp mt-4" style=" padding-top: 30px; padding-bottom: 50px;" *ngIf="patient">
+        <section class=" animated fadeInUp " *ngIf="patient">
                 
             <div class="perfil" >
                 <div class="local_categoria_item" style="height: 220px;">
                     <div class="logo_local">
                         <img [src]="patient.avatar" alt="">
                     </div>
-                    <div class="contenido" style="height: 130px;">
+                    <div class="contenido" style="height: auto;">
                         <div class="info_local">
                             <h3>{{patient.full_name}}</h3>
                             <div class="infcita">
@@ -92,5 +88,6 @@
         
         </section>
     </ng-container>
+   </div>
 </div>
 

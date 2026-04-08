@@ -19,7 +19,7 @@
         </div>
     </div>
 </div> -->
-<section class="grid_home" *ngIf="patient?.num_appointment > 0" >
+<section class="grid_home" *ngIf="num_appointment > 0" >
     
     <div class="container">
         <div class="parent">
@@ -52,26 +52,26 @@
                 
                 <div class="perfil-home">
                     <div class="fotoPerfil">
-                        <img [src]="patient.avatar" alt="">
+                        <img [src]="patient_selected.avatar" alt="">
                     </div>
                     <div class="datospaciente">
                         <h5>Hola!,</h5>
-                        <h3 style="font-size: 16px;">{{patient.full_name}}</h3>
+                        <h3 style="font-size: 16px;">{{patient_selected.full_name}}</h3>
                         <!-- <p><b>Id</b> {{patient.n_doc}}</p> -->
                         <!-- <p><b>Teléfono:</b> {{patient.phone}}</p> -->
                         <div class="oculto">
                         <!-- <p><b>Responsable:</b> <br>
                             {{patient.person.name_responsable}}
                         </p> -->
-                        <p><b>Atnt. Alergico:</b> <br>
-                            {{patient.antecedent_alerg}}
+                        <!-- <p><b>Atnt. Alergico:</b> <br>
+                            {{patient_selected.antecedent_alerg}}
                         </p>
                         <p><b>Atnt. Personal:</b> <br>
-                            {{patient.antecedent_personal}}
+                            {{patient_selected.antecedent_personal}}
                         </p>
                         <p><b>Atnt. Familiar:</b> <br>
-                            {{patient.antecedent_family}}
-                        </p>
+                            {{patient_selected.antecedent_family}}
+                        </p> -->
                         
                         </div>
                     </div>

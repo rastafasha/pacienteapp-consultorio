@@ -208,7 +208,7 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
-    width: 750px;
+    width: fit-content;
 }
 
 .categoria_home {
@@ -224,6 +224,9 @@
     font-size: 14px;
     color: var(--black);
     padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 100px;
 }
 
 .categoria_home img {
@@ -296,7 +299,6 @@
     align-items: center;
     justify-content: space-between;
     width: 940px;
-    height: 250px;
 }
 
 .local_categoria_item {

@@ -54,11 +54,12 @@ export class PerfilComponent implements OnInit {
   }
 
   getInfoUser(){
+    this.cargando = true;
     if (this.user && this.user.n_doc) {
       this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
         this.patient = resp.patient.data[0];
         this.usuario = resp;
-
+        this.cargando = false;
         if (this.patient != undefined) {
           this.getPatient();
         } else {
@@ -70,6 +71,7 @@ export class PerfilComponent implements OnInit {
   }
 
   getPatient(){
+    this.cargando = true;
     if (this.patient) {
       this.userService.showPatientProfile(this.patient.id).subscribe((resp: any) => {
       this.appointments= resp.appointments;
@@ -79,6 +81,7 @@ export class PerfilComponent implements OnInit {
       this.patient_selected= resp.patient;
       this.appointment_pendings= resp.appointment_pendings.data;
       this.appointment_attention= resp.appointments.data;
+      this.cargando = false;
     })
     }
   }
