@@ -18,8 +18,6 @@ export class AppComponent {
   modalPwaPlatform: string | undefined;
 
   constructor(
-    private swUpdate: SwUpdate,
-    private platform: Platform,
     public toastr: ToastrService,
   ) {
     this.isOnline = false;
@@ -38,53 +36,6 @@ export class AppComponent {
       this.toastr.error('Se ha perdido la conexión');
     });
 
-    if (this.swUpdate.isEnabled) {
-      this.swUpdate.versionUpdates.pipe(
-        filter((evt: any): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
-        map((evt: any) => {
-          console.info(`currentVersion=[${evt.currentVersion} | latestVersion=[${evt.latestVersion}]`);
-          this.modalVersion = true;
-        }),
-      );
-    }
-
-    this.loadModalPwa();
   }
 
-
-  public updateVersion(): void {
-    this.modalVersion = false;
-    window.location.reload();
-  }
-
-  public closeVersion(): void {
-    this.modalVersion = false;
-  }
-
-  private loadModalPwa(): void {
-    if (this.platform.ANDROID) {
-      window.addEventListener('beforeinstallprompt', (event: any) => {
-        event.preventDefault();
-        this.modalPwaEvent = event;
-        this.modalPwaPlatform = 'ANDROID';
-      });
-    }
-
-    if (this.platform.IOS && this.platform.SAFARI) {
-      const isInStandaloneMode = ('standalone' in window.navigator) && ((<any>window.navigator)['standalone']);
-      if (!isInStandaloneMode) {
-        this.modalPwaPlatform = 'IOS';
-      }
-    }
-  }
-
-  public addToHomeScreen(): void {
-    this.modalPwaEvent.prompt();
-    this.modalPwaPlatform = undefined;
-  }
-
-  public closePwa(): void {
-    this.modalPwaPlatform = undefined;
-  }
-  // pwa
 }

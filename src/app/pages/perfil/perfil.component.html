@@ -1,28 +1,16 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="3" [columns]="1"></app-skeleton-loader>
 
 <div class="container pt-3" *ngIf="!cargando">
-    <app-backButtn></app-backButtn>
+    <app-back-button title="Mi Cuenta"></app-back-button>
     <div class="row">
-        <div class="tab-content-set">
-            <ul class="nav">
-                <li>
-                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 1}"
-                        (click)="optionSelected(1)">Perfil</a>
-                </li>
-                <li>
-                    <a href="#" onclick="return false;" [ngClass]="{'active': option_selected == 2}"
-                        (click)="optionSelected(2)">Presupuestos</a>
-                </li>
-            </ul>
-        </div>
-        <div class="notiene" *ngIf="!patient && option_selected == 1">
+       
+        <div class="notiene" *ngIf="!patient">
             <p>Usted no tiene registro medico con esta Clínica.</p>
             <!-- <p>Revise la pestaña Presupuestos, si tiene un presupuesto con esta clínica, puede verlo allí.</p> -->
 
         </div>
 
-        <ng-container *ngIf="option_selected == 1">
-            <section class=" animated fadeInUp " *ngIf="patient">
+        <section class=" animated fadeInUp " *ngIf="patient">
 
                 <div class="perfil">
                     <div class="local_categoria_item" style="height: 220px;">
@@ -81,10 +69,5 @@
                 </div>
 
             </section>
-        </ng-container>
-
-        <ng-container *ngIf="option_selected == 2">
-            <app-presupuestos></app-presupuestos>
-        </ng-container>
     </div>
 </div>

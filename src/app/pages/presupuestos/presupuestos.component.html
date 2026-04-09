@@ -1,0 +1,84 @@
+<div class="container mt-3 animate fadeIn">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <app-back-button title="Mis Presupuestos"></app-back-button>
+        <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
+            title="Ayuda de la sección">
+            <i class="fa fa-question"></i>
+        </button>
+    </div>
+    <div>
+        <!-- Lista de Presupuestos -->
+        <div *ngIf="presupuestosList">
+            <div *ngFor="let n of presupuestosList; let i= index">
+                <div class="card mb-2 shadow-sm border-start border-4">
+
+                    <div class="card-body py-2">
+                        <div class="d-flex justify-content-between flex-column">
+                            <p><b>Fecha:</b> {{n.date_presupuesto_format|date}}</p>
+                            <p><b>Doctor:</b> {{n.doctor.full_name}}</p>
+                            <p><b>Especialidad:</b> {{n.doctor.speciality.name}}</p>
+                            <small class="text-muted">{{ n.createdAt | date:'short' }}</small>
+                        </div>
+                        <p class="card-text small mb-0">{{ n.mensaje | slice:0:45 }}...</p>
+                        <!-- Fila Inferior: Botón de Acción -->
+                        <div class="d-flex justify-content-end  border-top border-light">
+                            <button class="btn btn-sm btn-outline-primary rounded-pill px-4 fw-bold"
+                                style="font-size: 0.8rem;" (click)="abrirDetalle(n)">
+                                <i class="fas fa-receipt me-1"></i> Ver Presupuesto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="alert alert-info" *ngIf="!presupuestosList">No tienes notificaciones.</div>
+
+
+    </div>
+
+</div>
+
+<!-- OFFCANVAS DETALLE -->
+<div class="offcanvas offcanvas-bottom rounded-top-5 h-75" tabindex="-1" id="offcanvasNotif">
+    <div class="offcanvas-header border-bottom py-3">
+        <h5 class="offcanvas-title fw-bold text-primary">Detalle de Presupuesto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body p-4" *ngIf="presupuestoSelected">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-column">
+            <span class="badge rounded-pill px-3 py-2">
+                {{ presupuestoSelected.tipo }}
+            </span>
+            <p><b>Doctor:</b> {{presupuestoSelected?.doctor?.full_name}}</p>
+            <p><b>Especialidad:</b> {{presupuestoSelected?.speciality?.name}}</p>
+            <p><b>Fecha:</b> {{presupuestoSelected?.date_presupuesto_format|date}}</p>
+            <p><b>Descripción:</b> {{presupuestoSelected?.description}}</p>
+            <p><b>Diagnóstico</b>
+                :{{presupuestoSelected?.diagnostico
+                }}</p>
+            <small class="text-muted">{{ presupuestoSelected.created_at | date:'medium' }}</small>
+        </div>
+
+        <hr>
+        <h5>Detalles:</h5>
+        <ul *ngFor="let pres of presupuestoSelected.medical">
+            <li>
+                Item: {{pres.name_medical}}<br>
+                Cantidad: {{pres.cantidad}}<br>
+                Precio: {{pres.precio | currency}}<br>
+                Subtotal: {{(pres.precio)* (pres.cantidad) | currency}}
+            </li>
+            <hr>
+        </ul>
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-end">
+                <h4>Total: {{presupuestoSelected?.amount|currency}}</h4>
+            </div>
+        </div>
+    </div>
+
+</div>
+<app-modal-instrucciones [info]="info" sectionId="misnotificaciones" #instruccionesModal></app-modal-instrucciones>

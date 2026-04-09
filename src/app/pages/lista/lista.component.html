@@ -1,6 +1,12 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="10" [columns]="1"></app-skeleton-loader>
 <div class="container pt-3" *ngIf="!cargando">
-    <app-backButtn></app-backButtn>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <app-back-button title="Mis Citas"></app-back-button>
+        <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
+            title="Ayuda de la sección">
+            <i class="fa fa-question"></i>
+        </button>
+    </div>
     <div *ngIf="!patient">
         <h2 class="notiene">Usted no tiene registro medico con esta Clínica.</h2>
     </div>
@@ -167,10 +173,4 @@
 
 </div>
 
-
-
-
-
-
-
-<!-- <h1>pagina lista</h1> -->
+<app-modal-instrucciones [info]="info" sectionId="mis_citas" #instruccionesModal></app-modal-instrucciones>

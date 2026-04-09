@@ -12,6 +12,7 @@ import { MisPagosComponent } from './pagos/mis-pagos/mis-pagos.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { LegalComponent } from './legal/legal.component';
 import { LoginComponent } from '../auth/login/login.component';
+import { PresupuestosComponent } from './presupuestos/presupuestos.component';
 
 //pages
 
@@ -46,6 +47,9 @@ const childRoutes: Routes = [
     },
     {
       path:'mis-pagos', component:MisPagosComponent
+    },
+    {
+      path:'mis-presupuestos', component:PresupuestosComponent
     },
     {
       path:'ayuda', component:AyudaComponent

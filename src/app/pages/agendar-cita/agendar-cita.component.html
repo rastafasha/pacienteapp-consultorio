@@ -28,6 +28,7 @@
                                 <div class="form-group local-forms">
                                     <label >Hora <span class="login-danger">*</span></label>
                                     <select [(ngModel)]="hour" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Select Hour">
+                                         <option value=""  selected>Seleccione Hora</option>
                                         <option *ngFor="let data of hours" [value]="data.id">
                                         {{data.name}}
                                         

@@ -28,6 +28,15 @@ export class ListaComponent implements OnInit {
   appointment_checkeds:any;
   appointment_pendings:any;
 
+  info = `
+  <h2>Sección: Mis Citas</h2>
+  <ul>
+    <li><strong>Historial de Citas:</strong> Consulta las Citas solicitadas a tu médico de confianza.</li> 
+    <li><strong>Estados de las Citas:</strong> Consulta de las Citas solicitados a cada especialidad.</li> 
+    <li><strong>Estados del Pago de Citas:</strong> Consulta el Estado del la deuda, si vez el botón Pagar, te llevará a registrar el pago.</li> 
+    
+  </ul>`;
+
   constructor(
     public authService:AuthService,
     public userService:UserService,

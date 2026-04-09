@@ -8,8 +8,8 @@ import { PublicidadComponent } from './publicidad/publicidad.component';
 import { CitasComponent } from './citas/citas.component';
 import { SignosvitalesComponent } from './signosvitales/signosvitales.component';
 import { PresupuestoDetalleComponent } from './presupuesto-detalle/presupuesto-detalle.component';
-import { PresupuestosComponent } from './presupuestos/presupuestos.component';
 import { SharedModule } from '../shared/shared.module';
+import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instrucciones.component';
 
 
 
@@ -20,8 +20,8 @@ import { SharedModule } from '../shared/shared.module';
     PublicidadComponent,
     CitasComponent,
     SignosvitalesComponent,
-    PresupuestosComponent,
-    PresupuestoDetalleComponent
+    PresupuestoDetalleComponent,
+    ModalInstruccionesComponent
   ],
   exports: [
     GridHomeComponent,
@@ -29,8 +29,8 @@ import { SharedModule } from '../shared/shared.module';
     PublicidadComponent,
     CitasComponent,
     SignosvitalesComponent,
-    PresupuestosComponent,
-    PresupuestoDetalleComponent
+    PresupuestoDetalleComponent,
+    ModalInstruccionesComponent
   ],
   imports: [
     CommonModule,

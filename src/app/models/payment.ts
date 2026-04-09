@@ -12,6 +12,7 @@ export class Payment {
    monto:number;
    referencia?:string;
    image?:string;
+   tasabcv!: number;
 
    fecha?:Date;
 

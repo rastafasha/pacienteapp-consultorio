@@ -7,6 +7,7 @@ import { PwaNotifInstallerComponent } from './pwa-notif-installer/pwa-notif-inst
 import { BackButtnComponent } from './backButtn/backButtn.component';
 import { LoadingComponent } from './loading/loading.component';
 import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.component';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 
 
@@ -17,7 +18,8 @@ import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.compo
     PwaNotifInstallerComponent,
     BackButtnComponent,
     LoadingComponent,
-    SkeletonLoaderComponent
+    SkeletonLoaderComponent,
+    BackButtonComponent
   ],
   exports: [
     FooterComponent,
@@ -25,7 +27,8 @@ import { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.compo
     PwaNotifInstallerComponent,
     BackButtnComponent,
     LoadingComponent,
-    SkeletonLoaderComponent
+    SkeletonLoaderComponent,
+    BackButtonComponent
   ],
   imports: [
     CommonModule,
