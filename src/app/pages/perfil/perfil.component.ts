@@ -34,6 +34,12 @@ export class PerfilComponent implements OnInit {
   patient:any=[];
   usuario:any=[];
 
+  info = `
+  <h2>Sección: Mi Perfil</h2>
+  <ul>
+    <li>Este es tu Ficha médica creada desde la Aplicación de tu médico Tratante</li> 
+  </ul>`;
+
   constructor(
     public authService:AuthService,
     public userService:UserService,

@@ -4,3 +4,24 @@
     flex-direction: column;
     width: 220px;
 }
+
+.logo_local {
+    display: flex;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    background-color: #fff;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
+.btn-outline-primary.rounded-circle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 2px;
+  font-weight: bold;
+}
