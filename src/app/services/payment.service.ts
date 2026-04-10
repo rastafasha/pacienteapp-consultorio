@@ -45,13 +45,7 @@ export class PaymentService {
 
 
 
-  getAll(){
-    const url = `${baseUrl}/pagos`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp:{ok: boolean, payments: Payment}) => resp.payments)
-      )
-  }
+  
 
   getPagoById(id:number): Observable<any> {
     const url = `${baseUrl}/payment/show/${id}`;
@@ -98,6 +92,24 @@ export class PaymentService {
         map((resp:{ok: boolean, payments: Payment}) => resp.payments)
         );
   }
+
+//   getPagosbyUser(
+//   patient_id:number, 
+//   page=1, 
+//   search_referencia='',  
+//   search_status='',  
+//   ){
+//   let LINK = "";
+//   if(search_referencia){
+//   LINK+="&search_referencia="+search_referencia;
+//   }
+//   if(search_status){
+//     LINK+="&search_status="+search_status;
+//     }
+  
+//   const url = baseUrl+'/payment/pagosbyUser/'+patient_id+'/?page='+page+LINK;
+//   return this.http.get(url, this.headers);
+// }
 
    getRecientes(): Observable<any> {
     const url = `${baseUrl}/payment/recientes`;

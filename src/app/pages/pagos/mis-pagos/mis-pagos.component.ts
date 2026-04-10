@@ -88,6 +88,7 @@ export class MisPagosComponent implements OnInit {
   getPatientPayments() {
     this.cargando = true;
     this.paymentService.getPagosbyUser(this.patient_id).subscribe((resp: any) => {
+      console.log(resp)
       this.cargando = false;
       this.payments = resp.data;
     })
@@ -99,7 +100,28 @@ export class MisPagosComponent implements OnInit {
 
   }
 
-  search() { }
+ search() {
+  this.cargando = true;
+  // Enviamos 'this.query' que es lo que el usuario escribe
+  return this.paymentService.search(this.query).subscribe(
+    (res: any) => {
+      let filtered = Array.isArray(res) ? res : [];
+
+      // Filtro adicional por estatus en el cliente
+      if (this.status) {
+        filtered = filtered.filter((p: any) => p.status === this.status);
+      }
+
+      this.payments = filtered;
+      this.cargando = false;
+    },
+    error => {
+      this.cargando = false;
+      console.error(error);
+    }
+  );
+}
+
 
   clearFilters(): void {
     // Vibración y reset de filtros
