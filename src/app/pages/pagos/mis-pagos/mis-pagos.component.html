@@ -92,7 +92,7 @@
                 <!-- Fila Media: Monto -->
                 <div class="mb-2">
                     <p class="mb-0 h4 fw-bold text-dark">
-                        {{payment.monto | currency:'Bs. ':'symbol':'1.2-2'}}
+                        {{payment.monto | currency}}
                     </p>
                     <small class="text-muted d-block">Ref: #{{payment.referencia}}</small>
                 </div>
@@ -149,7 +149,7 @@
             <h2 class="display-6 fw-bold mb-0">${{ pagoSeleccionado.monto | number:'1.2-2' }}</h2>
             <p class="text-muted small">Ref: #{{ pagoSeleccionado.referencia }}</p>
             @if (pagoSeleccionado.status === 'REJECTED') {
-            <p>Motivo: {{pagoSeleccionado.observaciones}}</p>
+            <p>Motivo: {{pagoSeleccionado.motivo_rechazo}}</p>
             }
         </div>
 
@@ -167,9 +167,13 @@
                 <span class="text-muted small">Fecha</span>
                 <span class="fw-bold small">{{ pagoSeleccionado.fecha | date:'dd/MM/yyyy' }}</span>
             </div>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
                 <span class="text-muted small">Tasa Aplicada</span>
-                <span class="fw-bold small">{{ pagoSeleccionado.tasabcv }} Bs.</span>
+                <span class="fw-bold small">{{ pagoSeleccionado.tasabcv | currency:'Bs. ':'symbol':'1.2-2' }} </span>
+            </div>
+            <div class="d-flex justify-content-between">
+                <span class="text-muted small">Monto Bs.</span>
+                <span class="fw-bold small">{{ (pagoSeleccionado.monto  * pagoSeleccionado.tasabcv ) | currency:'Bs. ':'symbol':'1.2-2' }} </span>
             </div>
         </div>
 

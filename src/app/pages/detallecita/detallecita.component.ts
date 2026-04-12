@@ -12,7 +12,7 @@ declare var $:any;
 })
 export class DetallecitaComponent implements OnInit {
   
-  public cargando: boolean = true;
+  public cargando: boolean = false;
 
   appointment_id:any;
   patient:any;

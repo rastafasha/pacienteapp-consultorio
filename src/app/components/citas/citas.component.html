@@ -10,21 +10,26 @@
 
 <section class="container animated fadeInUp " style="margin-bottom: 30px;" *ngIf="num_appointment > 0 && !cargando">
     <h4>Citas pendientes </h4>
-    <div class="overflow" >
-        <div class="locales_categorias" style="width: 236vw;" >
-        <ng-container *ngFor="let appoitment of appointment_pendings | slice:0:4">
+    <div class="overflow">
+        <div class="locales_categorias" style="width: 236vw;">
+            <ng-container *ngFor="let appoitment of appointment_pendings | slice:0:4">
                 <!-- item -->
                 <div class="local_categoria_item">
-                    <div class="logo_local">
-                        <img [src]="appoitment.doctor.avatar" alt="">
-                    </div>
+                    <a [routerLink]="['/app/detalle-cita', appoitment.id]">
+                        <div class="logo_local">
+                            <img [src]="appoitment.doctor.avatar" alt="">
+                        </div>
+                    </a>
                     <div class="contenido">
                         <div class="info_local">
-                            <h3>Dr(a).{{appoitment.doctor.full_name}}</h3>
+                            <a [routerLink]="['/app/perfil-doctor/', appoitment.doctor.id]">
+                                <h3>Dr(a). {{appoitment.doctor.full_name}}</h3>
+                            </a>
                             <div class="infcita">
-                                <p class="esp">{{appoitment.speciality.name}}</p>
+                                <p class="esp">{{appoitment.doctor.speciality.name}}</p>
                                 <p class="fech">{{appoitment.date_appointment_format|date}}</p>
-                                <p class="tiemp">{{appoitment.segment_hour.format_segment.hour_start}} a {{appoitment.segment_hour.format_segment.hour_end}}</p>
+                                <p class="tiemp">{{appoitment.segment_hour.format_segment.hour_start}} a
+                                    {{appoitment.segment_hour.format_segment.hour_end}}</p>
                                 <!-- <p class="monto">Costo: ${{appoitment.amount}}</p> -->
                                 <!-- <p class="pagado">
                                     <span *ngIf="appoitment.status_pay === 1">Pagado</span>
@@ -41,7 +46,7 @@
                 <!-- item -->
             </ng-container>
         </div>
-        
+
     </div>
 
 </section>

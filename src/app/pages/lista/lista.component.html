@@ -35,14 +35,18 @@
                         <div class="locales_categorias" style="width: 94vw;">
 
                             <div class="local_categoria_item">
-                                <div class="logo_local">
-                                    <img [src]="appoitmentp.doctor.avatar" alt="">
-                                </div>
+                                <a [routerLink]="['/app/detalle-cita', appoitmentp.id]">
+                                    <div class="logo_local">
+                                        <img [src]="appoitmentp.doctor.avatar" alt="">
+                                    </div>
+                                </a>
                                 <div class="contenido">
                                     <div class="info_local">
-                                        <h3>Dr(a). {{appoitmentp.doctor.full_name}}</h3>
+                                        <a [routerLink]="['/app/perfil-doctor/', appoitmentp.doctor.id]">
+                                            <h3>Dr(a). {{appoitmentp.doctor.full_name}}</h3>
+                                        </a>
                                         <div class="infcita">
-                                            <p class="esp">{{appoitmentp.speciality.name}}</p>
+                                            <p class="esp">{{appoitmentp.doctor.speciality.name}}</p>
                                             <p class="fech">&nbsp;{{appoitmentp.date_appointment_format|date}}</p>
                                             <p class="monto">Costo: {{appoitmentp.amount |currency}}</p>
                                             <p class="pagado">Pago:
@@ -90,9 +94,11 @@
                                 </a>
                                 <div class="contenido">
                                     <div class="info_local">
-                                        <h3>Dr(a). {{appoitment.doctor.full_name}}</h3>
+                                        <a [routerLink]="['/app/perfil-doctor/', appoitment.doctor.id]">
+                                            <h3>Dr(a). {{appoitment.doctor.full_name}}</h3>
+                                        </a>
                                         <div class="infcita">
-                                            <p class="esp">{{appoitment.speciality.name}}</p>
+                                            <p class="esp">{{appoitment.doctor.speciality.name}}</p>
                                             <p class="fech">&nbsp;{{appoitment.date_appointment_format |date}}</p>
                                             <p class="monto">Costo: ${{appoitment.amount}}</p>
                                             <p class="pagado">Pago:
@@ -136,9 +142,11 @@
                                 </a>
                                 <div class="contenido">
                                     <div class="info_local">
-                                        <h3>Dr(a). {{appoitment.doctor.full_name}}</h3>
+                                        <a [routerLink]="['/app/perfil-doctor/', appoitment.doctor.id]">
+                                            <h3>Dr(a). {{appoitment.doctor.full_name}}</h3>
+                                        </a>
                                         <div class="infcita">
-                                            <p class="esp">{{appoitment.speciality.name}}</p>
+                                            <p class="esp">{{appoitment.doctor.speciality.name}}</p>
                                             <p class="fech">&nbsp;{{appoitment.date_appointment_format}}</p>
                                             <p class="monto">Costo: ${{appoitment.amount}}</p>
                                             <p class="pagado">Pago:
@@ -154,9 +162,6 @@
                                                 class="fa fa-circle-o-notch"></i>&nbsp;Pendiente</span>
                                         <span *ngIf="appoitment.status === 2"> <i
                                                 class="fa fa-check-circle"></i>&nbsp;Atendida</span>
-                                        <div class="clear"></div><br>
-                                        <button class="btn btn-sm" *ngIf="appoitment.status_pay === 2"
-                                            [routerLink]="['/app/pagar/', appoitment.id]">Pagar</button>
                                     </div>
                                 </div>
                             </div>

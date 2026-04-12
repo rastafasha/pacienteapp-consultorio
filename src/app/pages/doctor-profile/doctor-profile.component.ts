@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { DoctorService } from 'src/app/services/doctor.service';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -6,10 +9,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doctor-profile.component.css']
 })
 export class DoctorProfileComponent implements OnInit {
-
-  constructor() { }
+  public cargando: boolean = false;
+  doctor:User;
+  doctor_id: number;
+  constructor(
+    public activatedRoute: ActivatedRoute,
+    private doctorService: DoctorService,
+  ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((resp:any)=>{
+      // console.log(resp);
+      this.doctor_id = resp.id;
+      this.getDoctor()
+    });
+  }
+
+  getDoctor(){
+    this.cargando = true
+    this.doctorService.showDoctor(this.doctor_id).subscribe((resp:any)=>{
+      this.doctor = resp.user;
+      this.cargando = false;
+    })
   }
 
 }

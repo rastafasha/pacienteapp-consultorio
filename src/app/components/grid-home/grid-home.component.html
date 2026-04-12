@@ -22,7 +22,7 @@
                     <ng-container *ngFor="let item of appointment_pendings | slice:0:1; ">
                         <div class="datoscita">
                             <h3>Dr. {{item.doctor.full_name}}</h3>
-                            <p><b style="color: var(--blanco);">{{item.speciality.name}}</b></p>
+                            <p><b style="color: var(--blanco);">{{item.doctor.speciality.name}}</b></p>
                             <p>{{item.date_appointment_format}}</p>
                             <p>{{item.segment_hour.format_segment.hour_start}} - {{item.segment_hour.format_segment.hour_end}}</p>
                             <div class="addic oculto-cita">
