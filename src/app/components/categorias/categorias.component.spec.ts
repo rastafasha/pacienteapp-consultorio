@@ -1,7 +1,7 @@
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 
 import { CategoriasComponent } from './categorias.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { of } from 'rxjs';
@@ -12,10 +12,8 @@ describe('CategoriasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CategoriasComponent ],
-      imports: [
-        HttpClientModule, // Add HttpClientModule to imports
-    ],
+    declarations: [CategoriasComponent],
+    imports: [],
     providers: [
         {
             provide: ActivatedRoute,
@@ -28,9 +26,9 @@ describe('CategoriasComponent', () => {
             provide: SwUpdate,
             useValue: {} // Mock SwUpdate
         },
-    
-    ],
-    })
+        provideHttpClient(withInterceptorsFromDi()),
+    ]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(CategoriasComponent);

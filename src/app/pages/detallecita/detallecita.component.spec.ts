@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DetallecitaComponent } from './detallecita.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { of } from 'rxjs';
@@ -12,24 +12,23 @@ describe('DetallecitaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetallecitaComponent ],
-      imports: [
-        HttpClientModule, // Add HttpClientModule to imports
-      ],
-      providers: [
+    declarations: [DetallecitaComponent],
+    imports: [],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({}), // Mock params observable
-            snapshot: { params: {} } // Mock snapshot
-          }
+            provide: ActivatedRoute,
+            useValue: {
+                params: of({}), // Mock params observable
+                snapshot: { params: {} } // Mock snapshot
+            }
         },
         {
-          provide: SwUpdate,
-          useValue: {} // Mock SwUpdate
+            provide: SwUpdate,
+            useValue: {} // Mock SwUpdate
         },
-      ],
-    }).compileComponents(); // Corrected placement of the method call
+        provideHttpClient(withInterceptorsFromDi()),
+    ]
+}).compileComponents(); // Corrected placement of the method call
 
     fixture = TestBed.createComponent(DetallecitaComponent);
     component = fixture.componentInstance;

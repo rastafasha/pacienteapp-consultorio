@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { ListaComponent } from './lista/lista.component';
 import { AgendarCitaComponent } from './agendar-cita/agendar-cita.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
@@ -21,49 +21,40 @@ import { LegalComponent } from './legal/legal.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos.component';
 
 
-@NgModule({
-  declarations: [
-    HomeComponent,
-    ListaComponent,
-    AgendarCitaComponent,
-    PerfilComponent,
-    PagesComponent,
-    AddAppointmentsComponent,
-    DetallecitaComponent,
-    DoctorProfileComponent,
-    MisPagosComponent,
-    PagarComponent,
-    AyudaComponent,
-    LegalComponent,
-    PresupuestosComponent
-  ],
-  exports: [
-    HomeComponent,
-    ListaComponent,
-    AgendarCitaComponent,
-    PerfilComponent,
-    PagesComponent,
-    AddAppointmentsComponent,
-    DetallecitaComponent,
-    DoctorProfileComponent,
-    MisPagosComponent,
-    PagarComponent,
-    AyudaComponent,
-    LegalComponent,
-    PresupuestosComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule,
-    SharedModule,
-    ComponentsModule,
-    PagesRoutingModule,
-    
-    
-  ],
-  
-})
+@NgModule({ declarations: [
+        HomeComponent,
+        ListaComponent,
+        AgendarCitaComponent,
+        PerfilComponent,
+        PagesComponent,
+        AddAppointmentsComponent,
+        DetallecitaComponent,
+        DoctorProfileComponent,
+        MisPagosComponent,
+        PagarComponent,
+        AyudaComponent,
+        LegalComponent,
+        PresupuestosComponent
+    ],
+    exports: [
+        HomeComponent,
+        ListaComponent,
+        AgendarCitaComponent,
+        PerfilComponent,
+        PagesComponent,
+        AddAppointmentsComponent,
+        DetallecitaComponent,
+        DoctorProfileComponent,
+        MisPagosComponent,
+        PagarComponent,
+        AyudaComponent,
+        LegalComponent,
+        PresupuestosComponent
+    ], imports: [CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        SharedModule,
+        ComponentsModule,
+        PagesRoutingModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class PagesModule { }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GridHomeComponent } from './grid-home/grid-home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { PublicidadComponent } from './publicidad/publicidad.component';
@@ -12,28 +12,22 @@ import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instruc
 
 
 
-@NgModule({
-  declarations: [
-    GridHomeComponent,
-    CategoriasComponent,
-    PublicidadComponent,
-    CitasComponent,
-    SignosvitalesComponent,
-    ModalInstruccionesComponent
-  ],
-  exports: [
-    GridHomeComponent,
-    CategoriasComponent,
-    PublicidadComponent,
-    CitasComponent,
-    SignosvitalesComponent,
-    ModalInstruccionesComponent
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    RouterModule,
-    SharedModule
-  ]
-})
+@NgModule({ declarations: [
+        GridHomeComponent,
+        CategoriasComponent,
+        PublicidadComponent,
+        CitasComponent,
+        SignosvitalesComponent,
+        ModalInstruccionesComponent
+    ],
+    exports: [
+        GridHomeComponent,
+        CategoriasComponent,
+        PublicidadComponent,
+        CitasComponent,
+        SignosvitalesComponent,
+        ModalInstruccionesComponent
+    ], imports: [CommonModule,
+        RouterModule,
+        SharedModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ComponentsModule { }

@@ -6,7 +6,7 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
-import { HttpClientModule, HttpClient } from '@angular/common/http'; // Import HttpClientModule and HttpClient
+import { HttpClient } from '@angular/common/http'; // Import HttpClientModule and HttpClient
 import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
 import { of } from 'rxjs'; // Import of for mock observables
 import { SwUpdate } from '@angular/service-worker'; // Import SwUpdate

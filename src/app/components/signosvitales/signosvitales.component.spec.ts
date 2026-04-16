@@ -1,7 +1,7 @@
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 
 import { SignosvitalesComponent } from './signosvitales.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { of } from 'rxjs';
@@ -12,24 +12,23 @@ describe('SignosvitalesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SignosvitalesComponent ],
-      imports: [
-                  HttpClientModule, // Add HttpClientModule to imports
-              ],
-              providers: [
-                  {
-                      provide: ActivatedRoute,
-                      useValue: {
-                          params: of({}), // Mock params observable
-                          snapshot: { params: {} } // Mock snapshot
-                      }
-                  },
-                  {
-                      provide: SwUpdate,
-                      useValue: {} // Mock SwUpdate
-                  },
-              ],
-    })
+    declarations: [SignosvitalesComponent],
+    imports: [],
+    providers: [
+        {
+            provide: ActivatedRoute,
+            useValue: {
+                params: of({}), // Mock params observable
+                snapshot: { params: {} } // Mock snapshot
+            }
+        },
+        {
+            provide: SwUpdate,
+            useValue: {} // Mock SwUpdate
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(SignosvitalesComponent);
