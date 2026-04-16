@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { User } from '../models/user';
-import { Observer } from 'rxjs';
+import { environment } from '../../environments/environment';
+
 declare var $:any;
 const url_servicios = environment.url_servicios;
 

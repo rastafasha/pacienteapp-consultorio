@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AppointmentService } from 'src/app/services/appointment.service';
-import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { AppointmentService } from '../../services/appointment.service';
 @Component({
   selector: 'app-agendar-cita',
   templateUrl: './agendar-cita.component.html',

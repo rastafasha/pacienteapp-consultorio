@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
-import { User } from '../models/user';
+
 const url_servicios = environment.url_servicios;
 
 @Injectable({

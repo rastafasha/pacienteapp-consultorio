@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Presupuesto } from 'src/app/models/presupuesto';
-import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
-import { PresupuestoService } from 'src/app/services/presupuesto.service';
+import { Presupuesto } from '../../models/presupuesto';
+import { User } from '../../models/user';
+import { AuthService } from '../../services/auth.service';
+import { PresupuestoService } from '../../services/presupuesto.service';
+
 declare var bootstrap: any;
 @Component({
   selector: 'app-presupuestos',

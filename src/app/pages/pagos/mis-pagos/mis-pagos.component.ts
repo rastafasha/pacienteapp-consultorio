@@ -1,9 +1,9 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppointmentService } from 'src/app/services/appointment.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { PaymentService } from 'src/app/services/payment.service';
-import { UserService } from 'src/app/services/user.service';
+import { AppointmentService } from '../../../services/appointment.service';
+import { AuthService } from '../../../services/auth.service';
+import { PaymentService } from '../../../services/payment.service';
+import { UserService } from '../../../services/user.service';
 
 declare var bootstrap: any;
 @Component({

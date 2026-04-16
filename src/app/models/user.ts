@@ -1,5 +1,4 @@
 
-import { environment } from "src/environments/environment";
 // const base_url = environment.apiUrlMedia;
 export class User {
 

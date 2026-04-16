@@ -20,7 +20,6 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   imports: [
     BrowserModule,
-    
     AppRoutingModule,
     SharedModule,
     PagesModule,

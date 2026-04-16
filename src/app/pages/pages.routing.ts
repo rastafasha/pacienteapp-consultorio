@@ -1,10 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { PagesComponent } from './pages.component';
-// import { AuthGuard } from '../guards/auth.guard';
-import { ChildRoutesModule } from './child-routes.module';
 import { AuthGuard } from '../guards/auth.guard';
 
 

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { of, delay } from 'rxjs';
-import { PublicidadService } from 'src/app/services/publicidad.service';
+import { PublicidadService } from '../../services/publicidad.service';
 
 @Component({
   selector: 'app-publicidad',

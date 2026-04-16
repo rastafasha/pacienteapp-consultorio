@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { of, delay } from 'rxjs';
-import { Patient, User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
+import { Patient, User } from '../../models/user';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -62,42 +61,7 @@ export class HomeComponent implements OnInit {
       this.usuario = resp.user[0];
       // console.log(resp);
       if (this.patient) {
-        this.getPatient();
-      }
-    })
-  }
-
-  getPatient(){
-    this.userService.showPatientProfile(this.user.id).subscribe((resp:any)=>{
-      // console.log('paciente y appointment',resp);
-      this.patient_selected= resp;
-      this.appointments= resp.appointments;
-      this.doctor_id= resp.patient.doctor_id;
-      this.address= resp.patient.doctor.address;
-      this.mobile= resp.patient.doctor.mobile;
-      // this.appointment_checkeds= resp.appointment_checkeds.data[0];
-      // console.log(this.appointment_checkeds);
-      this.num_appointment= resp.num_appointment;
-      this.appointment_checkeds= resp.appointment_checkeds.data;
-      this.appointment_pendings= resp.appointment_pendings.data;
-      this.appointment_attention = resp.appointments?.[0]?.appointment_attention || null;
-
-      if (resp.appointments?.[0]?.appointment_attention) {
-        this.recetas = resp.appointments[0].appointment_attention.receta_medica;
-      } else {
-        this.recetas = [];
-      }
-      this.appointment = resp.appointments?.[0] || null;
-
-      // General toastr for any pending appointments
-      if (this.appointment_pendings && this.appointment_pendings.length > 0) {
-        this.toastr.info(`${this.appointment_pendings.length} cita(s) pendiente(s)`, 'Citas');
-      }
-
-      // Lógica para avisar si hay una cita pendiente
-      const tieneCitaConfirmada = this.appointment_checkeds.some(a => a.confimation === 2);
-      if (tieneCitaConfirmada) {
-        this.toastr.success('Tienes citas confirmadas', 'Estado de Citas');
+        // this.getPatient();
       }
     })
   }

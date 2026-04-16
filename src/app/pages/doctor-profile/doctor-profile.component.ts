@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from 'src/app/models/user';
-import { DoctorService } from 'src/app/services/doctor.service';
+import { User } from '../../models/user';
+import { DoctorService } from '../../services/doctor.service';
 
 @Component({
   selector: 'app-doctor-profile',

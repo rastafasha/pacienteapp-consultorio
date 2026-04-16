@@ -1,5 +1,5 @@
+import { environment } from "../../environments/environment";
 import { User } from "./user";
-import { environment } from "src/environments/environment";
 
 
 const base_url = environment.url_media;

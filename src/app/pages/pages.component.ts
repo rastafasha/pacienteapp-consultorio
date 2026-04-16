@@ -1,7 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { User } from '../models/user';
-import { UserService } from '../services/user.service';
+import {Component, Input, OnInit } from '@angular/core';
 
 
 

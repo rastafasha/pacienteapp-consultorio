@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { Payment } from '../models/payment';
 import { PaymentMethod } from '../models/paymentMethod';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 const baseUrl = environment.url_servicios;
 
@@ -21,8 +20,6 @@ export class PaymentMethodService {
   info:any = {};
   cargada:boolean = false;
 
-  //datos
-  // payments = 'assets/dataSimulada/pago.json';
 
   constructor(
     private http: HttpClient,
