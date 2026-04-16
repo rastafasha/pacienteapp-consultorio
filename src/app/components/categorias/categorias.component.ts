@@ -3,9 +3,10 @@ import { of, delay } from 'rxjs';
 import { AppointmentService } from '../../services/appointment.service';
 
 @Component({
-  selector: 'app-categorias',
-  templateUrl: './categorias.component.html',
-  styleUrls: ['./categorias.component.css']
+    selector: 'app-categorias',
+    templateUrl: './categorias.component.html',
+    styleUrls: ['./categorias.component.css'],
+    standalone: false
 })
 export class CategoriasComponent implements OnInit {
   specialities:any;

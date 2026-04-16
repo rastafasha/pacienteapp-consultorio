@@ -6,9 +6,10 @@ import { PresupuestoService } from '../../services/presupuesto.service';
 
 declare var bootstrap: any;
 @Component({
-  selector: 'app-presupuestos',
-  templateUrl: './presupuestos.component.html',
-  styleUrls: ['./presupuestos.component.css']
+    selector: 'app-presupuestos',
+    templateUrl: './presupuestos.component.html',
+    styleUrls: ['./presupuestos.component.css'],
+    standalone: false
 })
 export class PresupuestosComponent implements OnInit {
   cargando= false;

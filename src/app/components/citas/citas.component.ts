@@ -5,9 +5,10 @@ import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-citas',
-  templateUrl: './citas.component.html',
-  styleUrls: ['./citas.component.css']
+    selector: 'app-citas',
+    templateUrl: './citas.component.html',
+    styleUrls: ['./citas.component.css'],
+    standalone: false
 })
 export class CitasComponent implements OnInit {
 

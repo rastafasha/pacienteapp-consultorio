@@ -4,9 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 @Component({
-  selector: 'app-newpassword',
-  templateUrl: './newpassword.component.html',
-  styleUrls: ['./newpassword.component.css']
+    selector: 'app-newpassword',
+    templateUrl: './newpassword.component.html',
+    styleUrls: ['./newpassword.component.css'],
+    standalone: false
 })
 export class NewpasswordComponent implements OnInit {
 

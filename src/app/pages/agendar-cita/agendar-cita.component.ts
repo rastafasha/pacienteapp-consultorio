@@ -3,9 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppointmentService } from '../../services/appointment.service';
 @Component({
-  selector: 'app-agendar-cita',
-  templateUrl: './agendar-cita.component.html',
-  styleUrls: ['./agendar-cita.component.css']
+    selector: 'app-agendar-cita',
+    templateUrl: './agendar-cita.component.html',
+    styleUrls: ['./agendar-cita.component.css'],
+    standalone: false
 })
 export class AgendarCitaComponent implements OnInit {
 

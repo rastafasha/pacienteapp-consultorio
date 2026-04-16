@@ -5,9 +5,10 @@ import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-signosvitales',
-  templateUrl: './signosvitales.component.html',
-  styleUrls: ['./signosvitales.component.css']
+    selector: 'app-signosvitales',
+    templateUrl: './signosvitales.component.html',
+    styleUrls: ['./signosvitales.component.css'],
+    standalone: false
 })
 export class SignosvitalesComponent implements OnInit {
   cargando = false;

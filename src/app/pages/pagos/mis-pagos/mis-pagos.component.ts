@@ -7,9 +7,10 @@ import { UserService } from '../../../services/user.service';
 
 declare var bootstrap: any;
 @Component({
-  selector: 'app-mis-pagos',
-  templateUrl: './mis-pagos.component.html',
-  styleUrls: ['./mis-pagos.component.css']
+    selector: 'app-mis-pagos',
+    templateUrl: './mis-pagos.component.html',
+    styleUrls: ['./mis-pagos.component.css'],
+    standalone: false
 })
 export class MisPagosComponent implements OnInit {
 

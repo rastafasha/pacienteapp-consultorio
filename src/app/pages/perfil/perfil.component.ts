@@ -4,9 +4,10 @@ import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+    selector: 'app-perfil',
+    templateUrl: './perfil.component.html',
+    styleUrls: ['./perfil.component.css'],
+    standalone: false
 })
 export class PerfilComponent implements OnInit {
   loading:boolean;

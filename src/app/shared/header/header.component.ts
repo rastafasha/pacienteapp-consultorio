@@ -5,9 +5,10 @@ import { ConfigService } from '../../services/config.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: false
 })
 export class HeaderComponent implements OnInit {
   year: number = new Date().getFullYear();
