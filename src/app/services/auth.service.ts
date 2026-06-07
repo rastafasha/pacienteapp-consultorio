@@ -60,23 +60,6 @@ export class AuthService {
   }
 
   
-
-   
-  // login(email:string,password:string) {
-  //   let URL = url_servicios+"/login";
-  //   return this.http.post(URL,{email: email,password: password}).pipe(
-  //     map((auth:any) => {
-  //       console.log(auth);
-  //       const result = this.saveLocalStorage(auth);
-  //       return result;
-  //     }),
-  //     catchError((error:any) => {
-  //       console.log(error);
-  //       return of(undefined);
-  //     })
-  //   );
-  // }
-
   guardarLocalStorage( user:any, access_token: any){
     // localStorage.setItem('token', JSON.stringify(token));
   localStorage.setItem('user', JSON.stringify(user));
@@ -104,6 +87,38 @@ export class AuthService {
     )
 
   }
+
+  loginPaciente(name: string, n_doc: string) {
+  // Aseguramos que la ruta tenga el guion que faltaba
+  let URL = url_servicios + "/loginpaciente"; 
+  
+  return this.http.post(URL, { name: name, n_doc: n_doc }).pipe(
+    map((auth: any) => {
+      console.log('JARVIS - Payload recibido de Klyntic:', auth);
+      
+      // 🚀 INYECCIÓN FORZADA DIRECTA EN EL DISCO LOCAL
+      if (auth && auth.access_token) {
+        
+        // 1. Guardamos el Token de JWT plano
+        localStorage.setItem('token', auth.access_token);
+        
+        // 2. Guardamos el objeto del usuario convertido en texto JSON
+        localStorage.setItem('user', JSON.stringify(auth.user));
+        
+        console.log('✅ JARVIS: ¡Token e Identidad del Paciente inyectados directamente en LocalStorage!');
+        
+        // Retornamos true explícito para avisarle al componente que cambie de pantalla
+        return true; 
+      }
+      return false;
+    }),
+    catchError((error: any) => {
+      Swal.fire('Error', error.error?.error || 'Datos de acceso incorrectos', 'error');
+      return of(undefined);
+    })
+  );
+}
+
 
   crearUsuario(formData: RegisterForm){
     let URL = url_servicios+"/register";

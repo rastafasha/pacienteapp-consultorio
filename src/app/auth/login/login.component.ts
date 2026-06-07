@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.loginForm = this.fb.group({
-      email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      name: [localStorage.getItem('name') || '', [Validators.required]],
+      n_doc: ['', Validators.required],
       remember: [false]
 
     });
@@ -63,12 +63,8 @@ export class LoginComponent implements OnInit {
 
   validador() {
     this.registerForm = this.fb.group({
-      email: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       n_doc: ['', Validators.required],
-      password: ['', Validators.required],
-      password2: ['', Validators.required],
-      // role: ['GUEST'],
-      // terminos: [false, Validators.required],
     }, {
       validators: this.passwordsIguales('password', 'password2')
     });
@@ -80,18 +76,18 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(
-      this.loginForm.value.email ? this.loginForm.value.email : '',
-      this.loginForm.value.password ? this.loginForm.value.password : ''
+    this.authService.loginPaciente(
+      this.loginForm.value.name ? this.loginForm.value.name : '',
+      this.loginForm.value.n_doc ? this.loginForm.value.n_doc : ''
 
     ).subscribe(
       (resp: any) => {
         if (this.loginForm.get('remember').value) {
-          localStorage.setItem('email', this.loginForm.get('email').value);
+          localStorage.setItem('name', this.loginForm.get('name').value);
           // document.location.reload();
 
         } else {
-          localStorage.removeItem('email');
+          localStorage.removeItem('name');
         }
         this.authService.getLocalStorage();
         this.isLoading = false;
