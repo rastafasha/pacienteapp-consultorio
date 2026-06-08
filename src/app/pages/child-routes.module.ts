@@ -13,6 +13,7 @@ import { AyudaComponent } from './ayuda/ayuda.component';
 import { LegalComponent } from './legal/legal.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos.component';
+import { MisNotificacionesComponent } from './mis-notificaciones/mis-notificaciones.component';
 
 //pages
 
@@ -56,6 +57,9 @@ const childRoutes: Routes = [
     },
     {
       path:'legal', component:LegalComponent
+    },
+    {
+      path:'notificaciones', component:MisNotificacionesComponent
     },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },

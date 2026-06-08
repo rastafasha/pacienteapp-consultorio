@@ -28,14 +28,19 @@
                         </li>
                     </ul>
                     <!-- CAMPANA CON BADGE -->
-                    <!-- <div class="position-relative me-3 " routerLink="/notificaciones" style="cursor: pointer; transform: translate(0px, 10px);">
-                        <i class="fa fa-regular fa fa-bell fs-4 text-dark"></i>
-                        <span *ngIf="notificacionesPendientes > 0"
-                            class="position-absolute  start-100 translate-middle badge rounded-pill bg-danger"
+           <div class="position-relative me-3" routerLink="/notificaciones" style="cursor: pointer;">
+                    <i class="fa fa-regular fa fa-bell fs-4 text-dark animated tada"></i>
+
+                    <!-- Evaluamos el Observable. Si el valor emitido es mayor a 0, pinta el badge -->
+                    @if ((unreadCount$ | async); as pendientes) {
+                        @if (pendientes > 0) {
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                             style="font-size: 0.6rem;">
-                            {{ notificacionesPendientes }}
+                            {{ pendientes }}
                         </span>
-                    </div> -->
+                        }
+                    }
+                </div>
                     <div class="menu">
                         <a href="javascript:void(0)" (click)="openMenu()" class="sidemenu-toggler">
                             <span></span>

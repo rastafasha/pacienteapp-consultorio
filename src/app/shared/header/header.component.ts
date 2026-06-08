@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ConfigService } from '../../services/config.service';
 import { UserService } from '../../services/user.service';
+import { Observable } from 'rxjs';
+import { NotificacionService } from '../../services/notificacion.service';
 
 @Component({
     selector: 'app-header',
@@ -21,11 +23,13 @@ export class HeaderComponent implements OnInit {
   public avatar_setting:any;
   public name_setting:any;
   notificacionesPendientes=1;
+  public unreadCount$!: Observable<number>;
 
   constructor(
     public authService:AuthService,
     public userService:UserService,
     public configService:ConfigService,
+    public notifService:NotificacionService,
     private router: Router,
     
   ) {
@@ -33,6 +37,8 @@ export class HeaderComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.unreadCount$ = this.notifService.unreadCount$;
+    this.notifService.cargarContador();
     
     this.authService.getLocalStorage();
     this.authService.getLocalDarkMode();
