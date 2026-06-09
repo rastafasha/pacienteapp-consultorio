@@ -15,7 +15,8 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         AppComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
@@ -33,15 +34,19 @@ import { ToastrModule } from 'ngx-toastr';
         }),
         BrowserAnimationsModule,
         ToastrModule.forRoot({
-            timeOut: 3000,
-            positionClass: 'toast-top',
+            timeOut: 4000,
+            positionClass: 'toast-top-center', // 🔥 Clase nativa correcta (Arriba a la derecha)
             preventDuplicates: true,
-        })], providers: [
+            closeButton: true,               // Le añade la equis para cerrar
+            progressBar: true
+        })],
+    providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true
         },
         provideHttpClient(withInterceptorsFromDi())
-    ] })
+    ]
+})
 export class AppModule { }

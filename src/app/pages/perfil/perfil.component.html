@@ -10,7 +10,7 @@
         </button>
     </div>
     <div class="row">
-       
+
         <div class="notiene" *ngIf="!patient">
             <p>Usted no tiene registro medico con esta Clínica.</p>
             <!-- <p>Revise la pestaña Presupuestos, si tiene un presupuesto con esta clínica, puede verlo allí.</p> -->
@@ -19,63 +19,87 @@
 
         <section class=" animated fadeInUp " *ngIf="patient">
 
-                <div class="perfil">
-                    <div class="local_categoria_item" style="height: 220px;">
-                        <div class="logo_local">
-                            <img [src]="patient.avatar" alt="">
+            <div class="perfil">
+                <div class="local_categoria_item" style="height: auto;">
+                    <div class="logo_local">
+                        <img [src]="patient.avatar" alt="">
+                    </div>
+                    <div class="contenido" style="height: auto;">
+                        <div class="info_local">
+                            <h3>{{patient.full_name}}</h3>
+                            <div class="infcita">
+                                <p class="esp"><b>N.Doc</b><br>
+                                    {{patient.n_doc}}</p>
+                                <p class="fech"><b>Teléfono</b><br>
+                                    {{patient.phone}}</p>
+                                <p class="monto" *ngIf="patient.birth_date">
+                                    <b>Nacimiento:</b> <br>
+                                    {{patient.birth_date}}
+                                </p>
+                                <p class="pagado" *ngIf="patient.education">
+                                    <b>Profesión:</b> <br>
+                                    {{patient.education}}
+
+                                </p>
+
+                            </div>
                         </div>
-                        <div class="contenido" style="height: auto;">
-                            <div class="info_local">
-                                <h3>{{patient.full_name}}</h3>
-                                <div class="infcita">
-                                    <p class="esp"><b>N.Doc</b><br>
-                                        {{patient.n_doc}}</p>
-                                    <p class="fech"><b>Teléfono</b><br>
-                                        {{patient.phone}}</p>
-                                    <p class="monto" *ngIf="patient.birth_date">
-                                        <b>Nacimiento:</b> <br>
-                                        {{patient.birth_date}}
-                                    </p>
-                                    <p class="pagado" *ngIf="patient.education">
-                                        <b>Profesión:</b> <br>
-                                        {{patient.education}}
-
-                                    </p>
-
-                                </div>
-                            </div>
-                            <div class="calificacion">
-                                <span *ngIf="patient.gender === 1"> <i class="fa fa-user"></i>&nbsp;Masculino</span>
-                                <span *ngIf="patient.gender === 2"> <i class="fa fa-user"></i>&nbsp;Femenino</span>
-                            </div>
+                        <div class="calificacion">
+                            <span *ngIf="patient.gender === 1"> <i class="fa fa-user"></i>&nbsp;Masculino</span>
+                            <span *ngIf="patient.gender === 2"> <i class="fa fa-user"></i>&nbsp;Femenino</span>
                         </div>
 
                     </div>
-                    <div class="card" style="margin-top: 15px; margin-bottom: 100px;" *ngIf="patient.antecedent_personal">
-                        <p class="monto">
-                            <b>Motivo Registro:</b> <br>
-                            {{patient.current_desease}}
-                        </p>
-                        <p class="monto">
-                            <b>Atnt. Alergico:</b> <br>
-                            {{patient.antecedent_alerg}}
-                        </p>
-                        <p class="pagado">
-                            <b>Atnt. Personal:</b> <br>
-                            {{patient.antecedent_personal}}
-                        </p>
-                        <p class="tiemp">
-                            <b>Atnt. Familiar:</b> <br>
-                            {{patient.antecedent_family}}
-                        </p>
-                        <p class="tiemp">
-                            <b>Dirección:</b> <br>
-                            {{patient.address}}
-                        </p>
+                    <!-- configurar notificaciones push -->
+                    <div class="setting-row" *ngIf="!isLoading" [class.loading]="pushService.isProcessing$ | async">
+                        <div class="setting-info">
+                            <i class="fa fa-bell"></i>
+                            <div class="text-container">
+                                <strong>Notificaciones Push</strong>
+                                <span>Avisos importantes</span>
+                            </div>
+                        </div>
+
+                        <div class="switch-wrapper">
+                            <!-- Spinner pequeño que solo aparece al cargar -->
+                            <div *ngIf="pushService.isProcessing$ | async" class="mini-spinner"></div>
+
+                            <label class="switch">
+                                <input type="checkbox" [disabled]="pushService.isProcessing$ | async"
+                                    [checked]="pushService.isSubscribed$ | async" (change)="togglePush()">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
                     </div>
+                    <!-- configurar notificaciones push -->
                 </div>
+                <div class="card" style="margin-top: 45px; margin-bottom: 100px;" *ngIf="patient.antecedent_personal">
+                   <div class="card-body">
+                     <p class="monto">
+                        <b>Motivo Registro:</b> <br>
+                        {{patient.current_desease}}
+                    </p>
+                    <p class="monto">
+                        <b>Atnt. Alergico:</b> <br>
+                        {{patient.antecedent_alerg}}
+                    </p>
+                    <p class="pagado">
+                        <b>Atnt. Personal:</b> <br>
+                        {{patient.antecedent_personal}}
+                    </p>
+                    <p class="tiemp">
+                        <b>Atnt. Familiar:</b> <br>
+                        {{patient.antecedent_family}}
+                    </p>
+                    <p class="tiemp">
+                        <b>Dirección:</b> <br>
+                        {{patient.address}}
+                    </p>
+                   </div>
+                </div>
+            </div>
 
-            </section>
+        </section>
     </div>
 </div>
 <app-modal-instrucciones [info]="info" sectionId="mi_perfil" #instruccionesModal></app-modal-instrucciones>

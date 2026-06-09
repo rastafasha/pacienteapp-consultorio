@@ -4,7 +4,8 @@
     <div class="container animated fadeInUp" style="margin-bottom: 100px;">
         <h4>Signos Vitales</h4>
         <div class="card">
-            <div class="heading-detail">
+            <div class="card-body">
+                <div class="heading-detail">
                 <p style="margin: 0; padding: 0; padding-bottom: 10px;">Registrado: {{patient_selected.created_at|date}}</p>
             </div>
             <div class="skill-blk">
@@ -53,6 +54,7 @@
                         <div class="progress-bar bg-visit" role="progressbar" [style.width]="patient_selected.peso+''+'%'"  [attr.aria-valuenow]="patient.peso" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     

@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { of, delay } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { PushNotificationService } from '../../services/push-notification.service';
 
 @Component({
     selector: 'app-perfil',
@@ -34,6 +36,7 @@ export class PerfilComponent implements OnInit {
   user_email:any;
   patient:any=[];
   usuario:any=[];
+  public isLoading:boolean = false;
 
   info = `
   <h2>Sección: Mi Perfil</h2>
@@ -44,6 +47,8 @@ export class PerfilComponent implements OnInit {
   constructor(
     public authService:AuthService,
     public userService:UserService,
+    public pushService: PushNotificationService,
+    public toastr: ToastrService,
   ) { 
     this.user = this.authService.user;
   }
@@ -96,4 +101,27 @@ export class PerfilComponent implements OnInit {
   optionSelected(value: number) {
     this.option_selected = value;
   }
+
+
+  async togglePush() {
+    this.pushService.isProcessing$.next(true); // Activa el cargando
+
+    try {
+      const estaSuscrito = this.pushService.isSubscribed$.value;
+      if (estaSuscrito) {
+        const reg = await navigator.serviceWorker.ready;
+        const sub = await reg.pushManager.getSubscription();
+        if (sub) {
+          await sub.unsubscribe();
+          // Llamada opcional a tu backend para limpiar
+          this.pushService.setSubscriptionStatus(false);
+        }
+      } else {
+        await this.pushService.subscribeToNotifications();
+      }
+    } finally {
+      this.pushService.isProcessing$.next(false); // Desactiva el cargando
+    }
+  }
+
 }
