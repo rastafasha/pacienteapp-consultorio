@@ -80,7 +80,7 @@
                     <div *ngIf="appointment_attention">
                         <div class="datosmedicinas-oculto">
                             <h3>Dr.{{appointment.doctor.full_name}}</h3>
-                                <p>{{appointment.speciality.name}}</p>
+                                <p>{{appointment.speciality?.name}}</p>
                                 <p><b style="color:#fff">Fecha de Atención:</b> {{appointment.date_appointment_format}}</p>
                                 <p><b style="color:#fff">Status: </b>
                                     <span *ngIf="appointment.status === 1"> Pendiente</span>
@@ -107,7 +107,7 @@
                         <div class="datosrecipe">
                             <div class="oculto-datosrecipe">
                                 <h3>Dr.{{appointment.doctor.full_name}}</h3>
-                                <p>{{appointment.speciality.name}}</p>
+                                <p>{{appointment.speciality?.name}}</p>
                                 <p><b style="color:#fff">Fecha de Atención:</b> {{appointment.date_appointment_format}}</p>
                                 <p><b style="color:#fff">Status: </b>
                                     <span *ngIf="appointment.status === 1"> Pendiente</span>

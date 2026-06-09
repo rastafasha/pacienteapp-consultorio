@@ -9,25 +9,26 @@
         </button> -->
     </div>
     <div class="modal fade" id="modalConfirmarVaciar" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-sm">
-    <div class="modal-content text-center p-3">
-      <h5>¿Vaciar historial?</h5>
-      <p class="text-muted small">Esta acción no se puede deshacer.</p>
-      <div class="d-flex justify-content-center gap-2">
-        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-sm btn-danger" (click)="confirmarVaciarTodo()">Sí, borrar todo</button>
-      </div>
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content text-center p-3">
+                <h5>¿Vaciar historial?</h5>
+                <p class="text-muted small">Esta acción no se puede deshacer.</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cancelar</button>
+                    <!-- <button type="button" class="btn btn-sm btn-danger" (click)="confirmarVaciarTodo()">Sí, borrar
+                        todo</button> -->
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <button (click)="limpiarCampana()" class="btn btn-outline-primary btn-sm">
             <i class="fa fa-check-double"></i> Marcar todas como leídas
         </button>
-        <button *ngIf="notificaciones() && notificaciones().length > 0"
-                    class="btn btn-outline-danger btn-sm" (click)="vaciarTodo()">
-                    <i class="fa fa-trash-o me-1"></i> Vaciar Buzón
-                </button>
+        <button *ngIf="notificaciones() && notificaciones().length > 0" class="btn btn-outline-danger btn-sm"
+            (click)="vaciarTodo()">
+            <i class="fa fa-trash-o me-1"></i> Vaciar Buzón
+        </button>
     </div>
 
 
@@ -59,7 +60,7 @@
                         </div> -->
                     </div>
                     <p class="card-text small mb-0">{{ n.mensaje | slice:0:45 }}...</p>
-                    
+
                 </div>
             </div>
             } @empty {
@@ -124,8 +125,8 @@
 
         <!-- Botón de acción Facturas-->
         <div class="mt-5" *ngIf="notifSeleccionada.tipo === 'RESERVACION_CANCELADA'">
-            <button class="btn btn-primary w-100 py-3 rounded-4 fw-bold" (click)="irAReservaciones(notifSeleccionada.tipo)"
-                data-bs-dismiss="offcanvas">
+            <button class="btn btn-primary w-100 py-3 rounded-4 fw-bold"
+                (click)="irAReservaciones(notifSeleccionada.tipo)" data-bs-dismiss="offcanvas">
                 Revisar mis Reservaciones
             </button>
         </div>
@@ -135,14 +136,14 @@
                 Revisar mis Pedidos
             </button>
         </div>
-        <div class="mt-5" >
-            <button class="btn btn-outline-danger w-100 py-3 rounded-4 fw-bold" (click)="eliminarIndividual(notifSeleccionada._id)"
-                data-bs-dismiss="offcanvas">
+        <!-- <div class="mt-5">
+            <button class="btn btn-outline-danger w-100 py-3 rounded-4 fw-bold"
+                (click)="eliminarIndividual(notifSeleccionada._id)" data-bs-dismiss="offcanvas">
                 Eliminar notificación
             </button>
-        </div>
+        </div> -->
     </div>
 
 </div>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->
 <!-- <app-modal-instrucciones [info]="info" sectionId="misnotificaciones" #instruccionesModal></app-modal-instrucciones> -->

@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AgendarCitaComponent } from './agendar-cita/agendar-cita.component';
 import { ListaComponent } from './lista/lista.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { AddAppointmentsComponent } from './agendar-cita/add-appointments/add-appointments.component';
 import { DetallecitaComponent } from './detallecita/detallecita.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 import { PagarComponent } from './pagos/pagar/pagar.component';
@@ -13,58 +11,54 @@ import { AyudaComponent } from './ayuda/ayuda.component';
 import { LegalComponent } from './legal/legal.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos.component';
-import { MisNotificacionesComponent } from './mis-notificaciones/mis-notificaciones.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 //pages
 
 
 const childRoutes: Routes = [
 
-    { path: '',  component: HomeComponent, data:{title:'app'} },
+  { path: 'home', component: HomeComponent, data: { title: 'app' } },
+  { path: 'home', redirectTo: 'home', pathMatch: 'full' },
+  
 
-    {
-    path:'login', component:LoginComponent
-    },
-    {
-    path:'lista', component:ListaComponent
-    },
-    {
-      path:'perfil', component:PerfilComponent
-    },
-    {
-      path:'agendar-cita', component:AddAppointmentsComponent
-    },
-    {
-      path:'perfil-doctor/:id', component:DoctorProfileComponent
-    },
-    {
-      path:'agendar-cita/:id', component:AgendarCitaComponent
-    },
-    {
-      path:'detalle-cita/:id', component:DetallecitaComponent
-    },
-    {
-      path:'pagar/:id', component:PagarComponent
-    },
-    {
-      path:'mis-pagos', component:MisPagosComponent
-    },
-    {
-      path:'mis-presupuestos', component:PresupuestosComponent
-    },
-    {
-      path:'ayuda', component:AyudaComponent
-    },
-    {
-      path:'legal', component:LegalComponent
-    },
-    {
-      path:'notificaciones', component:MisNotificacionesComponent
-    },
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: '**', component:  HomeComponent },
-
+  {
+    path: 'login', component: LoginComponent
+  },
+  {
+    path: 'lista', component: ListaComponent
+  },
+  {
+    path: 'perfil', component: PerfilComponent
+  },
+  {
+    path: 'perfil-doctor/:id', component: DoctorProfileComponent
+  },
+  {
+    path: 'detalle-cita/:id', component: DetallecitaComponent
+  },
+  {
+    path: 'pagar/:id', component: PagarComponent
+  },
+  {
+    path: 'mis-pagos', component: MisPagosComponent
+  },
+  {
+    path: 'mis-presupuestos', component: PresupuestosComponent
+  },
+  {
+    path: 'mis-notificaciones', component: NotificacionesComponent
+  },
+  {
+    path: 'ayuda', component: AyudaComponent
+  },
+  {
+    path: 'legal', component: LegalComponent
+  },
+  
+  { path: '**', component: HomeComponent },
+  
 
 ]
 
@@ -73,6 +67,6 @@ const childRoutes: Routes = [
     // RouterModule.forRoot(appRoute),
     RouterModule.forChild(childRoutes),
   ],
-    exports: [ RouterModule ]
+  exports: [RouterModule]
 })
 export class ChildRoutesModule { }

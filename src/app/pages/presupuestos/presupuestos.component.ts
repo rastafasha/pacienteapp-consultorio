@@ -6,19 +6,19 @@ import { PresupuestoService } from '../../services/presupuesto.service';
 
 declare var bootstrap: any;
 @Component({
-    selector: 'app-presupuestos',
-    templateUrl: './presupuestos.component.html',
-    styleUrls: ['./presupuestos.component.css'],
-    standalone: false
+  selector: 'app-presupuestos',
+  templateUrl: './presupuestos.component.html',
+  styleUrls: ['./presupuestos.component.css'],
+  standalone: false
 })
 export class PresupuestosComponent implements OnInit {
-  cargando= false;
+  cargando = false;
   private usuario: User;
   public presupuestoSelected: Presupuesto; // Property to hold the selected presupuesto
   public presupuestosList: Presupuesto[];
   ispresupuestoSelected = false; // Keep this for UI state
 
-   info = `
+  info = `
   <h2>Sección: Presupuestos</h2>
   <ul>
     <li><strong>Historial de Presupuestos:</strong> Consulta los Presupuestos solicitados a tu medico de confianza.</li> 
@@ -39,13 +39,13 @@ export class PresupuestosComponent implements OnInit {
   }
 
   listaPresupuestos() {
-    this.cargando= true;
+    this.cargando = true;
     if (this.usuario && this.usuario.n_doc) {
       this.presupuestoService.byPatient(this.usuario.n_doc).subscribe((resp: any) => {
         this.presupuestosList = resp.presupuestos.data;
-        this.cargando= false;
+        this.cargando = false;
       });
-    } 
+    }
   }
 
   selectedPayment(presupuesto: Presupuesto) {
@@ -61,6 +61,6 @@ export class PresupuestosComponent implements OnInit {
     const bsOffcanvas = new bootstrap.Offcanvas(el);
     bsOffcanvas.show();
 
-   
+
   }
 }

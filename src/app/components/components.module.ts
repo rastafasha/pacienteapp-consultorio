@@ -27,7 +27,9 @@ import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instruc
         CitasComponent,
         SignosvitalesComponent,
         ModalInstruccionesComponent
-    ], imports: [CommonModule,
+    ], imports: [
+        CommonModule,
         RouterModule,
-        SharedModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        SharedModule
+    ], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class ComponentsModule { }

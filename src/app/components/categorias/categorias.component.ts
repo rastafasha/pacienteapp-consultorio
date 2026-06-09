@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { of, delay } from 'rxjs';
 import { AppointmentService } from '../../services/appointment.service';
-
+declare var bootstrap: any;
 @Component({
     selector: 'app-categorias',
     templateUrl: './categorias.component.html',
@@ -9,9 +9,13 @@ import { AppointmentService } from '../../services/appointment.service';
     standalone: false
 })
 export class CategoriasComponent implements OnInit {
+   // 🔥 El cable emisor hacia el Padre
+  @Output() alSeleccionarEspecialidad = new EventEmitter<string>();
+  
   specialities:any;
   cargando:boolean;
   obs$ = of(1).pipe(delay(500));
+  especialidadId:any = null;
 
   constructor(
     public appointmentService:AppointmentService
@@ -25,6 +29,14 @@ export class CategoriasComponent implements OnInit {
        this.cargando = false
     })
   }
+
+   abrirDetalle(especialidadId: string) {
+    console.log("📢 Categorías emitiendo ID hacia el Home:", especialidadId);
+    this.alSeleccionarEspecialidad.emit(especialidadId);
+
+   
+  }
+
   
 
 }

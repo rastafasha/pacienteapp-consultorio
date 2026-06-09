@@ -1,26 +1,16 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificacionService } from '../../services/notificacion.service';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ToastrService } from 'ngx-toastr';
-import { SharedModule } from "../../shared/shared.module";
-
-
-
+import { AuthService } from '../../services/auth.service';
+import { NotificacionService } from '../../services/notificacion.service';
 declare var bootstrap: any;
-
 @Component({
-  selector: 'app-mis-notificaciones',
-  imports: [
-    CommonModule,
-    InfiniteScrollModule,
-    SharedModule
-],
-  templateUrl: './mis-notificaciones.component.html',
-  styleUrl: './mis-notificaciones.component.scss'
+  selector: 'app-notificaciones',
+  standalone: false,
+  templateUrl: './notificaciones.component.html',
+  styleUrl: './notificaciones.component.css'
 })
-export class MisNotificacionesComponent implements OnInit {
+export class NotificacionesComponent {
 
   public notificaciones = signal<any[]>([]);
   public loading = signal(false);
@@ -44,6 +34,7 @@ export class MisNotificacionesComponent implements OnInit {
 
 
   public notificacionService = inject(NotificacionService);
+  public authService = inject(AuthService);
   public router = inject(Router);
   public toastr = inject(ToastrService);
 
@@ -56,7 +47,7 @@ export class MisNotificacionesComponent implements OnInit {
     if (this.loading() || !this.hasMoreNotif()) return;
 
     this.pageNotif++;
-    this.getNotificaciones();
+    // this.getNotificaciones();
   }
 
   getNotificaciones() {
@@ -113,23 +104,29 @@ export class MisNotificacionesComponent implements OnInit {
   }
 
 
-  abrirDetalle(notificacion: any) {
-    this.notifSeleccionada = notificacion;
+ abrirDetalle(notificacion: any) {
+  this.notifSeleccionada = notificacion;
 
-    // 1. Abrir Offcanvas
-    const el = document.getElementById('offcanvasNotif');
+  // 1. Abrir Offcanvas nativo de Bootstrap
+  const el = document.getElementById('offcanvasNotif');
+  if (el) {
     const bsOffcanvas = new bootstrap.Offcanvas(el);
     bsOffcanvas.show();
-
-    // 2. Si no está leída, marcarla en el Backend
-    if (!notificacion.leido) {
-      // Usamos el endpoint individual (debes tener router.put('/:id', marcarLeida) en Node)
-      this.notificacionService.marcarUnaComoLeida(notificacion._id).subscribe(() => {
-        notificacion.leido = true; // Actualiza la vista localmente
-        this.notificacionService.checkUnreadNotifications(); // Actualiza el badge del Navbar
-      });
-    }
   }
+
+  // 2. Si no está leída, marcarla en el Backend de forma reactiva
+  if (!notificacion.leido) {
+    // Llamamos al método actualizado que resta -1 al BehaviorSubject automáticamente
+    this.notificacionService.marcarUnaComoLeida(notificacion._id).subscribe({
+      next: () => {
+        notificacion.leido = true; // Actualiza el estado visual localmente (quita el fondo gris)
+        console.log("✅ Alerta marcada como leída de forma reactiva");
+      },
+      error: (err) => console.error("Error al actualizar estado en Mongo:", err)
+    });
+  }
+}
+
 
   cerrarOffcanvas() {
   const el = document.getElementById('offcanvasNotif');
@@ -167,13 +164,13 @@ export class MisNotificacionesComponent implements OnInit {
     }
   }
 
-  eliminarIndividual(id: string) {
-    this.notificacionService.borrarNotificacion(id).subscribe(() => {
-      this.toastr.success('Notificación Eliminada');
-      this.cerrarOffcanvas();
-      this.ngOnInit();
-    });
-  }
+  // eliminarIndividual(id: string) {
+  //   this.notificacionService.borrarNotificacion(id).subscribe(() => {
+  //     this.toastr.success('Notificación Eliminada');
+  //     this.cerrarOffcanvas();
+  //     this.ngOnInit();
+  //   });
+  // }
 
   // 1. Este botón abre el modal en lugar del confirm feo
 vaciarTodo() {
@@ -183,17 +180,15 @@ vaciarTodo() {
 }
 
 // 2. Esta función se ejecuta solo si le da al botón "Sí, borrar todo"
-confirmarVaciarTodo() {
-  this.notificacionService.limpiarBuzonCompleto().subscribe(() => {
-    this.getNotificaciones(); 
+// confirmarVaciarTodo() {
+//   this.notificacionService.limpiarBuzonCompleto().subscribe(() => {
+//     this.getNotificaciones(); 
     
-    // Cerramos el modal de forma limpia
-    const el = document.getElementById('modalConfirmarVaciar');
-    const modal = bootstrap.Modal.getInstance(el);
-    if (modal) modal.hide();
-  });
-}
-
-
+//     // Cerramos el modal de forma limpia
+//     const el = document.getElementById('modalConfirmarVaciar');
+//     const modal = bootstrap.Modal.getInstance(el);
+//     if (modal) modal.hide();
+//   });
+// }
 
 }

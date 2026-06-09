@@ -37,8 +37,13 @@ export class HeaderComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.unreadCount$ = this.notifService.unreadCount$;
-    this.notifService.cargarContador();
+    // Cargamos el conteo de las alertas pasadas al iniciar la pantalla
+    const userString = localStorage.getItem('user');
+    const userObj = userString ? JSON.parse(userString) : null;
+    
+    if (userObj && userObj.id) {
+      this.notifService.cargarContadorInicial(userObj.id);
+    }
     
     this.authService.getLocalStorage();
     this.authService.getLocalDarkMode();
@@ -47,7 +52,10 @@ export class HeaderComponent implements OnInit {
     // this.getInfoUser()
     this.getSettings()
   }
-
+abrirBuzon() {
+    // Al hacer clic en la campana, limpiamos el contador reactivo
+    this.notifService.marcarComoLeidas().subscribe();
+  }
   getInfoUser(){
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
       console.log(resp);
@@ -104,5 +112,10 @@ export class HeaderComponent implements OnInit {
         // console.log('⛔️ class does NOT exist on page, agregado');
       }
       // console.log('Pulsado');
+  }
+
+
+  navegarANotificaciones(){
+    this.router.navigate(['/app/mis-notificaciones']);
   }
 }

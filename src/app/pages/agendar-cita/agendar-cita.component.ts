@@ -1,207 +1,200 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppointmentService } from '../../services/appointment.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
-    selector: 'app-agendar-cita',
-    templateUrl: './agendar-cita.component.html',
-    styleUrls: ['./agendar-cita.component.css'],
-    standalone: false
+  selector: 'app-agendar-cita',
+  templateUrl: './agendar-cita.component.html',
+  styleUrls: ['./agendar-cita.component.css'],
+  standalone: false
 })
 export class AgendarCitaComponent implements OnInit {
 
+  @Input() categoriaSelected: any;
   public selectedValue!: string;
 
   valid_form_success: boolean = false;
-  public text_validation:string = '';
-  public text_success:string = '';
+  public text_validation: string = '';
+  public text_success: string = '';
 
-  hours:any;
-  hour:any;
-  specialities:any;
-  speciality_id:any;
-  specilityie_id:any;
-  date_appointment:any;
-  speciality:any;
-  
-  id:number = 0;
-  name:string = '';
-  surname:string = '';
-  n_doc:number = 0;
-  price:any;
-  phone:string = '';
-  name_companion:string = '';
-  surname_companion:string = '';
-  
-  amount:number = 0;
-  precio_cita:number;
-  amount_add:number = 0;
-  method_payment:string = '';
+  hours: any;
+  hour: any;
+  specialities: any;
+  speciality_id: any;
+  specilityie_id: any;
+  date_appointment: any;
+  speciality: any;
 
-  patient:any = [];
-  DOCTORS:any = [];
-  DOCTOR:any = [];
-  DOCTOR_SELECTED:any;
-  DOCTOR_Det_SELECTED:any;
-  selecteDoc:boolean = false
+  id: number = 0;
+  name: string = '';
+  surname: string = '';
+  n_doc: number = 0;
+  price: any;
+  phone: string = '';
+  name_companion: string = '';
+  surname_companion: string = '';
 
-  selected_segment_hour:any;
-  user:any;
-  user_id:any;
+  amount: number = 0;
+  precio_cita: number;
+  amount_add: number = 0;
+  method_payment: string = '';
 
-  
+  patient: any = [];
+  DOCTORS: any = [];
+  DOCTOR: any = [];
+  DOCTOR_SELECTED: any;
+  DOCTOR_Det_SELECTED: any;
+  selecteDoc: boolean = false;
+  visible: boolean = false;
+  animandoCierre: boolean = false;
+
+  selected_segment_hour: any;
+  user: any;
+  user_id: any;
+
+
 
   constructor(
     // public doctorService:DoctorService,
-    public appointmentService:AppointmentService,
+    public appointmentService: AppointmentService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
-  ){
+    public toastr: ToastrService,
+  ) {
 
   }
 
   ngOnInit(): void {
-    // this.doctorService.closeMenuSidebar();
     window.scrollTo(0, 0);
     let USER = localStorage.getItem("user");
-    this.user = JSON.parse(USER ? USER: '');
+    this.user = JSON.parse(USER ? USER : '');
     this.user_id = this.user.id;
 
-    this.activatedRoute.params.subscribe((resp:any)=>{
-      // console.log(resp);
-      this.specilityie_id = resp.id;
-      
-    });
-    this.getPrice();
-    this.appointmentService.listConfig().subscribe((resp:any)=>{
+
+    this.appointmentService.listConfig().subscribe((resp: any) => {
       this.hours = resp.hours;
       this.specialities = resp.specialities;
     })
   }
 
-  getPrice(){
-    this.appointmentService.showSpeciality(this.specilityie_id).subscribe((resp:any)=>{
-      console.log('speciality',resp);
+  getPrice() {
+    this.appointmentService.showSpeciality(this.specilityie_id).subscribe((resp: any) => {
       this.speciality = resp;
-      
     })
-
   }
-  
-  filtro(){
+
+  filtro() {
     let data = {
-      date_appointment:this.date_appointment,
-      hour:this.hour,
-      speciality_id:this.specilityie_id
+      date_appointment: this.date_appointment,
+      hour: this.hour,
+      speciality_id: this.specilityie_id
     }
-    this.appointmentService.lisFiter(data).subscribe((resp:any)=>{
+    this.appointmentService.lisFiter(data).subscribe((resp: any) => {
       this.DOCTORS = resp.doctors;
     })
-    this.selecteDoc =true
+    this.selecteDoc = true
   }
 
-  countDisponibilidad(DOCTOR:any){
+  countDisponibilidad(DOCTOR: any) {
     let SEGMENTS = [];
-    SEGMENTS = DOCTOR.segments.filter((item:any)=> !item.is_appointment);
+    SEGMENTS = DOCTOR.segments.filter((item: any) => !item.is_appointment);
     return SEGMENTS.length;
   }
 
   showSegment(DOCTOR: any) {
     this.DOCTOR_SELECTED = DOCTOR;
-    // this.router.navigateByUrl(`/agendar-cita/form/${DOCTOR.doctor.id}`);
   }
 
-  showDetail(DOCTOR:any){
+  showDetail(DOCTOR: any) {
     this.DOCTOR_Det_SELECTED = DOCTOR;
   }
 
-  selecSegment(SEGMENT:any, ){
+  selecSegment(SEGMENT: any,) {
     this.selected_segment_hour = SEGMENT;
   }
 
-  back(){
+  back() {
     this.DOCTOR_Det_SELECTED = null;
-    // this.DOCTOR_SELECTED = !this.DOCTOR_SELECTED;
   }
 
-  
-  filtroDoctor(){
-    // this.isfiltered = false;
+
+  filtroDoctor() {
     const data = {
 
-    date_appointment:this.date_appointment,
-    hour:this.hour,
-    speciality_id:this.speciality_id
-  }
-  this.appointmentService.lisFiterByDoctor(data, this.DOCTOR_SELECTED.id).subscribe((resp: any) => {
-    // if (resp && resp.doctor && Array.isArray(resp.doctor)) {
-    console.log('doctor filtrado',resp);
-    // this.isfiltered = false;
-   
-    if (resp.message === 403 || resp.doctor.length === 0) {
-      // Swal.fire('Actualizado', this.text_validation, 'success');
-      this.text_validation = resp.message_text;
-      Swal.fire({
-        position: "top-end",
-        icon: "warning",
-        title: this.text_validation,
-        showConfirmButton: false,
-        timer: 1500
-      });
-    }else{
-      
-      this.DOCTOR = resp.doctor;
-      console.log(resp.doctor);
-      // this.isfiltered = true;
+      date_appointment: this.date_appointment,
+      hour: this.hour,
+      speciality_id: this.speciality_id
     }
-    
+    this.appointmentService.lisFiterByDoctor(data, this.DOCTOR_SELECTED.id).subscribe((resp: any) => {
+      if (resp.message === 403 || resp.doctor.length === 0) {
+        this.text_validation = resp.message_text;
+        this.toastr.warning(this.text_validation);
+      } else {
+        this.DOCTOR = resp.doctor;
+      }
+    });
+  }
 
-  });
-}
 
-  
-  save(){
+  save() {
     this.text_validation = '';
 
     this.speciality_id = this.speciality.id;
-
-    // if(this.amount < this.amount_add){
-    //   this.text_validation = "El Monto ingresado como adelanto no puede ser mayor al costo de la cita medica";
-    //   return;
-    // }
-    if( !this.date_appointment|| !this.speciality_id
-      || !this.selected_segment_hour ){
+    if (!this.date_appointment || !this.speciality_id
+      || !this.selected_segment_hour) {
       this.text_validation = "Los campos son Necesarios(Segmento de hora, fecha, especialidad, paciente, pago)";
       return;
     }
 
-    let data ={
-        doctor_id: this.DOCTOR_SELECTED.doctor.id,
-        patient_id:this.user_id,
-        name: this.user.name,
-        surname: this.user.surname,
-        n_doc: this.user.n_doc,
-        phone: this.user.phone,
-        date_appointment: this.date_appointment,
-        speciality_id: this.speciality_id,
-        doctor_schedule_join_hour_id: this.selected_segment_hour.id,
-        amount:this.DOCTOR_SELECTED.doctor.precio_cita,
-        status_pay:2,
-        status: 1
-      }
+    let data = {
+      doctor_id: this.DOCTOR_SELECTED.doctor.id,
+      patient_id: this.user_id,
+      name: this.user.name,
+      surname: this.user.surname,
+      n_doc: this.user.n_doc,
+      phone: this.user.phone,
+      date_appointment: this.date_appointment,
+      speciality_id: this.speciality_id,
+      doctor_schedule_join_hour_id: this.selected_segment_hour.id,
+      amount: this.DOCTOR_SELECTED.doctor.precio_cita,
+      status_pay: 2,
+      status: 1
+    }
 
-    this.appointmentService.storeAppointment(data).subscribe((resp:any)=>{
-      // console.log(resp);
-      // this.text_success = "La Cita medica se ha creado, favor espere la notificacion de confirmacion para procesar el pago";
-      Swal.fire('Exito!', `La Cita medica se ha creado, favor espere la notificacion de confirmacion para procesar el pago`, 'success');
+    this.appointmentService.storeAppointment(data).subscribe((resp: any) => {
+      this.toastr.success('Exito!', `La Cita medica se ha creado`);
       this.router.navigate(['/app/lista']);
     })
   }
 
-  cancel(){
-    this.date_appointment= '';
-    this.hour= '';
-    this.selected_segment_hour.id = 0;
+  cancel() {
+    this.date_appointment = '';
+    this.hour = '';
+    this.selected_segment_hour.id = null;
+  }
+
+  abrirOffcanvas(idDeLaEspecialidad: string) {
+    // 1. Guardamos el ID que nos pasó el Home en la variable global del componente
+    this.specilityie_id = idDeLaEspecialidad;
+    // 2. Encendemos el panel para que suba de abajo hacia arriba de una vez
+    this.visible = true;
+    // 3. 🔥 VOLVEMOS A DISPARAR LA CONSULTA: Ahora con el ID fresco recibido en caliente
+    this.getPrice();
+  }
+
+  cerrarOffcanvas() {
+    // 1. Apagamos la clase '.show'. Esto activa la animación CSS nativa de Bootstrap hacia abajo
+    this.visible = false;
+    this.animandoCierre = true;
+
+    // 2. 🔥 EL TRUCO: Esperamos 350ms (lo que tarda la transición de Bootstrap) antes de ocultar físicamente el div
+    setTimeout(() => {
+      this.animandoCierre = false;
+      this.specilityie_id = '';
+      this.speciality = null; // Limpiamos los datos de doctores para la próxima apertura
+    }, 350);
+    this.cancel();
   }
 
 

@@ -18,3 +18,10 @@
 .creditos p{
     color: #403f3f; font-size: 9px; margin:0; padding: 0
 }
+
+.bell{
+    display: block;
+    height: 30px;
+    width: 30px;
+    margin-top: 10px;
+}

@@ -14,13 +14,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({ declarations: [
         AppComponent
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
         SharedModule,
-        PagesModule,
+        // PagesModule,
         FormsModule,
         AuthModule,
         RouterModule,
@@ -33,7 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
         BrowserAnimationsModule,
         ToastrModule.forRoot({
             timeOut: 3000,
-            positionClass: 'toast-top-right',
+            positionClass: 'toast-top',
             preventDuplicates: true,
         })], providers: [
         {

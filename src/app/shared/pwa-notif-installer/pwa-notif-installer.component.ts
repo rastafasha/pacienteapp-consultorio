@@ -1,13 +1,11 @@
 import { Platform } from '@angular/cdk/platform';
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-pwa-notif-installer',
-  standalone: true,
-  imports: [ CommonModule],
+  standalone: false,
   templateUrl: './pwa-notif-installer.component.html',
   styleUrls: ['./pwa-notif-installer.component.scss']
 })

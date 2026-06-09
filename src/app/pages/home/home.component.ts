@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Patient, User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { AgendarCitaComponent } from '../agendar-cita/agendar-cita.component';
 
 @Component({
     selector: 'app-home',
@@ -12,7 +13,9 @@ import { UserService } from '../../services/user.service';
     standalone: false
 })
 export class HomeComponent implements OnInit {
-  // @Input() usuario:any;
+  // 🔥 CAPTURAMOS EL COMPONENTE HIJO MEDIANTE SU VARIABLE DE REFERENCIA EN EL HTML
+  @ViewChild('panelCita') citaOffcanvas!: AgendarCitaComponent;
+
   public cargando: boolean = true;
   
   
@@ -33,6 +36,7 @@ export class HomeComponent implements OnInit {
   appointment_attention:any;
   recetas:any = [];
   appointment:any;
+  
 
   constructor(
     public authService:AuthService,
@@ -60,14 +64,15 @@ export class HomeComponent implements OnInit {
       this.cargando = false;
       this.patient = resp.patient.data[0];
       this.usuario = resp.user[0];
-      // console.log(resp);
       if (this.patient) {
-        // this.getPatient();
       }
     })
   }
 
-
+recibirEspecialidadDelHijo(idEspecialidad: string) {
+    console.log("🚀 El Home da la orden de abrir el Offcanvas de Citas");
+    this.citaOffcanvas.abrirOffcanvas(idEspecialidad);
+  }
   
 
 }

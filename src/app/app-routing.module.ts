@@ -11,23 +11,16 @@ import { PagesRoutingModule } from './pages/pages.routing';
 
 const routes: Routes = [
 
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'login',
-  },
-  // { path: '', redirectTo: '/app', pathMatch: 'full' },
+  { path: '',pathMatch: 'full',redirectTo: 'login'},
   { path: 'login', component: LoginComponent },
   { path: 'password-reset', component: PasswordresetComponent },
-  { path: 'change-password', component: NewpasswordComponent },
-  { path: '**', component: PagesComponent }, // Catch-all route
-
-
+  { path: 'change-password', component: NewpasswordComponent }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { useHash: true }),
+    // RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes),
     PagesRoutingModule,
     AuthRoutingModule
   ],

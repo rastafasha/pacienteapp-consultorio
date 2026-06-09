@@ -11,7 +11,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
 import { PagesRoutingModule } from './pages.routing';
 import { PagesComponent } from './pages.component';
-import { AddAppointmentsComponent } from './agendar-cita/add-appointments/add-appointments.component';
 import { DetallecitaComponent } from './detallecita/detallecita.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 import { MisPagosComponent } from './pagos/mis-pagos/mis-pagos.component';
@@ -19,6 +18,8 @@ import { PagarComponent } from './pagos/pagar/pagar.component';
 import { AyudaComponent } from './ayuda/ayuda.component';
 import { LegalComponent } from './legal/legal.component';
 import { PresupuestosComponent } from './presupuestos/presupuestos.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 
 @NgModule({ declarations: [
@@ -27,14 +28,14 @@ import { PresupuestosComponent } from './presupuestos/presupuestos.component';
         AgendarCitaComponent,
         PerfilComponent,
         PagesComponent,
-        AddAppointmentsComponent,
         DetallecitaComponent,
         DoctorProfileComponent,
         MisPagosComponent,
         PagarComponent,
         AyudaComponent,
         LegalComponent,
-        PresupuestosComponent
+        PresupuestosComponent,
+        NotificacionesComponent
     ],
     exports: [
         HomeComponent,
@@ -42,19 +43,23 @@ import { PresupuestosComponent } from './presupuestos/presupuestos.component';
         AgendarCitaComponent,
         PerfilComponent,
         PagesComponent,
-        AddAppointmentsComponent,
         DetallecitaComponent,
         DoctorProfileComponent,
         MisPagosComponent,
         PagarComponent,
         AyudaComponent,
         LegalComponent,
-        PresupuestosComponent
-    ], imports: [CommonModule,
+        PresupuestosComponent,
+        NotificacionesComponent
+    ], imports: [
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         RouterModule,
         SharedModule,
         ComponentsModule,
-        PagesRoutingModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        PagesRoutingModule,
+        InfiniteScrollModule
+    ], 
+    providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class PagesModule { }

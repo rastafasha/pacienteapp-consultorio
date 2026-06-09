@@ -5,7 +5,7 @@
     [usuario]="usuario"></app-grid-home>
     <!-- grid_home -->
     <!-- otrosCategorias -->
-    <app-categorias></app-categorias>
+    <app-categorias (alSeleccionarEspecialidad)="recibirEspecialidadDelHijo($event)"></app-categorias>
     <!-- otrosCategorias -->
     <br>
     <!-- publicidad -->
@@ -26,3 +26,4 @@
     
 </div>
 <app-pwa-notif-installer></app-pwa-notif-installer>
+<app-agendar-cita  #panelCita></app-agendar-cita>

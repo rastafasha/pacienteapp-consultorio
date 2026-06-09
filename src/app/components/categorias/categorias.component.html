@@ -3,7 +3,7 @@
     
     <div class=" otrosCategorias" *ngFor="let esp of specialities">
         <div class="categoria_home">
-            <a [routerLink]="['/app/agendar-cita', esp.id]">
+            <a (click)="abrirDetalle(esp.id)">
                 <p>{{esp.name}}</p>
             </a>
         </div>
