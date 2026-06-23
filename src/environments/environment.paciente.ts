@@ -3,11 +3,11 @@ export const environment = {
     //local
 
     //remoto consultorio
-    url_backend: 'https://consultorio.klyntic.com/backend-api-citas/',
-    url_servicios: 'https://consultorio.klyntic.com/backend-api-consultorio/public/api',
+   url_backend: 'https://backend-api-consultorio-production.up.railway.app/',
+    url_servicios: 'https://railway.app',
+    url_media: 'https://backend-api-consultorio-production.up.railway.app/storage/',
+    
     url_frontend: 'https://pconsultorio.klyntic.com/',
-    url_media: 'https://consultorio.klyntic.com/backend-api-consultorio/storage/app/public/',
-
     //conexion a node y manejo de notificaciones
     backend_node:"https://back-klyntic-envios.onrender.com/api",
     urlBackedNotification:'https://back-klyntic-envios.onrender.com/api/notipush/save-subscription',
