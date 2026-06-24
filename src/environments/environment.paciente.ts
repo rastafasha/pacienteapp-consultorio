@@ -4,7 +4,7 @@ export const environment = {
 
     //remoto consultorio
    url_backend: 'https://backend-api-consultorio-production.up.railway.app/',
-    url_servicios: 'https://railway.app',
+   url_servicios: 'https://backend-api-consultorio-production.up.railway.app/api',
      url_media: '',
     
     url_frontend: 'https://pconsultorio.klyntic.com/',
