@@ -26,7 +26,17 @@
   font-weight: bold;
 }
 
-
+.infcita {
+    display: grid;
+    grid-template-columns: repeat(2, 0fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 100%;
+    grid-gap: 0px;
+    grid-gap: 5px;
+    width: max-content;
+}
 
 /* El contenedor principal */
 .setting-row {

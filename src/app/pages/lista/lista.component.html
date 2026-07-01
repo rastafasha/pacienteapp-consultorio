@@ -47,6 +47,7 @@
                                         </a>
                                         <div class="infcita">
                                             <p class="esp">{{appoitmentp.doctor.speciality.name}}</p>
+                                            <p class="cons">{{appoitmentp.consultorio.name_consultorio}}</p>
                                             <p class="fech">&nbsp;{{appoitmentp.date_appointment_format|date}}</p>
                                             <p class="monto">Costo: {{appoitmentp.amount |currency}}</p>
                                             <p class="pagado">Pago:
@@ -99,6 +100,7 @@
                                         </a>
                                         <div class="infcita">
                                             <p class="esp">{{appoitment.doctor.speciality.name}}</p>
+                                            <p class="cons">{{appoitment.consultorio.name_consultorio}}</p>
                                             <p class="fech">&nbsp;{{appoitment.date_appointment_format |date}}</p>
                                             <p class="monto">Costo: ${{appoitment.amount}}</p>
                                             <p class="pagado">Pago:
@@ -147,6 +149,7 @@
                                         </a>
                                         <div class="infcita">
                                             <p class="esp">{{appoitment.doctor.speciality.name}}</p>
+                                            <p class="cons">{{appoitment.consultorio.name_consultorio}}</p>
                                             <p class="fech">&nbsp;{{appoitment.date_appointment_format}}</p>
                                             <p class="monto">Costo: ${{appoitment.amount}}</p>
                                             <p class="pagado">Pago:

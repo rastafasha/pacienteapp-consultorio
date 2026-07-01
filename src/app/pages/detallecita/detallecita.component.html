@@ -12,10 +12,11 @@
                     <img [src]="avatar_doctor" alt="">
                 </div>
                 <div class="contenido" style="height: auto;
-                transform: translateY(32px);">
+                transform: translateY(25px);">
                     <div class="info_local">
                         <h3>Dr.{{doctor.full_name}}</h3>
-                        <p>Consultorio: {{doctor.address}}</p>
+                        <p>Consultorio: {{appointment_selected.consultorio.name_consultorio}}</p>
+                        <p>Dirección: {{appointment_selected.consultorio.address}}</p>
                         <p>Teléfono: {{doctor.mobile}}</p>
                         <div class="infcita">
                             <p class="esp">Especialidad: {{doctor.speciality.name}}</p>

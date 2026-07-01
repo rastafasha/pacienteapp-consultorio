@@ -3,8 +3,8 @@ export const environment = {
     //local
 
     //remoto consultorio
-   url_backend: 'https://backend-api-consultorio-production.up.railway.app/',
-   url_servicios: 'https://backend-api-consultorio-production.up.railway.app/api',
+   url_backend: 'https://gleaming-vitality-production-30fd.up.railway.app/',
+   url_servicios: 'https://gleaming-vitality-production-30fd.up.railway.app/api',
      url_media: '',
     
     url_frontend: 'https://pconsultorio.klyntic.com/',

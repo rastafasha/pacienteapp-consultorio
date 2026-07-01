@@ -115,7 +115,7 @@
                                     <tr>
                                         <td>
                                             Dr. {{DOCTOR_SELECTED.doctor.full_name}}<br>
-                                            Consultorio:{{DOCTOR_SELECTED.doctor.address}}<br>
+                                            Consultorio:{{DOCTOR_SELECTED.doctor.consultorio.name_consultorio}}<br>
                                             Cita:{{DOCTOR_SELECTED.doctor.precio_cita|currency}}<br>
                                             Horario disponible:<br><br>
                                             <ng-container *ngFor="let SEGMENT of DOCTOR_SELECTED.segments">
@@ -138,6 +138,7 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <!-- validaciones -->
                 <div class="form-group row" *ngIf="valid_form_success">

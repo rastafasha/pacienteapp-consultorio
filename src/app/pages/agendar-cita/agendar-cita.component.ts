@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppointmentService } from '../../services/appointment.service';
 import { ToastrService } from 'ngx-toastr';
+import { DoctorAddress } from '../../models/DoctorAddress.model';
 @Component({
   selector: 'app-agendar-cita',
   templateUrl: './agendar-cita.component.html',
@@ -52,7 +53,8 @@ export class AgendarCitaComponent implements OnInit {
   selected_segment_hour: any;
   user: any;
   user_id: any;
-
+  addresses:DoctorAddress;
+  segments:any;
 
 
   constructor(
@@ -127,6 +129,7 @@ export class AgendarCitaComponent implements OnInit {
       speciality_id: this.speciality_id
     }
     this.appointmentService.lisFiterByDoctor(data, this.DOCTOR_SELECTED.id).subscribe((resp: any) => {
+      console.log(resp);
       if (resp.message === 403 || resp.doctor.length === 0) {
         this.text_validation = resp.message_text;
         this.toastr.warning(this.text_validation);
@@ -187,14 +190,14 @@ export class AgendarCitaComponent implements OnInit {
     // 1. Apagamos la clase '.show'. Esto activa la animación CSS nativa de Bootstrap hacia abajo
     this.visible = false;
     this.animandoCierre = true;
-
+    this.cancel();
     // 2. 🔥 EL TRUCO: Esperamos 350ms (lo que tarda la transición de Bootstrap) antes de ocultar físicamente el div
     setTimeout(() => {
       this.animandoCierre = false;
       this.specilityie_id = '';
       this.speciality = null; // Limpiamos los datos de doctores para la próxima apertura
     }, 350);
-    this.cancel();
+    
   }
 
 

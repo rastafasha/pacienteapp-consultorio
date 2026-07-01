@@ -26,10 +26,10 @@
                             <p>{{item.date_appointment_format}}</p>
                             <p>{{item.segment_hour.format_segment.hour_start}} - {{item.segment_hour.format_segment.hour_end}}</p>
                             <div class="addic oculto-cita">
-                                <p><b>Teléfono:</b> {{mobile}}</p>
+                                <p><b>Teléfono:</b> {{item.doctor.mobile}}</p>
                             <p><b>Sede Clínica:</b> <br>
-                                {{address}}
-                                {{settting.city}}
+                                {{item.consultorio.name_consultorio}}
+                                {{item.consultorio.address}}
                             </p>
                             
                             </div>
