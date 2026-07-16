@@ -196,6 +196,10 @@ export class AgendarCitaComponent implements OnInit {
       this.animandoCierre = false;
       this.specilityie_id = '';
       this.speciality = null; // Limpiamos los datos de doctores para la próxima apertura
+      this.DOCTORS  = null; // Limpiamos los datos de doctores para la próxima apertura
+      this.hours  = null; // Limpiamos los datos de doctores para la próxima apertura
+      this.DOCTOR_Det_SELECTED  = null; // Limpiamos los datos de doctores para la próxima apertura
+      this.DOCTOR_SELECTED  = null; // Limpiamos los datos de doctores para la próxima apertura
     }, 350);
     
   }
