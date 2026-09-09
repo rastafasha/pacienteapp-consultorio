@@ -9,8 +9,8 @@ import { AppointmentService } from '../../../services/appointment.service';
 import { AuthService } from '../../../services/auth.service';
 import { PaymentService } from '../../../services/payment.service';
 import { PaymentMethodService } from '../../../services/paymentMethod.service';
-import { TasabcvService } from '../../../services/tasabcv.service';
 import { UserService } from '../../../services/user.service';
+import { TasadollarbcvService } from '../../../services/tasabcv.service';
 
 @Component({
     selector: 'app-pagar',
@@ -78,7 +78,7 @@ export class PagarComponent implements OnInit {
     public authService: AuthService,
     public userService: UserService,
     public paymentMethodService: PaymentMethodService,
-    public tasaBcvService: TasabcvService,
+    public tasaBcvService: TasadollarbcvService,
     public toastr: ToastrService,
   ) {
     this.usuario = this.authService.user;
