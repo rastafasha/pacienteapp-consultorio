@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { DoctorService } from '../../services/doctor.service';
 
 @Component({
     selector: 'app-lista',
@@ -27,6 +28,7 @@ export class ListaComponent implements OnInit {
   patient_selected:any;
   appointment_checkeds:any;
   appointment_pendings:any;
+  public moneda:string;
 
   info = `
   <h2>Sección: Mis Citas</h2>
@@ -40,6 +42,7 @@ export class ListaComponent implements OnInit {
   constructor(
     public authService:AuthService,
     public userService:UserService,
+    public doctorService:DoctorService,
     public activatedRoute:ActivatedRoute,
   ) { 
     this.user = this.authService.user;
@@ -74,7 +77,7 @@ export class ListaComponent implements OnInit {
     this.cargando = true;
     this.userService.showPatientProfile(this.patient_id).subscribe((resp:any)=>{
       this.cargando = false;
-      // console.log('todo appointment',resp);
+      console.log(resp);
       this.patient_selected= resp.patient;
       this.appointments= resp.appointments;
       this.appointment_pendings= resp.appointment_pendings.data;

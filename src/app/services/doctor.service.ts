@@ -17,15 +17,23 @@ export class DoctorService {
     ) { }
   
     showDoctor(id:any){
-      let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token})
+      let headers = new HttpHeaders({'Authorization': 'Bearer' +this.authService.token})
       let URL = url_servicios+'/doctors/show/'+id;
       return this.http.get<User>(URL, {headers:headers});
     }
   
     showDoctorProfile(doctor_id:any){
-      let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token});
+      let headers = new HttpHeaders({'Authorization': 'Bearer' +this.authService.token});
       let URL = url_servicios+"/doctors/profile/"+doctor_id;
       return this.http.get<User>(URL,{headers:headers});
+    }
+
+     showDoctorMoneda(doctor_id: number) {
+      //  CORREGIDO: Se agregó el espacio después de 'Bearer '
+      const headers = new HttpHeaders({ 'Authorization': 'Bearer ' + this.authService.token });
+      
+      const URL = url_servicios + "/doctors/moneda/" + doctor_id;
+      return this.http.get(URL, { headers: headers });
     }
 
 

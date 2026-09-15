@@ -49,10 +49,23 @@
                                             <p class="esp">{{appoitmentp.doctor.speciality.name}}</p>
                                             <p class="cons">{{appoitmentp.consultorio.name_consultorio}}</p>
                                             <p class="fech">&nbsp;{{appoitmentp.date_appointment_format|date}}</p>
-                                            <p class="monto">Costo: {{appoitmentp.amount |currency}}</p>
-                                            <p class="pagado">Pago:
+                                            <p class="monto">Costo: 
+                                                <!-- 1. Si la moneda es PERSONALIZADA: Usamos el pipe 'number' y escribimos $p a mano -->
+                                                <span *ngIf="appoitmentp.doctor.moneda === 'PERSONALIZADA'">$p{{ appoitmentp.amount | number:'1.2-2' }}</span>
+
+                                                <!-- 2. Si es una moneda normal (USD, EUR, etc.): El pipe 'currency' le pondrá su símbolo nativo automáticamente -->
+                                                <span *ngIf="appoitmentp.doctor.moneda !== 'PERSONALIZADA'">{{ appoitmentp.amount | currency: (appoitmentp.doctor.moneda || 'USD') }}</span>
+                                            </p>
+                                            <p class="pagado">Status:
                                                 <span *ngIf="appoitmentp.status_pay === 1">&nbsp;Pagado</span>
                                                 <span *ngIf="appoitmentp.status_pay === 2">&nbsp;Deuda</span>
+                                            </p>
+                                            <p class="monto">Deuda: 
+                                                <!-- 1. Si la moneda es PERSONALIZADA: Usamos el pipe 'number' y escribimos $p a mano -->
+                                                <span *ngIf="appoitmentp.doctor.moneda === 'PERSONALIZADA'">$p{{ appoitmentp.deuda | number:'1.2-2' }}</span>
+
+                                                <!-- 2. Si es una moneda normal (USD, EUR, etc.): El pipe 'currency' le pondrá su símbolo nativo automáticamente -->
+                                                <span *ngIf="appoitmentp.doctor.moneda !== 'PERSONALIZADA'">{{ appoitmentp.deuda | currency: (appoitmentp.doctor.moneda || 'USD') }}</span>
                                             </p>
                                             <!-- <p class="tiemp">{{appoitmentp.format_hour_start}} a {{appoitmentp.format_hour_end}}</p> -->
                                             <p class="tiemp">Hora:
@@ -102,10 +115,23 @@
                                             <p class="esp">{{appoitment.doctor.speciality.name}}</p>
                                             <p class="cons">{{appoitment.consultorio.name_consultorio}}</p>
                                             <p class="fech">&nbsp;{{appoitment.date_appointment_format |date}}</p>
-                                            <p class="monto">Costo: ${{appoitment.amount}}</p>
-                                            <p class="pagado">Pago:
+                                            <p class="monto">Costo: 
+                                                <!-- 1. Si la moneda es PERSONALIZADA: Usamos el pipe 'number' y escribimos $p a mano -->
+                                                <span *ngIf="appoitment.doctor.moneda === 'PERSONALIZADA'">$p{{ appoitment.amount | number:'1.2-2' }}</span>
+
+                                                <!-- 2. Si es una moneda normal (USD, EUR, etc.): El pipe 'currency' le pondrá su símbolo nativo automáticamente -->
+                                                <span *ngIf="appoitment.doctor.moneda !== 'PERSONALIZADA'">{{ appoitment.amount | currency: (appoitment.doctor.moneda || 'USD') }}</span>
+                                            </p>
+                                            <p class="pagado">Status:
                                                 <span *ngIf="appoitment.status_pay === 1">&nbsp;Pagado</span>
                                                 <span *ngIf="appoitment.status_pay === 2">&nbsp;Deuda</span>
+                                            </p>
+                                            <p class="monto">Deuda: 
+                                                <!-- 1. Si la moneda es PERSONALIZADA: Usamos el pipe 'number' y escribimos $p a mano -->
+                                                <span *ngIf="appoitment.doctor.moneda === 'PERSONALIZADA'">$p{{ appoitment.deuda | number:'1.2-2' }}</span>
+
+                                                <!-- 2. Si es una moneda normal (USD, EUR, etc.): El pipe 'currency' le pondrá su símbolo nativo automáticamente -->
+                                                <span *ngIf="appoitment.doctor.moneda !== 'PERSONALIZADA'">{{ appoitment.deuda | currency: (appoitment.doctor.moneda || 'USD') }}</span>
                                             </p>
                                             <!-- <p class="tiemp">{{appoitment.format_hour_start}} a {{appoitment.format_hour_end}}</p> -->
                                         </div>
@@ -151,10 +177,23 @@
                                             <p class="esp">{{appoitment.doctor.speciality.name}}</p>
                                             <p class="cons">{{appoitment.consultorio.name_consultorio}}</p>
                                             <p class="fech">&nbsp;{{appoitment.date_appointment_format}}</p>
-                                            <p class="monto">Costo: ${{appoitment.amount}}</p>
-                                            <p class="pagado">Pago:
+                                            <p class="monto">Costo: 
+                                                <!-- 1. Si la moneda es PERSONALIZADA: Usamos el pipe 'number' y escribimos $p a mano -->
+                                                <span *ngIf="appoitment.doctor.moneda === 'PERSONALIZADA'">$p{{ appoitment.amount | number:'1.2-2' }}</span>
+
+                                                <!-- 2. Si es una moneda normal (USD, EUR, etc.): El pipe 'currency' le pondrá su símbolo nativo automáticamente -->
+                                                <span *ngIf="appoitment.doctor.moneda !== 'PERSONALIZADA'">{{ appoitment.amount | currency: (appoitment.doctor.moneda || 'USD') }}</span>
+                                            </p>
+                                            <p class="pagado">Status:
                                                 <span *ngIf="appoitment.status_pay === 1">&nbsp;Pagado</span>
                                                 <span *ngIf="appoitment.status_pay === 2">&nbsp;Deuda</span>
+                                            </p>
+                                            <p class="monto">Deuda: 
+                                                <!-- 1. Si la moneda es PERSONALIZADA: Usamos el pipe 'number' y escribimos $p a mano -->
+                                                <span *ngIf="appoitment.doctor.moneda === 'PERSONALIZADA'">$p{{ appoitment.deuda | number:'1.2-2' }}</span>
+
+                                                <!-- 2. Si es una moneda normal (USD, EUR, etc.): El pipe 'currency' le pondrá su símbolo nativo automáticamente -->
+                                                <span *ngIf="appoitment.doctor.moneda !== 'PERSONALIZADA'">{{ appoitment.deuda | currency: (appoitment.doctor.moneda || 'USD') }}</span>
                                             </p>
                                             <p class="tiemp">Hora: {{appoitment.format_hour_start}} a
                                                 {{appoitment.format_hour_end}}</p>

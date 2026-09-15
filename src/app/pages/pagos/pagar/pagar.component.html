@@ -17,159 +17,181 @@
             <div class="mb-4">
                 <label class="form-label text-muted small fw-bold">CITA A PAGAR</label>
                 <div class="p-3 bg-primary-subtle rounded-3 d-flex justify-content-between align-items-center">
-                    <div>
-                        <!-- Si no hay nroFactura en el state, mostramos "Pago de Factura" -->
+    <!-- Bloque Izquierdo: Información de la cita bien espaciada -->
+    <div class="d-flex flex-column gap-1">
+        <h6 class="mb-0 fw-bold text-primary">
+            Especialidad: {{ appointment.doctor.speciality?.name }}
+        </h6>
+        <h6 class="mb-0 fw-bold text-primary">
+            Doctor: {{ appointment.doctor.full_name }}
+        </h6>
+        <small class="text-primary opacity-75 mt-1 d-block">
+            Monto sugerido: 
+            <span *ngIf="moneda === 'PERSONALIZADA'">$p{{ deuda | number:'1.2-2' }}</span>
+            <span *ngIf="moneda !== 'PERSONALIZADA'">{{ deuda | currency: (moneda || 'USD') }}</span>
+        </small>
+    </div>
 
-                        <h6 class="mb-0 fw-bold text-primary">
-                            Especialidad: {{ appointment.speciality?.name }}
-                        </h6>
-                        <h6 class="mb-0 fw-bold text-primary">
-                            Doctor: {{ appointment.doctor.full_name }}
-                        </h6>
-                        <small class="text-primary opacity-75">Monto sugerido: {{ deuda | currency }}</small>
-                    </div>
-                    <div class="text-end">
-                        <!-- Cálculo en tiempo real según la tasa del servicio -->
-                        <h5 class="mb-0 fw-bold text-primary">
-                            {{ (deuda * tasa) | currency:'Bs. ':'symbol':'1.2-2' }}
-                        </h5>
-                        <small class="text-primary opacity-75">Tasa BCV: {{ tasa | currency:'Bs. ':'symbol':'1.2-2'
-                            }}</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. Formulario de Datos -->
-            <form [formGroup]="PaymentRegisterForm" (ngSubmit)="payForm()">
-
-                <div class="row g-3">
-                    <!-- Método de Pago -->
-                    <!-- Tipo de Transferencia -->
-                    <!-- Selección Método de Pago -->
-                    <div class="mb-4">
-                        <label class="form-label fw-bold small text-muted">Método de Pago</label>
-                        <select formControlName="metodo" name="metodo" id="metodo" class="form-select"
-                            (change)="onChangePayment($event)">
-                            <option value="">Seleccione un método de pago</option>
-                            <!-- Usamos el _id como value para que sea único -->
-                            <option [value]="metodo.id" *ngFor="let metodo of paymentMethods">
-                                {{metodo.tipo}} - {{metodo.bankName}}
-                            </option>
-                        </select>
-                    </div>
-
-                    <!-- Info del Beneficiario (Se muestra solo si hay selección) -->
-                    <div class="card border-0 bg-info bg-opacity-10 mb-4" *ngIf="paymentSelected">
-                        <div class="card-body">
-                            <h6 class="fw-bold text-info-emphasis mb-3">
-                                <i class="fa fa-university me-2"></i>Datos para el pago:
-                            </h6>
-                            <div class="row g-2 small text-dark">
-                                <div class="col-6" *ngIf="paymentSelected.bankName">
-                                    <strong>Banco:</strong> {{paymentSelected.bankName}}
-                                </div>
-                                <div class="col-6">
-                                    <strong>Titular:</strong> {{appointment.doctor.full_name}}
-                                </div>
-                                <div class="col-12" *ngIf="paymentSelected.bankAccount">
-                                    <strong>Cuenta:</strong>
-                                    <code class="text-primary fw-bold">{{paymentSelected.bankAccount}}</code>
-                                </div>
-                                <div class="col-12" *ngIf="paymentSelected.telefono">
-                                    <strong>Teléfono:</strong>
-                                    <code class="text-primary fw-bold">{{paymentSelected.telefono}}</code>
-                                </div>
-                                <div class="col-6" *ngIf="paymentSelected.ciorif">
-                                    <strong>RIF/CI:</strong> {{paymentSelected.ciorif}}
-                                </div>
-                                <div class="col-6" *ngIf="paymentSelected.email">
-                                    <strong>Email:</strong> {{paymentSelected.email}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Banco / Referencia -->
-
-                    <div class="col-6">
-                        <label class="form-label text-muted small fw-bold">BANCO DESTINO</label>
-                        <select formControlName="bank_name"
-                            class="form-select form-select-lg rounded-3 border-light bg-light fs-6" name="bank_name"
-                            id="bank_name" style="pointer-events: none; background-color: #e9ecef;">
-                            <!-- El color es para que parezca desactivado -->
-                            <option value="" disabled selected>Seleccione Banco</option>
-                            <option [value]="banco.bankName" *ngFor="let banco of paymentMethods">
-                                {{banco.bankName}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label text-muted small fw-bold">REFERENCIA</label>
-                        <input type="text" formControlName="referencia"
-                            class="form-control rounded-3 border-light bg-light" placeholder="Últimos 4 o 6">
-                    </div>
-
-                    <!-- Monto Pagado -->
-                    <div class="row g-3">
-                        <!-- Monto en Dólares (Editable si hay pagos parciales) -->
-                        <div class="col-6">
-                            <label class="form-label text-muted small fw-bold">MONTO EN USD ($)</label>
-                            <input type="number" 
-                            formControlName="monto"
-                            class="form-control border-0 bg-white py-3 shadow-sm rounded-3 fw-bold text-primary"
-                            [placeholder]="'Deuda: ' + deuda">
-                        </div>
-
-                        <!-- Monto en Bolívares (Informativo/Calculado) -->
-                        <div class="col-6">
-                            <label class="form-label text-muted small fw-bold">EQUIVALENTE BS.</label>
-                            <div
-                                class="py-3 px-2 bg-success-subtle text-success fw-bold rounded-3 text-center border border-success border-opacity-10">
-                                {{ (deuda * tasa) | number:'1.2-2' }}
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- 3. Subida de Captura (Lo más importante) -->
-                    <div class="col-12 mt-4">
-                        <label class="form-label text-muted small fw-bold">COMPROBANTE (CAPTURE)</label>
-                        <div class="upload-area border-2 border-dashed rounded-4 p-4 text-center cursor-pointer"
-                            (click)="fileInput.click()"
-                            [ngClass]="{'border-primary bg-primary-subtle': IMAGE_PREVISUALIZA}">
-
-                            <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*">
-
-                            <div *ngIf="!IMAGE_PREVISUALIZA">
-                                <i class="bi bi-cloud-arrow-up fs-1 text-primary"></i>
-                                <p class="mb-0 mt-2 small text-muted">Toca para subir o tomar foto</p>
-                            </div>
-                            <div *ngIf="IMAGE_PREVISUALIZA">
-                                <img [src]="IMAGE_PREVISUALIZA" class="img-fluid rounded-3 shadow-sm mb-2"
-                                    style="max-height: 200px;">
-                                <p class="mb-0 small text-primary fw-bold">Cambiar imagen</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Botón Enviar -->
-                <div class="d-grid mt-5">
-                    <button type="button" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow-sm"
-                        [disabled]="PaymentRegisterForm.invalid || cargando" (click)="payForm()">
-                        <div *ngIf="cargando">
-                            <span class="spinner-border spinner-border-sm me-2"></span> Procesando...
-                        </div>
-                        <div *ngIf="!cargando">
-                            REPORTAR PAGO AHORA
-                        </div>
-                    </button>
-                </div>
-            </form>
-
+    <!-- Bloque Derecho: Estructura vertical limpia y sin amontonamientos -->
+    <div class="text-end d-flex flex-column gap-2">
+        <!-- El monto equivalente principal destacado arriba -->
+        <div>
+            <h4 class="mb-0 fw-bold text-primary">
+                {{ (deuda * (PaymentRegisterForm.get('tasabcv')?.value || 0)) | currency:'Bs. ':'symbol':'1.2-2' }}
+            </h4>
+        </div>
+        
+        <!-- Bloque secundario de Tasa BCV alineado abajo con tipografía equilibrada -->
+        <div class="lh-sm">
+            <small class="text-primary opacity-75 d-block text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+                Tasa BCV
+            </small>
+            <span class="text-primary fw-semibold" style="font-size: 0.85rem;">
+                {{ (PaymentRegisterForm.get('tasabcv')?.value || 0) | currency:'Bs. ':'symbol':'1.2-2' }}
+            </span>
         </div>
     </div>
 </div>
 
-<app-modal-instrucciones [info]="info" sectionId="reportepago" #instruccionesModal></app-modal-instrucciones>
+
+
+                <!-- 2. Formulario de Datos -->
+                <form [formGroup]="PaymentRegisterForm" (ngSubmit)="payForm()">
+
+                    <div class="row g-3">
+                        <!-- Método de Pago -->
+                        <!-- Tipo de Transferencia -->
+                        <!-- Selección Método de Pago -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-muted">Método de Pago</label>
+                            <select formControlName="metodo" name="metodo" id="metodo" class="form-select"
+                                (change)="onChangePayment($event)">
+                                <option value="">Seleccione un método de pago</option>
+                                <!-- Usamos el _id como value para que sea único -->
+                                <option [value]="metodo.id" *ngFor="let metodo of paymentMethods">
+                                    {{metodo.tipo}} - {{metodo.bankName}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Info del Beneficiario (Se muestra solo si hay selección) -->
+                        <div class="card border-0 bg-info bg-opacity-10 mb-4" *ngIf="paymentSelected">
+                            <div class="card-body">
+                                <h6 class="fw-bold text-info-emphasis mb-3">
+                                    <i class="fa fa-university me-2"></i>Datos para el pago:
+                                </h6>
+                                <div class="row g-2 small text-dark">
+                                    <div class="col-6" *ngIf="paymentSelected.bankName">
+                                        <strong>Banco:</strong> {{paymentSelected.bankName}}
+                                    </div>
+                                    <div class="col-6">
+                                        <strong>Titular:</strong> {{appointment.doctor.full_name}}
+                                    </div>
+                                    <div class="col-12" *ngIf="paymentSelected.bankAccount">
+                                        <strong>Cuenta:</strong>
+                                        <code class="text-primary fw-bold">{{paymentSelected.bankAccount}}</code>
+                                    </div>
+                                    <div class="col-12" *ngIf="paymentSelected.telefono">
+                                        <strong>Teléfono:</strong>
+                                        <code class="text-primary fw-bold">{{paymentSelected.telefono}}</code>
+                                    </div>
+                                    <div class="col-6" *ngIf="paymentSelected.ciorif">
+                                        <strong>RIF/CI:</strong> {{paymentSelected.ciorif}}
+                                    </div>
+                                    <div class="col-6" *ngIf="paymentSelected.email">
+                                        <strong>Email:</strong> {{paymentSelected.email}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Banco / Referencia -->
+
+                        <div class="col-6">
+                            <label class="form-label text-muted small fw-bold">BANCO DESTINO</label>
+                            <select formControlName="bank_name"
+                                class="form-select form-select-lg rounded-3 border-light bg-light fs-6" name="bank_name"
+                                id="bank_name" style="pointer-events: none; background-color: #e9ecef;">
+                                <!-- El color es para que parezca desactivado -->
+                                <option value="" disabled selected>Seleccione Banco</option>
+                                <option [value]="banco.bankName" *ngFor="let banco of paymentMethods">
+                                    {{banco.bankName}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label text-muted small fw-bold">REFERENCIA</label>
+                            <input type="text" formControlName="referencia"
+                                class="form-control rounded-3 border-light bg-light" placeholder="Últimos 4 o 6">
+                        </div>
+
+                        <!-- Monto Pagado -->
+                        <div class="row g-3">
+                            <!-- Monto en la Moneda del Doctor (Editable si hay pagos parciales) -->
+                            <div class="col-6">
+                                <label class="form-label text-muted small fw-bold">
+                                    <!-- Cambia dinámicamente el texto según la moneda del doctor -->
+                                    MONTO EN {{ moneda === 'PERSONALIZADA' ? '$p' : (moneda || 'USD') }}
+                                </label>
+                                <input type="number" formControlName="monto"
+                                    class="form-control border-0 bg-white py-3 shadow-sm rounded-3 fw-bold text-primary"
+                                    [placeholder]="'Deuda: ' + deuda">
+                            </div>
+
+                            <!-- Monto en Bolívares (Calculado dinámicamente según lo ingresado en el input) -->
+                            <div class="col-6">
+                                <label class="form-label text-muted small fw-bold">EQUIVALENTE BS.</label>
+                                <div class="py-3 px-2 bg-success-subtle text-success fw-bold rounded-3 text-center border border-success border-opacity-10">
+                                    <!-- 
+                                    Multiplica el monto REAL escrito por el usuario en el formulario 
+                                    por la tasa activa que cargó el servicio de Laravel
+                                    -->
+                                    {{ ((PaymentRegisterForm.get('monto')?.value || 0) * (PaymentRegisterForm.get('tasabcv')?.value || 0)) | number:'1.2-2' }}
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- 3. Subida de Captura (Lo más importante) -->
+                        <div class="col-12 mt-4">
+                            <label class="form-label text-muted small fw-bold">COMPROBANTE (CAPTURE)</label>
+                            <div class="upload-area border-2 border-dashed rounded-4 p-4 text-center cursor-pointer"
+                                (click)="fileInput.click()"
+                                [ngClass]="{'border-primary bg-primary-subtle': IMAGE_PREVISUALIZA}">
+
+                                <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*">
+
+                                <div *ngIf="!IMAGE_PREVISUALIZA">
+                                    <i class="bi bi-cloud-arrow-up fs-1 text-primary"></i>
+                                    <p class="mb-0 mt-2 small text-muted">Toca para subir o tomar foto</p>
+                                </div>
+                                <div *ngIf="IMAGE_PREVISUALIZA">
+                                    <img [src]="IMAGE_PREVISUALIZA" class="img-fluid rounded-3 shadow-sm mb-2"
+                                        style="max-height: 200px;">
+                                    <p class="mb-0 small text-primary fw-bold">Cambiar imagen</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón Enviar -->
+                    <div class="d-grid mt-5">
+                        <button type="button" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow-sm"
+                            [disabled]="PaymentRegisterForm.invalid || cargando" (click)="payForm()">
+                            <div *ngIf="cargando">
+                                <span class="spinner-border spinner-border-sm me-2"></span> Procesando...
+                            </div>
+                            <div *ngIf="!cargando">
+                                REPORTAR PAGO AHORA
+                            </div>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <app-modal-instrucciones [info]="info" sectionId="reportepago" #instruccionesModal></app-modal-instrucciones>

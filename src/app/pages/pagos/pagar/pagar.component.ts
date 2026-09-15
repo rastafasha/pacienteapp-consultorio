@@ -11,6 +11,11 @@ import { PaymentService } from '../../../services/payment.service';
 import { PaymentMethodService } from '../../../services/paymentMethod.service';
 import { UserService } from '../../../services/user.service';
 import { TasadollarbcvService } from '../../../services/tasabcv.service';
+import { TasaeurobcvService } from '../../../services/tasaeurobcv.service';
+import { TasapersonalizadaService } from '../../../services/tasapersonalizada.service';
+import { DoctorService } from '../../../services/doctor.service';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs'
 
 @Component({
     selector: 'app-pagar',
@@ -44,6 +49,10 @@ export class PagarComponent implements OnInit {
   email: any;
   tipopago: any[];
   paymentSelected!: any;
+
+  public moneda:string;
+  public tasadollar;
+  public tasaeuro;
 
   public FILE_AVATAR: any;
   public IMAGE_PREVISUALIZA: any;
@@ -79,6 +88,9 @@ export class PagarComponent implements OnInit {
     public userService: UserService,
     public paymentMethodService: PaymentMethodService,
     public tasaBcvService: TasadollarbcvService,
+    private tasaEuroBcvService: TasaeurobcvService,
+      private tasaPersonalizadaService: TasapersonalizadaService,
+       public doctorService: DoctorService,
     public toastr: ToastrService,
   ) {
     this.usuario = this.authService.user;
@@ -96,7 +108,7 @@ export class PagarComponent implements OnInit {
 
     });
     this.getInfoCita();
-    this.getTasadelDia();
+    // this.getTasadelDia();
     this.getPatientInfo();
   }
 
@@ -125,6 +137,7 @@ export class PagarComponent implements OnInit {
     this.cargando = true;
     this.appoitmentService.showAppointment(this.appointment_id).subscribe((resp: any) => {
       this.cargando = false;
+      console.log(resp)
       this.appointment = resp.appointment;
       this.deuda = resp.deuda;
       this.patient_id = resp.appointment.patient_id;
@@ -135,9 +148,12 @@ export class PagarComponent implements OnInit {
       });
 
 
+      this.getDoctorMoneda();
       this.getTiposdePagoByDoctor();
     })
   }
+
+
 
   getTiposdePagoByDoctor() {
     this.paymentMethodService.getActivoPagoByDoctor(this.doctor_id).subscribe((resp: any) => {
@@ -145,15 +161,54 @@ export class PagarComponent implements OnInit {
     })
   }
 
-  getTasadelDia() {
-    this.tasaBcvService.getUltimaTasa().subscribe((resp: any) => {
-      this.tasa = resp.precio_dia;
+  // getTasadelDia() {
+  //   this.tasaBcvService.getUltimaTasa().subscribe((resp: any) => {
+  //     this.tasa = resp.precio_dia;
 
-      this.PaymentRegisterForm.patchValue({
-        tasabcv: this.tasa
-      });
+  //     this.PaymentRegisterForm.patchValue({
+  //       tasabcv: this.tasa
+  //     });
+  //   })
+  // }
+
+  getDoctorMoneda() {
+  this.doctorService.showDoctorMoneda(this.doctor_id).pipe(
+    switchMap((resp: any) => {
+      this.moneda = resp.moneda;
+
+      // Diccionario que asocia cada moneda con su respectivo servicio HTTP observable
+      const estrategiasTasa: { [key: string]: () => any } = {
+        'USD': () => this.tasaBcvService.getUltimaTasa(),
+        'EUR': () => this.tasaEuroBcvService.getUltimaTasa(),
+        'PERSONALIZADA': () => this.tasaPersonalizadaService.getTasasByUser(this.user.id)
+      };
+
+      // Si la moneda existe en nuestro mapa, ejecutamos su servicio. Si no, detenemos el flujo.
+      return estrategiasTasa[this.moneda] ? estrategiasTasa[this.moneda]() : of(null);
     })
-  }
+  ).subscribe({
+    next: (respTasa: any) => {
+      if (!respTasa) return;
+
+      // Extraemos el valor de la tasa adaptándonos a la estructura de la respuesta
+      // (Si es PERSONALIZADA viene en resp.tasa.precio_dia, si no, viene en resp.precio_dia)
+      const valorTasa = this.moneda === 'PERSONALIZADA' 
+        ? respTasa.tasa?.precio_dia 
+        : respTasa.precio_dia;
+
+      // Guardamos la tasa en la variable global correspondiente por si la usas en otro lado
+      if (this.moneda === 'USD') this.tasadollar = valorTasa;
+      if (this.moneda === 'EUR') this.tasaeuro = valorTasa;
+      if (this.moneda === 'PERSONALIZADA') this.tasa = valorTasa;
+
+      // Seteamos el formulario una sola vez de forma reactiva
+      this.PaymentRegisterForm.patchValue({
+        tasabcv: valorTasa
+      });
+    },
+    error: (err) => console.error("Error procesando moneda y tasas:", err)
+  });
+}
 
   // metodo para el cambio del select 'tipo de transferencia'
 
