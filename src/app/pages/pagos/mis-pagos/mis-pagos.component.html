@@ -143,7 +143,7 @@
               }">
                 {{ pagoSeleccionado.status }}
             </span>
-            <h2 class="display-6 fw-bold mb-0">${{ pagoSeleccionado.monto | number:'1.2-2' }}</h2>
+            <h2 class="display-6 fw-bold mb-0">{{ pagoSeleccionado.monto | number:'1.2-2' | currency: moneda }}</h2>
             <p class="text-muted small">Ref: #{{ pagoSeleccionado.referencia }}</p>
             @if (pagoSeleccionado.status === 'REJECTED') {
             <p>Motivo: {{pagoSeleccionado.motivo_rechazo}}</p>

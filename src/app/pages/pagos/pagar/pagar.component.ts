@@ -245,6 +245,7 @@ export class PagarComponent implements OnInit {
       fecha: [''],
       image: [''],
       tasabcv: [''],
+      moneda: [''],
     })
   }
 
@@ -277,7 +278,6 @@ export class PagarComponent implements OnInit {
     
     formData.append('patient_id', this.patient_id);
     formData.append('doctor_id', this.appointment.doctor.id.toString());
-    formData.append('tasabcv', this.tasa.toString());
     formData.append('appointment_id', this.appointment_id);
     formData.append('email', this.user.email);
     formData.append('nombre', this.user.name);
@@ -285,6 +285,11 @@ export class PagarComponent implements OnInit {
     formData.append('metodo', this.paymentSelected?.tipo);
     formData.append('fecha', Date.now().toString());
     formData.append('status', 'PENDING');
+    // 🔍 OBTENER LA TASA DIRECTAMENTE DEL FORMULARIO (Evita el 0 de las variables globales)
+    const tasaActual = this.PaymentRegisterForm.get('tasabcv')?.value || 0;
+    formData.append('tasabcv', tasaActual.toString());
+    formData.append('moneda', this.moneda);
+
     this.paymentService.create(formData).subscribe({
       next: () => {
         this.toastr.success('¡Pago reportado con éxito!');

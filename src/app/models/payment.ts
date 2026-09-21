@@ -14,6 +14,7 @@ export class Payment {
    image?:string;
    motivo_rechazo?:string;
    tasabcv!: number;
+   moneda?:string;
 
    fecha?:Date;
 
