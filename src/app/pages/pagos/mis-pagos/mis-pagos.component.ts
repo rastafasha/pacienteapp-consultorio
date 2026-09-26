@@ -4,6 +4,7 @@ import { AppointmentService } from '../../../services/appointment.service';
 import { AuthService } from '../../../services/auth.service';
 import { PaymentService } from '../../../services/payment.service';
 import { UserService } from '../../../services/user.service';
+import { Payment } from '../../../models/payment';
 
 declare var bootstrap: any;
 @Component({
@@ -24,7 +25,7 @@ export class MisPagosComponent implements OnInit {
   payments: any = [];
   appointment: any;
   patient_selected: any;
-  paymentSelected: any;
+  paymentSelected: Payment;
 
   query: string = '';
   status!: string;
