@@ -1,0 +1,88 @@
+<div class="klyntic-ticket-card" *ngIf="appointment">
+  
+  <!-- 🩻 CABECERA CON DEGRADADO CORPORATIVO -->
+  <div class="ticket-header">
+    <span class="status-badge" [ngClass]="{
+      'badge-warning': appointment.status === 1 || appointment.confimation === 1,
+      'badge-success': appointment.status === 2 || appointment.confimation === 2,
+      'badge-danger': appointment.status === 3
+    }">
+      <i class="fa" [ngClass]="{
+        'fa-clock-o': appointment.status === 1 || appointment.confimation === 1, 
+        'fa-check-circle': appointment.status === 2 || appointment.confimation === 2, 
+        'fa-times-circle': appointment.status === 3
+      }"></i>
+      {{ (appointment.status === 2 || appointment.confimation === 2) ? 'Confirmada' : (appointment.status === 3 ? 'Cancelada' : 'Por Confirmar') }}
+    </span>
+  </div>
+
+  <!-- 🩺 CUERPO FLOTANTE DEL TICKET -->
+  <div class="ticket-body">
+    
+    <!-- Ficha del Doctor con Avatar Elevado -->
+    <div class="doctor-profile-section">
+      <div class="avatar-container">
+        <img [src]="appointment.doctor?.avatar || 'assets/img/default-doctor.png'" alt="Doctor">
+      </div>
+      <div class="doctor-meta">
+        <h3>Dr(a). {{ appointment.doctor?.full_name || appointment.doctor?.name }}</h3>
+        <span class="speciality-tag">{{ appointment.doctor?.speciality?.name }}</span>
+      </div>
+    </div>
+
+    <!-- Ubicación Interna / Sede -->
+    <div class="location-bar">
+      <i class="bi bi-building"></i>
+      <span>{{ appointment.consultorio?.name_consultorio || 'Sede Central' }}</span>
+    </div>
+
+    <!-- 📊 REJILLA DE DATOS FINANCIEROS Y HORARIOS -->
+    <div class="data-grid-container">
+      <div class="grid-item">
+        <span class="grid-label">Fecha de Consulta</span>
+        <strong class="grid-value"><i class="fa fa-calendar-o"></i> {{ appointment.date_appointment_format ? (appointment.date_appointment_format | date:'dd/MM/yyyy') : appointment.date_appointment }}</strong>
+      </div>
+      <div class="grid-item text-right">
+        <span class="grid-label">Bloque Horario</span>
+        <strong class="grid-value"><i class="fa fa-clock-o"></i> {{ appointment.segment_hour?.format_segment?.hour_start?.slice(0,5) || appointment.format_hour_start?.slice(0,5) }} a {{ appointment.segment_hour?.format_segment?.hour_end?.slice(0,5) || appointment.format_hour_end?.slice(0,5) }}</strong>
+      </div>
+      
+      <div class="grid-item border-top">
+        <span class="grid-label">Costo Cita</span>
+        <strong class="grid-value price-highlight">
+          <span *ngIf="appointment.doctor?.moneda === 'PERSONALIZADA'">$p{{ appointment.amount | number:'1.2-2' }}</span>
+          <span *ngIf="appointment.doctor?.moneda !== 'PERSONALIZADA'">{{ appointment.amount | currency: (appointment.doctor?.moneda || 'USD') }}</span>
+        </strong>
+      </div>
+      <div class="grid-item border-top text-center">
+        <span class="grid-label">Estado Pago</span>
+        <span class="payment-pill" [ngClass]="appointment.status_pay === 1 ? 'pill-paid' : 'pill-debt'">
+          {{ appointment.status_pay === 1 ? 'Pagado' : 'Deuda' }}
+        </span>
+      </div>
+      <div class="grid-item border-top text-right">
+        <span class="grid-label">Monto Deuda</span>
+        <strong class="grid-value debt-highlight" [ngClass]="appointment.deuda > 0 ? 'debt-active' : 'debt-clear'">
+          <span *ngIf="appointment.doctor?.moneda === 'PERSONALIZADA'">$p{{ appointment.deuda | number:'1.2-2' }}</span>
+          <span *ngIf="appointment.doctor?.moneda !== 'PERSONALIZADA'">{{ appointment.deuda | currency: (appointment.doctor?.moneda || 'USD') }}</span>
+        </strong>
+      </div>
+    </div>
+
+    <!-- 🚀 BOTONERA DE ACCIÓN INTERACTIVA (Reportar Pago + Solicitar de Nuevo) -->
+    <div class="ticket-actions-area">
+      
+      <button class="btn-ticket btn-pay"
+        *ngIf="appointment.status_pay === 2 && (appointment.confimation === 2 || appointment.status === 2)"
+        [routerLink]="['/app/pagar/', appointment.id]">
+        <i class="fa fa-credit-card"></i> Reportar Pago
+      </button>
+
+      <a class="btn-ticket btn-reorder" [routerLink]="['/app/perfil-doctor/', appointment.doctor?.id]">
+        <i class="fa fa-refresh"></i> Solicitar de Nuevo
+      </a>
+
+    </div>
+
+  </div>
+</div>

@@ -1,86 +1,143 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="4" [columns]="1"></app-skeleton-loader>
 
-<div class="container mt-3 animate fadeIn" style="margin-bottom: 100px;" *ngIf="!cargando">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+<!-- CONTENEDOR GENERAL DE PRESUPUESTOS (CSS PURO) -->
+<div class="klyntic-presupuestos-page animate-fade-in mt-5" *ngIf="!cargando">
+    <div class="d-flex justify-content-between align-items-center mb-3 container">
         <app-back-button title="Mis Presupuestos"></app-back-button>
         <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
             title="Ayuda de la sección">
             <i class="fa fa-question"></i>
         </button>
     </div>
-    <div>
-        <!-- Lista de Presupuestos -->
-        <div *ngIf="presupuestosList">
-            <div *ngFor="let n of presupuestosList; let i= index">
-                <div class="card mb-2 shadow-sm border-start border-4">
 
-                    <div class="card-body py-2">
-                        <div class="d-flex justify-content-between flex-column">
-                            <p><b>Fecha:</b> {{n.date_presupuesto_format|date}}</p>
-                            <p><b>Doctor:</b> {{n.doctor.full_name}}</p>
-                            <p><b>Especialidad:</b> {{n.doctor.speciality.name}}</p>
-                            <small class="text-muted">{{ n.createdAt | date:'short' }}</small>
-                        </div>
-                        <!-- Fila Inferior: Botón de Acción -->
-                        <div class="d-flex justify-content-end ">
-                            <button class="btn btn-sm btn-outline-primary rounded-pill px-4 fw-bold"
-                                style="font-size: 0.8rem;" (click)="abrirDetalle(n)">
-                                <i class="fas fa-receipt me-1"></i> Ver Presupuesto
-                            </button>
-                        </div>
-                    </div>
+    <div class="presupuestos-grid">
+        <!-- Recorremos tu colección nativa inyectada desde Laravel -->
+        <div class="budget-invoice-card" *ngFor="let n of presupuestosList">
+
+            <!-- Cuerpo de la Tarjeta tipo Recibo -->
+            <div class="invoice-card-body">
+                <div class="invoice-icon-frame">
+                    <i class="fa fa-file-text-o"></i>
+                </div>
+
+                <div class="invoice-meta-data">
+                    <span class="invoice-date"><i class="fa fa-calendar-o"></i> {{ n.date_presupuesto_format |
+                        date:'dd/MM/yyyy' }}</span>
+                    <h3>Dr(a). {{ n.doctor?.full_name || n.doctor?.name }}</h3>
+                    <span class="invoice-speciality">{{ n.speciality?.name || n.doctor?.speciality?.name }}</span>
+                </div>
+
+                <!-- Bloque de Costo Destacado a la Derecha -->
+                <div class="invoice-amount-badge">
+                    <span class="amount-label">Monto Total</span>
+                    <strong class="amount-val">{{ n.amount | currency: (n.doctor?.moneda || 'USD') }}</strong>
                 </div>
             </div>
 
+            <!-- Footer de la Tarjeta con tu botón disparador del Offcanvas original -->
+            <div class="invoice-card-footer">
+                <span class="invoice-timestamp">{{ n.created_at || (n.createdAt | date:'short') }}</span>
+                <button class="btn-view-invoice" (click)="presupuestoSelected = n" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasBudget">
+                    <i class="fa fa-eye"></i> Ver Presupuesto
+                </button>
+            </div>
 
         </div>
-        <div class="alert alert-info" *ngIf="!presupuestosList">No tienes notificaciones.</div>
+    </div>
 
-
+    <!-- Empty State si el paciente no registra presupuestos -->
+    <div class="empty-state-invoice" *ngIf="presupuestosList?.length === 0">
+        <i class="bi bi-receipt-cutoff"></i>
+        <h4>Sin presupuestos emitidos</h4>
+        <p>Los presupuestos y cotizaciones de servicios emitidos por su clínica aparecerán aquí.</p>
     </div>
 
 </div>
 
-<!-- OFFCANVAS DETALLE -->
-<div class="offcanvas offcanvas-bottom rounded-top-5 h-85" tabindex="-1" id="offcanvasNotif"
-style="height: 85vh; border-radius: 25px 25px 0 0;">
-    <div class="offcanvas-header border-bottom py-3">
-        <h5 class="offcanvas-title fw-bold text-primary">Detalle de Presupuesto</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+<!-- OFFCANVAS MODAL REDIAGRAMADO ESTILO DIGITAL TICKET -->
+<div class="offcanvas offcanvas-bottom klyntic-offcanvas-budget" tabindex="-1" id="offcanvasBudget"
+    aria-labelledby="offcanvasBudgetLabel">
+
+    <!-- Cabecera del Modal -->
+    <div class="offcanvas-header-premium">
+        <div class="header-title-block">
+            <i class="fa fa-file-text"></i>
+            <h5 class="offcanvas-title" id="offcanvasBudgetLabel">Detalle de Presupuesto</h5>
+        </div>
+        <button type="button" class="btn-close-custom" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="fa fa-times"></i>
+        </button>
     </div>
 
-    <div class="offcanvas-body p-4" *ngIf="presupuestoSelected">
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-column">
-            <span class="badge rounded-pill px-3 py-2">
-                {{ presupuestoSelected.tipo }}
-            </span>
-            <p><b>Doctor:</b> {{presupuestoSelected?.doctor?.full_name}}</p>
-            <p><b>Especialidad:</b> {{presupuestoSelected?.speciality?.name}}</p>
-            <p><b>Fecha:</b> {{presupuestoSelected?.date_presupuesto_format|date}}</p>
-            <p><b>Descripción:</b> {{presupuestoSelected?.description}}</p>
-            <p><b>Diagnóstico</b>
-                :{{presupuestoSelected?.diagnostico
-                }}</p>
-            <small class="text-muted">{{ presupuestoSelected.created_at | date:'medium' }}</small>
-        </div>
+    <!-- Cuerpo del Modal -->
+    <div class="offcanvas-body-premium" *ngIf="presupuestoSelected">
 
-        <hr>
-        <h5>Detalles:</h5>
-        <ul *ngFor="let pres of presupuestoSelected.medical">
-            <li>
-                Item: {{pres.name_medical}}<br>
-                Cantidad: {{pres.cantidad}}<br>
-                Precio: {{pres.precio | currency}}<br>
-                Subtotal: {{(pres.precio)* (pres.cantidad) | currency}}
-            </li>
-            <hr>
-        </ul>
-        <div class="row">
-            <div class="col-md-12 d-flex justify-content-end">
-                <h4>Total: {{presupuestoSelected?.amount|currency}}</h4>
+        <!-- Bloque 1: Ficha del Médico Emisor -->
+        <div class="budget-doctor-strip">
+            <img [src]="presupuestoSelected?.doctor?.avatar || 'assets/img/default-doctor.png'"
+                class="doctor-mini-avatar">
+            <div class="strip-meta">
+                <h4>Dr(a). {{ presupuestoSelected?.doctor?.full_name }}</h4>
+                <span>{{ presupuestoSelected?.speciality?.name || presupuestoSelected?.doctor?.speciality?.name
+                    }}</span>
+            </div>
+            <div class="strip-date">
+                <i class="fa fa-calendar"></i> {{ presupuestoSelected?.date_presupuesto_format | date:'dd/MM/yyyy' }}
             </div>
         </div>
-    </div>
 
+        <!-- Bloque 2: Notas Médicas y Diagnóstico (Estructuradas en Acordeón/Caja) -->
+        <div class="medical-notes-container">
+            <div class="note-box box-description" *ngIf="presupuestoSelected?.description">
+                <strong><i class="fa fa-commenting-o"></i> Indicaciones / Descripción:</strong>
+                <p>{{ presupuestoSelected?.description }}</p>
+            </div>
+
+            <div class="note-box box-diagnostico" *ngIf="presupuestoSelected?.diagnostico">
+                <strong><i class="fa fa-heartbeat"></i> Evaluación Diagnóstica:</strong>
+                <p>{{ presupuestoSelected?.diagnostico }}</p>
+            </div>
+        </div>
+
+        <!-- Bloque 3: TABLA DE DESGLOSE DE ÍTEMS PREMIUM (Adiós a los puntos de lista) -->
+        <div class="invoice-table-wrapper">
+            <span class="table-section-title"><i class="fa fa-list-ol"></i> Conceptos y Medicamentos</span>
+
+            <div class="invoice-table-header">
+                <div class="col-desc">Concepto</div>
+                <div class="col-cant">Cant.</div>
+                <div class="col-precio">Precio</div>
+                <div class="col-sub">Subtotal</div>
+            </div>
+
+            <div class="invoice-table-rows">
+                <!-- Iteramos tus ítems dinámicos de la clave 'medical' del JSON -->
+                <div class="invoice-row" *ngFor="let pres of presupuestoSelected?.medical">
+                    <div class="col-desc fw-semibold text-dark">{{ pres.name_medical }}</div>
+                    <div class="col-cant text-muted">{{ pres.cantidad }}</div>
+                    <div class="col-precio font-monospace">{{ pres.precio | currency:
+                        (presupuestoSelected?.doctor?.moneda || 'USD') }}</div>
+                    <div class="col-sub font-monospace text-dark fw-bold">
+                        <!-- Ejecuta el cálculo automático inline con tu divisa -->
+                        {{ (pres.precio * pres.cantidad) | currency: (presupuestoSelected?.doctor?.moneda || 'USD') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloque 4: Cierre del Ticket (Monto de Caja Totalizador) -->
+        <div class="invoice-totalizer-box">
+            <div class="total-row">
+                <span>Monto Neto Recibido:</span>
+                <strong class="total-price-highlight">
+                    {{ presupuestoSelected?.amount | currency: (presupuestoSelected?.doctor?.moneda || 'USD') }}
+                </strong>
+            </div>
+            <small class="tax-disclaimer"><i class="fa fa-info-circle"></i> Los precios incluyen aranceles de insumos
+                clínicos de la sucursal.</small>
+        </div>
+
+    </div>
 </div>
 <app-modal-instrucciones [info]="info" sectionId="misnotificaciones" #instruccionesModal></app-modal-instrucciones>

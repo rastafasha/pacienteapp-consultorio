@@ -1,0 +1,226 @@
+/* VARIABLES DE DISEÑO KLYNTIC CORE */
+:host {
+  /* Actualizamos al degradado oficial morado */
+  --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  --border-color: #e2e8f0;
+
+  --card-bg: #ffffff;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --bg-light: #f8fafc;
+  --border-color: #e2e8f0;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+/* CONTENEDOR MAESTRO DE LA TARJETA */
+.klyntic-ticket-card {
+  width: 94vw;
+  max-width: 480px;
+  margin: 0 auto 20px auto;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.klyntic-ticket-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* CABECERA (BANNER TOP) */
+.ticket-header {
+  height: 65px;
+  background: var(--primary-gradient);
+  position: relative;
+  padding: 15px;
+}
+
+/* BADGES DE ESTADO MAESTRO */
+.status-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
+}
+.badge-warning { background: #fef3c7; color: #d97706; }
+.badge-success { background: #dcfce7; color: #15803d; }
+.badge-danger { background: #fee2e2; color: #b91c1c; }
+
+/* CUERPO INTERNO */
+.ticket-body {
+  padding: 0 16px 16px 16px;
+  position: relative;
+}
+
+/* FICHA DEL DOCTOR (AVATAR ELEVADO) */
+.doctor-profile-section {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: 15px;
+  margin-bottom: 16px;
+}
+
+.avatar-container img {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: var(--shadow-sm);
+  object-fit: cover;
+  background: #ffffff;
+}
+
+.doctor-meta {
+  padding-bottom: 2px;
+}
+
+.doctor-meta h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.speciality-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #7c3aed;
+  text-transform: uppercase;
+}
+
+/* BARRA DE UBICACIÓN INTERNA */
+.location-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-light);
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid #f1f5f9;
+  margin-bottom: 16px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.location-bar i { color: #4f46e5; font-size: 0.95rem; }
+
+/* REJILLA DE DATOS CLÍNICOS */
+.data-grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  background: #fafafa;
+  border: 1px solid #f3f4f6;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+
+.grid-item {
+  grid-column: span 3;
+}
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.border-top {
+  grid-column: span 2;
+  border-top: 1px solid var(--border-color);
+  padding-top: 10px;
+  margin-top: 4px;
+}
+
+.grid-label {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.grid-value {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.grid-value i { color: var(--text-muted); margin-right: 4px; }
+
+.price-highlight { color: var(--text-dark); font-size: 0.9rem; }
+
+/* BADGES DE ESTADO DE PAGO (DENTRO DE LA REJILLA) */
+.payment-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 50px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.pill-paid { background: #e6f4ea; color: #137333; }
+.pill-debt { background: #fce8e6; color: #c5221f; }
+
+.debt-active { color: #d93025; font-size: 0.9rem; }
+.debt-clear { color: #137333; font-size: 0.9rem; }
+
+/* 🚀 ÁREA DE BOTONES DE ACCIÓN */
+.ticket-actions-area {
+  display: flex;
+  gap: 10px;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 14px;
+  margin-top: 6px;
+}
+
+.btn-ticket {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+}
+
+/* El botón de Reportar Pago hereda el nuevo color corporativo */
+.btn-pay {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+.btn-pay:hover {
+  filter: brightness(1.1); /* Efecto brillo al presionar */
+}
+
+/* El botón de reordenar hereda el trazo morado */
+.btn-reorder {
+  background: #ffffff;
+  color: #7c3aed;
+  border: 1px solid #7c3aed;
+}
+.btn-reorder:hover {
+  background: rgba(124, 58, 237, 0.04);
+}
+
+.btn-ticket:active {
+  transform: scale(0.98);
+}
+

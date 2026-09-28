@@ -1,44 +1,200 @@
-.notiene{
-    text-align: center;
-    padding-top: 70px;
-    font-size: 22px;
-    width: 80%;
-    margin: auto;
-}
-/* 
-.infcita {
-    display: flex;
-    flex-direction: column;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    height: 100%;
-    grid-gap: 0px;
-    grid-gap: 0px;
+/* VARIABLES DE IDENTIDAD MÓVIL KLYNTIC */
+:host {
+  --klyntic-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  --slate-dark: #0f172a;
+  --slate-muted: #64748b;
+  --border-line: #f1f5f9;
 }
 
-
-
-.local_categoria_item {
-    display: flex;
-    flex-direction: column;
-    background: #e7e4e4;
-    border-radius: 4px;
-    height: 250px;
-    width: 100%;
-    margin-right: 5px;
-    font-size: 14px;
-    color: var(--black);
-    padding-top: 10px;
+.citas-pendientes-section{
+    height: 50vh;
 }
 
-.local_categoria_item .contenido {
-    display: flex;
-    width: 100%;
-    height: 200px;
-    background-color: #fff;
-    justify-content: space-between;
-    flex-direction: column-reverse;
-    padding: 10px;
-} */
+/* ENCABEZADO DE LA SECCIÓN */
+.section-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+.section-header-title h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--slate-dark);
+}
+
+.counter-pill {
+  background: #f5f3ff;
+  color: #7c3aed;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid #ede9fe;
+}
+
+/* 🎡 MOTOR REVOLUCIONARIO: CARRUSEL HORIZONTAL TÁCTIL (MÓVIL) */
+.klyntic-horizontal-carousel {
+  display: flex;
+  overflow-x: auto; /* 🔥 Activa el scroll de forma horizontal */
+  gap: 14px;
+  padding: 4px 16px 20px 16px;
+  scroll-snap-type: x mandatory; /* Hace que el deslizamiento sea magnético por tarjeta */
+  scrollbar-width: none; /* Oculta la rústica barra de scroll en Firefox */
+}
+
+.klyntic-horizontal-carousel::-webkit-scrollbar {
+  display: none; /* Oculta la barra de scroll en Chrome/Safari de iPhones y Androids */
+}
+
+/* 📋 LA TARJETA COMPACTA DEL CARRUSEL */
+.carousel-appointment-card {
+  flex: 0 0 82vw; /* 🔥 Determina que cada tarjeta ocupe el 82% del ancho de la pantalla móvil */
+  max-width: 340px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid var(--border-line);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+  overflow: hidden;
+  scroll-snap-align: center; /* Traba magnéticamente la tarjeta al centro al deslizar */
+}
+
+/* Banner de degradado oficial */
+.card-top-gradient-banner {
+  height: 45px;
+  background: var(--klyntic-gradient);
+  position: relative;
+  padding: 10px;
+}
+
+.confirmation-badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.badge-confirmed { background: #dcfce7; color: #15803d; }
+.badge-pending { background: #fef3c7; color: #d97706; }
+
+/* Contenido Interno */
+.card-main-content {
+  padding: 0 14px 14px 14px;
+}
+
+/* Ficha del Doctor con Avatar Elevado */
+.doctor-inline-profile {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: -20px;
+  margin-bottom: 14px;
+}
+
+.avatar-circle-frame img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  object-fit: cover;
+  background: #ffffff;
+  z-index: 99;
+    position: relative;
+    transform: translate(0px, -20px);
+}
+
+.doctor-text-meta h3 {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--slate-dark);
+  margin-top: 30px;
+}
+
+.spec-label-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #7c3aed;
+  text-transform: uppercase;
+}
+
+/* Rejilla de Tiempos */
+.appointment-time-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.time-block-item {
+  display: flex;
+  flex-direction: column;
+}
+.text-right { text-align: right; }
+
+.block-label {
+  font-size: 0.65rem;
+  color: var(--slate-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.block-label i { margin-right: 2px; }
+
+.block-value {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--slate-dark);
+}
+
+/* Botón de acción inferior */
+.btn-card-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  padding: 8px;
+  background: #ffffff;
+  color: #7c3aed;
+  border: 1px solid #7c3aed;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-card-action h5 { margin:0; }
+.btn-card-action:hover {
+  background: rgba(124, 58, 237, 0.04);
+}
+
+/* Empty State */
+.empty-carousel-state {
+  margin: 16px;
+  padding: 24px;
+  text-align: center;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  color: var(--slate-muted);
+  font-size: 0.8rem;
+}
+.empty-carousel-state i {
+  font-size: 1.5rem;
+  color: #cbd5e1;
+  display: block;
+  margin-bottom: 6px;
+}

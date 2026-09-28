@@ -11,7 +11,7 @@ export const environment = {
     // url_servicios: 'https://consultorio.klyntic.com/backend-api-consultorio/public/api',
     // url_frontend: 'https://pconsultorio.klyntic.com/',
     // url_media: 'https://consultorio.klyntic.com/backend-api-consultorio/storage/app/public/',
-     
+     backend_CRM_node:"https://backend-crmklyntic-mean.onrender.com/api",
     //conexion a node y manejo de notificaciones
     backend_node:"https://back-klyntic-envios.onrender.com/api",
     urlBackedNotification:'https://back-klyntic-envios.onrender.com/api/notipush/save-subscription',

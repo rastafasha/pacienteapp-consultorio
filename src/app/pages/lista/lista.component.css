@@ -16,4 +16,43 @@
   font-weight: bold;
 }
 
+/* CONTEXTO DE SEPARACIÓN KLYNTIC */
+.klyntic-tabs-container {
+  margin-top: 32px;      /* 🚀 ¡FIX CRÍTICO!: Despega las pestañas del navbar superior */
+  margin-bottom: 24px;   /* Le da aire al título "Mis Citas" de abajo */
+  padding: 0 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.tabs-wrapper {
+  display: flex;
+  background: #f1f5f9;  /* Fondo gris ultra suave estilo iOS */
+  padding: 4px;
+  border-radius: 30px;  /* Aspecto de píldora compacta nativa */
+  width: 100%;
+  max-width: 400px;
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;       /* Color apagado para las pestañas inactivas */
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 🎨 PESTAÑA ACTIVA: DEGRADADO DE LA MARCA MORADO / VIOLETA */
+.tab-btn.active-tab {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); /* Morado Klyntic */
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
+  transform: scale(1.02);
+}
+
 

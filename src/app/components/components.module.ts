@@ -9,6 +9,7 @@ import { CitasComponent } from './citas/citas.component';
 import { SignosvitalesComponent } from './signosvitales/signosvitales.component';
 import { SharedModule } from '../shared/shared.module';
 import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instrucciones.component';
+import { CitaCardComponent } from './cita-card/cita-card.component';
 
 
 
@@ -18,7 +19,8 @@ import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instruc
         PublicidadComponent,
         CitasComponent,
         SignosvitalesComponent,
-        ModalInstruccionesComponent
+        ModalInstruccionesComponent,
+        CitaCardComponent
     ],
     exports: [
         GridHomeComponent,
@@ -26,7 +28,8 @@ import { ModalInstruccionesComponent } from './modal-instrucciones/modal-instruc
         PublicidadComponent,
         CitasComponent,
         SignosvitalesComponent,
-        ModalInstruccionesComponent
+        ModalInstruccionesComponent,
+        CitaCardComponent
     ], imports: [
         CommonModule,
         RouterModule,

@@ -27,10 +27,11 @@
                             <p>{{item.segment_hour.format_segment.hour_start}} - {{item.segment_hour.format_segment.hour_end}}</p>
                             <div class="addic oculto-cita">
                                 <p><b>Teléfono:</b> {{item.doctor.mobile}}</p>
-                            <p><b>Sede Clínica:</b> <br>
-                                {{item.consultorio.name_consultorio}}
-                                {{item.consultorio.address}}
-                            </p>
+                            <p class="mb-0 small fw-bold text-dark">Sede Clínica:</p>
+                            <span class="text-secondary small">
+                            {{ item.consultorio?.name_consultorio || 'Sede Central' }} - 
+                            {{ item.consultorio?.address || address }}
+                            </span>
                             
                             </div>
                         </div>

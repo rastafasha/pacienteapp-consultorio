@@ -1,44 +1,80 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="1" [columns]="2"></app-skeleton-loader>
 
-<div *ngIf="!patient && !cargando">
-    <p class="notiene">Usted no tiene registro medico con esta Clínica.</p>
-</div>
-<div *ngIf="!appointment_pendings && !cargando">
-    <p class="notiene">No tienes citas pendientes.</p>
-</div>
+<div class="citas-pendientes-section" *ngIf="!cargando && appointment_pendings">
 
+    <!-- TÍTULO DE LA SECCIÓN CON CONTRASTE -->
+    <div class="section-header-title">
+        <h4>Citas pendientes</h4>
+        <span class="counter-pill" *ngIf="appointment_pendings.length > 0">
+            {{ appointment_pendings.length }}
+        </span>
+    </div>
 
-<section class="container animated fadeInUp " style="margin-bottom: 30px;" *ngIf="num_appointment > 0 && !cargando">
-    <h4>Citas pendientes </h4>
-    <div class="overflow">
-        <div class="locales_categorias" style="width: 236vw;">
-            <ng-container *ngFor="let appoitment of appointment_pendings | slice:0:4">
-                <!-- item -->
-                <div class="local_categoria_item">
-                    <a [routerLink]="['/app/detalle-cita', appoitment.id]">
-                        <div class="logo_local">
-                            <img [src]="appoitment.doctor.avatar" alt="">
-                        </div>
-                    </a>
-                    <div class="contenido">
-                        <div class="info_local">
-                            <a [routerLink]="['/app/perfil-doctor/', appoitment.doctor.id]">
-                                <h3>Dr(a). {{appoitment.doctor.full_name}}</h3>
-                            </a>
-                            <div class="infcita">
-                                <p class="esp">{{appoitment.doctor.speciality.name}}</p>
-                                <p class="fech">{{appoitment.date_appointment_format|date}}</p>
-                                <p class="tiemp">{{appoitment.segment_hour.format_segment.hour_start}} a
-                                    {{appoitment.segment_hour.format_segment.hour_end}}</p>
-                                
-                            </div>
-                        </div>
+    <!-- 🎡 CONTENEDOR MAESTRO DEL CARRUSEL (DESLIZABLE CON EL DEDO) -->
+    <div class="klyntic-horizontal-carousel">
+
+        <!-- Iteración de tu lista nativa de pendientes -->
+        <div class="carousel-appointment-card" *ngFor="let appoitment of appointment_pendings">
+
+            <!-- Banner decorativo superior con degradado morado Klyntic -->
+            <div class="card-top-gradient-banner">
+                <!-- Badge flotante de confirmación -->
+                <span class="confirmation-badge"
+                    [ngClass]="appoitment.confimation === 2 ? 'badge-confirmed' : 'badge-pending'">
+                    <i class="fa" [ngClass]="appoitment.confimation === 2 ? 'fa-check-circle' : 'fa-clock-o'"></i>
+                    {{ appoitment.confimation === 2 ? 'Confirmada' : 'Por Confirmar' }}
+                </span>
+            </div>
+
+            <!-- Contenido de la Ficha Médica -->
+            <div class="card-main-content">
+
+                <!-- Ficha del Doctor con foto flotante -->
+                <div class="doctor-inline-profile">
+                    <div class="avatar-circle-frame">
+                        <img [src]="appoitment.doctor?.avatar || './assets/images/users/d1.jpg'" alt="Doctor">
+                    </div>
+                    <div class="doctor-text-meta">
+                        <h3>Dr(a). {{ appoitment.doctor?.full_name || appoitment.doctor?.name }}</h3>
+                        <span class="spec-label-tag">{{ appoitment.doctor?.speciality?.name ||
+                            appoitment.speciality?.name }}</span>
                     </div>
                 </div>
-                <!-- item -->
-            </ng-container>
+
+                <!-- 📅 REJILLA DE TIEMPO COMPACTA (Súper limpia) -->
+                <div class="appointment-time-grid">
+                    <div class="time-block-item">
+                        <span class="block-label"><i class="fa fa-calendar-o"></i> Fecha</span>
+                        <strong class="block-value">{{ appoitment.date_appointment_format | date:'dd/MM/yyyy'
+                            }}</strong>
+                    </div>
+                    <div class="time-block-item text-right">
+                        <span class="block-label"><i class="fa fa-clock-o"></i> Horario</span>
+                        <strong class="block-value">
+                            <!-- ✂️ Cortamos inline los segundos residuales (:00) para limpiar la visualización -->
+                            {{ appoitment.segment_hour?.format_segment?.hour_start?.slice(0,5) ||
+                            appoitment.format_hour_start?.slice(0,5) }} a
+                            {{ appoitment.segment_hour?.format_segment?.hour_end?.slice(0,5) ||
+                            appoitment.format_hour_end?.slice(0,5) }}
+                        </strong>
+                    </div>
+                </div>
+
+                <!-- Acceso al Detalle Directo de la consulta -->
+                <a [routerLink]="['/app/detalle-cita', appoitment.id]" class="btn-card-action">
+                    Ver Detalles de Reserva <i class="fa fa-chevron-right"></i>
+                </a>
+
+            </div>
+
         </div>
 
     </div>
 
-</section>
+    <!-- Estado vacío si el paciente está al día -->
+    <div class="empty-carousel-state" *ngIf="appointment_pendings.length === 0">
+        <i class="fa fa-calendar-check-o"></i>
+        <p>No tienes citas pendientes por asistir.</p>
+    </div>
+
+</div>

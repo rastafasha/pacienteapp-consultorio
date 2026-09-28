@@ -64,27 +64,41 @@ export class GridHomeComponent implements OnInit {
   }
 
   getPatientInfo(){
-    this.cargando = true
-    this.userService.showPatientProfile(this.patient.id).subscribe((resp:any)=>{
-      this.patient_selected= resp.patient;
-      this.appointments= resp.appointments;
-      this.doctor_id= resp.patient.doctor_id;
-      this.address= resp.patient.doctor.address;
-      this.mobile= resp.patient.doctor.mobile;
-      // this.appointment_checkeds= resp.appointment_checkeds.data[0];
-      // console.log(this.appointment_checkeds);
-      this.num_appointment= resp.num_appointment;
-      this.appointment_pendings= resp.appointment_pendings.data;
-      this.appointment_attention = resp.appointments?.[0]?.appointment_attention || null;
-      if (resp.appointments?.[0]?.appointment_attention) {
-        this.recetas = resp.appointments[0].appointment_attention.receta_medica;
-      } else {
-        this.recetas = [];
-      }
-      this.appointment = resp.appointments?.[0] || null;
-      this.cargando = false
-    })
-  }
+  this.cargando = true;
+  this.userService.showPatientProfile(this.patient.id).subscribe((resp:any)=>{
+    this.patient_selected = resp.patient;
+    this.doctor_id = resp.patient.doctor_id;
+    this.address = resp.patient.doctor.address;
+    this.mobile = resp.patient.doctor.mobile;
+    this.num_appointment = resp.num_appointment;
+    this.appointment_pendings = resp.appointment_pendings.data;
+    
+    // 🚀 CAZADOR DE NULLS: Sanificamos la colección de citas para que Angular no reviente
+    if (resp.appointments && resp.appointments.length > 0) {
+      resp.appointments.forEach((item: any) => {
+        if (!item.consultorio) {
+          console.warn('⚠️ [Aislamiento Alert]: Cita sin consultorio indexado en MAMP. Parchando datos del médico.');
+          item.consultorio = {
+            name_consultorio: 'Consultorio Principal',
+            address: this.address || 'Sede Central'
+          };
+        }
+      });
+    }
+
+    this.appointments = resp.appointments; // Guardamos la colección ya limpia
+    this.appointment_attention = resp.appointments?.[0]?.appointment_attention || null;
+    
+    if (resp.appointments?.[0]?.appointment_attention) {
+      this.recetas = resp.appointments[0].appointment_attention.receta_medica;
+    } else {
+      this.recetas = [];
+    }
+    
+    this.appointment = resp.appointments?.[0] || null;
+    this.cargando = false;
+  });
+}
 
 
 

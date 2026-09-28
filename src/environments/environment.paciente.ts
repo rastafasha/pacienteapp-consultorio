@@ -6,6 +6,7 @@ export const environment = {
     url_media: '',
 
     url_frontend: 'https://pconsultorio.klyntic.com/',
+    backend_CRM_node:"https://backend-crmklyntic-mean.onrender.com/api",
     //conexion a node y manejo de notificaciones
     backend_node: "https://back-klyntic-envios.onrender.com/api",
     urlBackedNotification: 'https://back-klyntic-envios.onrender.com/api/notipush/save-subscription',

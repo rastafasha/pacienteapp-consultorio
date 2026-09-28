@@ -14,12 +14,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { TenantInterceptor } from './interceptors/tenant.interceptor';
 
 @NgModule({
     declarations: [
         AppComponent
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent],
+    imports: [BrowserModule,
         AppRoutingModule,
         SharedModule,
         // PagesModule,
@@ -41,10 +43,18 @@ import { ToastrModule } from 'ngx-toastr';
             progressBar: true
         })],
     providers: [
+        // 1. Interceptor de Autenticación Existente (Inyecta el Token Bearer)
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true
+        },
+
+        // 🔒 2. REGISTRO MULTI-TENANT GLOBAL (Inyecta el subdominio de la clínica actual)
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TenantInterceptor,
+            multi: true // Permite la coexistencia en la cascada HTTP de Angular
         },
         provideHttpClient(withInterceptorsFromDi())
     ]
