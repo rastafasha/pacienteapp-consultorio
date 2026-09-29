@@ -1,0 +1,56 @@
+/* CONTENEDOR VISIBLE MAESTRO (Oculta el desbordamiento y permite el gesto de arrastre) */
+.publicidad-carousel-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  height: 40vh;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Deslizamiento ultra fluido en iOS */
+  scroll-snap-type: x mandatory;    /* Hace que cada banner "encaje" magnéticamente */
+  padding-bottom: 8px;              /* Espacio seguro por si asoma una barra de scroll */
+}
+
+/* Ocultamos las barras de scroll nativas horribles en Chrome, Safari y Firefox */
+.publicidad-carousel-wrapper::-webkit-scrollbar {
+  display: none;
+}
+.publicidad-carousel-wrapper {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+/* TIRA HORIZONTAL INTERNA */
+.publicidad_home {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: max-content;
+  padding: 4px;
+}
+
+/* CADA BANNER AD / ITEM (Evolución Premium) */
+.publicidad_home_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc; /* Fondo limpio claro */
+  border-radius: 16px; /* Ajustado al radio premium de tus tarjetas moradas */
+  height: 160px;       /* Compactado sutilmente para evitar distorsión */
+  width: 88vw;         /* Deja ver un pedazo del siguiente banner en el extremo derecho */
+  max-width: 400px;
+  margin-right: 12px;  /* Separación elegante entre anuncios */
+  overflow: hidden;    /* Evita que la imagen se salga de las esquinas redondeadas */
+  position: relative;
+  scroll-snap-align: center; /* Centra el banner automáticamente al soltar el dedo */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f1f5f9;
+}
+
+/* IMAGEN ADAPTATIVA AL 100% */
+.publicidad_home_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta y estira la imagen de forma inteligente sin deformar */
+  display: block;
+}

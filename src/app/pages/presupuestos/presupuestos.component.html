@@ -137,6 +137,43 @@
             <small class="tax-disclaimer"><i class="fa fa-info-circle"></i> Los precios incluyen aranceles de insumos
                 clínicos de la sucursal.</small>
         </div>
+        <!-- Footer del Detalle del Presupuesto (Dentro del Offcanvas) -->
+<div class="mt-4 p-3 border-top" *ngIf="presupuestoSelected">
+  
+  <!-- Estado Actual Informativo -->
+  <div *ngIf="presupuestoSelected.confimation == 2" class="alert alert-success text-center fw-bold">
+    🎉 Este presupuesto ya ha sido Aprobado.
+  </div>
+  <div *ngIf="presupuestoSelected.confimation == 3" class="alert alert-danger text-center fw-bold">
+    ❌ Este presupuesto fue Rechazado.
+  </div>
+
+  <!-- Botones de Acción Directa (Solo se muestran si está pendiente, ej: estatus 1 o null) -->
+  <div *ngIf="presupuestoSelected.confimation != 2 && presupuestoSelected.confimation != 3" class="d-flex gap-2">
+    
+    <!-- Botón Rechazar -->
+    <button 
+      type="button" 
+      class="btn btn-outline-danger w-50 py-2.5 fw-semibold unique-btn-premium"
+      [disabled]="cargando"
+      (click)="confirmarPresupuesto(3)">
+      <span *ngIf="!cargando">Rechazar</span>
+      <span *ngIf="cargando" class="spinner-border spinner-border-sm"></span>
+    </button>
+
+    <!-- Botón Aceptar (Morado Premium Clínico) -->
+    <button 
+      type="button" 
+      class="btn w-50 py-2.5 fw-semibold text-white unique-btn-premium"
+      style="background-color: #6f42c1;" 
+      [disabled]="cargando"
+      (click)="confirmarPresupuesto(2)">
+      <span *ngIf="!cargando">Aceptar Presupuesto</span>
+      <span *ngIf="cargando" class="spinner-border spinner-border-sm"></span>
+    </button>
+
+  </div>
+</div>
 
     </div>
 </div>

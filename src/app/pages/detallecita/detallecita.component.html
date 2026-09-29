@@ -1,84 +1,135 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="10" [columns]="1"></app-skeleton-loader>
 
-<div *ngIf="!cargando">
-    <section class="container animated fadeInUp " style=" padding-top: 30px; padding-bottom: 50px;">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-        <app-back-button title="Detalle Cita"></app-back-button>
+<div class="klyntic-ticket-card" *ngIf="appointment_selected && !cargando">
+  
+  <!-- CABECERA (BANNER TOP CON GRADIENTE CORPORATIVO) -->
+  <div class="ticket-header">
+    <!-- Badge de Estado de la Cita (Dinámico según Atendida o Pendiente) -->
+    <span class="status-badge" 
+          [ngClass]="{
+            'badge-warning': appointment_selected.status === 1 || !appointment_selected.status_atendida, 
+            'badge-success': appointment_selected.status_atendida === 'Atendida'
+          }">
+      <i class="fa fa-info-circle me-1"></i>
+      {{ appointment_selected.status_atendida || 'Por Confirmar' }}
+    </span>
+  </div>
+
+  <!-- CUERPO DE LA TARJETA TICKET -->
+  <div class="ticket-body">
+    
+    <!-- FICHA DEL DOCTOR (AVATAR ELEVADO + DATA) -->
+    <div class="doctor-profile-section" *ngIf="doctor">
+      <div class="avatar-container">
+        <!-- Imagen dinámica del doctor o un fallback clínico premium por defecto -->
+        <img [src]="doctor?.avatar || './assets/images/users/default.jpeg'" alt="Doctor">
+      </div>
+      <div class="doctor-meta">
+        <h3>Dr(a). {{ doctor.full_name }}</h3>
+        <span class="speciality-tag">{{ doctor.speciality?.name || 'Especialista' }}</span>
+      </div>
     </div>
-        
-        <div class="perfil">
-            <div class="local_categoria_item" style="height: 240px;">
-                <div class="logo_local">
-                    <img [src]="avatar_doctor" alt="">
-                </div>
-                <div class="contenido" style="height: auto;
-                transform: translateY(25px);">
-                    <div class="info_local">
-                        <h3>Dr.{{doctor.full_name}}</h3>
-                        <p>Consultorio: {{appointment_selected.consultorio.name_consultorio}}</p>
-                        <p>Dirección: {{appointment_selected.consultorio.address}}</p>
-                        <p>Teléfono: {{doctor.mobile}}</p>
-                        <div class="infcita">
-                            <p class="esp">Especialidad: {{doctor.speciality.name}}</p>
-                            <p class="fech">
-                                <span *ngIf="status_pay === 1"> Status Pago: Pagado</span>
-                                <span *ngIf="status_pay === 2"> Status Pago: Deuda</span>
-                            </p>
-                            <p class="monto">
-                                <b>Comienza:</b> <br>
-                                {{appointment_selected.segment_hour.format_segment.hour_start}}
 
-                            </p>
-                            <p class="pagado">
-                                <b>Finaliza:</b> <br>
-                                {{appointment_selected.segment_hour.format_segment.hour_end}}
+    <!-- BARRA DE UBICACIÓN INTERNA (CONSULTORIO Y DIRECCIÓN) -->
+    <div class="location-bar" *ngIf="appointment_selected.consultorio">
+      <i class="fa fa-map-marker-alt"></i>
+      <div>
+        <strong class="d-block text-dark" style="font-size: 0.85rem;">
+          {{ appointment_selected.consultorio.name_consultorio }}
+        </strong>
+        <span>{{ appointment_selected.consultorio.address }}</span>
+      </div>
+    </div>
 
-                            </p>
-
-                        </div>
-                    </div>
-                    <div class="calificacion">
-                        <span *ngIf="appointment_selected.status === 1"> <i
-                                class="fa fa-info-circle"></i>&nbsp;Pendiente</span>
-                        <span *ngIf="appointment_selected.status === 2"> <i
-                                class="fa fa-info-circle"></i>&nbsp;Atendida</span>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="card p-4" style="margin-top: 50px;">
-                <p class="monto">
-                    <b>Fecha de la Cita:</b> <br>
-                    {{appointment_selected.date_appointment_format}}
-                </p>
-                <p class="pagado">
-                    <b>Acompañante:</b> <br>
-                    {{appointment_selected.patient.name_companion}} {{appointment_selected.patient.surname_companion}}
-                </p>
-                <p class="monto">
-                    <b>Descripción Receta:</b> <br>
-                    {{description}}
-                </p>
-                <p class="tiemp">
-                    <b>Recipe:</b> <br>
-                    <ng-container *ngFor="let item of recetas">
-                        <ul>
-                            <li>
-                                {{item.name_medical}}<br>
-                                {{item.uso}}
-                            </li>
-                        </ul>
-                    </ng-container>
-
-                </p>
-
-            </div>
-            
-
+    <!-- REJILLA DE DATOS CLÍNICOS (DATA GRID DE 6 COLUMNAS) -->
+    <div class="data-grid-container">
+      
+      <!-- Fila 1: Temporalidad -->
+      <div class="grid-item">
+        <span class="grid-label">Fecha de Consulta</span>
+        <div class="grid-value">
+          <i class="fa fa-calendar-alt"></i>
+          {{ appointment_selected.date_appointment_format }}
         </div>
+      </div>
+      
+      <div class="grid-item">
+        <span class="grid-label">Bloque Horario</span>
+        <div class="grid-value" *ngIf="appointment_selected.segment_hour?.format_segment">
+          <i class="fa fa-clock"></i>
+          {{ appointment_selected.segment_hour.format_segment.hour_start }} a {{ appointment_selected.segment_hour.format_segment.hour_end }}
+        </div>
+      </div>
 
-    </section>
+      <!-- Fila 2: Información Financiera -->
+      <div class="grid-item mt-2">
+        <span class="grid-label">Costo Cita</span>
+        <div class="grid-value price-highlight">
+          {{ (costo) | currency: (doctor?.moneda || 'USD') }}
+        </div>
+      </div>
 
+      <div class="grid-item mt-2">
+        <span class="grid-label">Estado Pago</span>
+        <div>
+          <!-- Badge dinámico de Deuda o Pagado -->
+          <span class="payment-pill" [ngClass]="appointment_selected.status_pay === 1 ? 'pill-paid' : 'pill-debt'">
+          {{ appointment_selected.status_pay === 1 ? 'Pagado' : 'Deuda' }}
+        </span>
+        </div>
+      </div>
+
+      <!-- Fila 3: Balance Destacado (Monto Deuda) -->
+      <div class="border-top text-left">
+        <!-- Espaciador vacío para empujar el balance a la derecha -->
+      </div>
+      <div class="border-top text-right" style="grid-column: span 4;">
+        <span class="grid-label">Monto Deuda</span>
+        <div class="grid-value" 
+             [ngClass]="appointment_selected.status_pay === 'Deuda' ? 'debt-active' : 'debt-clear'">
+          {{ (deuda) | currency: (doctor?.moneda || 'USD') }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECCIÓN ADICIONAL: ADJUNTOS / HISTORIAL CLÍNICO INTERNO -->
+    <div class="p-3 bg-light rounded-3 mb-3 border border-light-subtle" style="font-size: 0.85rem;" *ngIf="appointment_selected.patient?.name_companion || description">
+      
+      <div class="mb-2" *ngIf="appointment_selected.patient?.name_companion">
+        <strong class="text-muted d-block" style="font-size: 0.7rem; text-transform: uppercase;">Acompañante:</strong>
+        <span class="text-dark fw-semibold">{{ appointment_selected.patient.name_companion }} {{ appointment_selected.patient.surname_companion }}</span>
+      </div>
+
+      <div class="mb-2" *ngIf="description">
+        <strong class="text-muted d-block" style="font-size: 0.7rem; text-transform: uppercase;">Descripción Receta:</strong>
+        <p class="m-0 text-secondary">{{ description }}</p>
+      </div>
+
+      <div *ngIf="appointment_selected.recipes && appointment_selected.recipes.length > 0">
+        <strong class="text-muted d-block mb-1" style="font-size: 0.7rem; text-transform: uppercase;">Recipe / Medicamentos:</strong>
+        <ul class="list-unstyled ps-0 mb-0">
+          <li *ngFor="let item of appointment_selected.recipes" class="text-secondary mb-1">
+            <i class="fa fa-pills text-purple me-1" style="color: #7c3aed;"></i>
+            <strong>{{ item.name_medical }}</strong> - <small>{{ item.uso }}</small>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- 🚀 ÁREA DE BOTONES DE ACCIÓN (PIE DEL TICKET) -->
+    <!-- <div class="ticket-actions-area">
+      <button class="btn-ticket btn-reorder" type="button">
+        <i class="fa fa-sync-alt"></i>
+        Solicitar de Nuevo
+      </button>
+
+      <button class="btn-ticket btn-pay" type="button" *ngIf="appointment_selected.status_pay === 'Deuda'">
+        <i class="fa fa-credit-card"></i>
+        Reportar Pago
+      </button>
+    </div> -->
+
+  </div>
 </div>

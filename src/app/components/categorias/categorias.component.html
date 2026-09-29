@@ -1,12 +1,29 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="1" [columns]="3"></app-skeleton-loader>
-<section *ngIf="!cargando" class="container overflow animated fadeIn" style="display: inline-flex;" >
+
+
+<!-- CONTENEDOR CON DESLIZAMIENTO FLUIDO -->
+<!-- CONTENEDOR CON DESLIZAMIENTO FLUIDO -->
+<div class="categorias-carousel-wrapper" *ngIf="!cargando">
+  <div class="otrosCategorias">
     
-    <div class=" otrosCategorias" *ngFor="let esp of specialities">
-        <div class="categoria_home">
-            <a (click)="abrirDetalle(esp.id)">
-                <p>{{esp.name}}</p>
-            </a>
-        </div>
-        
+    <!-- Píldora estática inicial: "Todas" (Opcional, útil para limpiar filtros en el Home) -->
+    <div class="categoria_home" 
+         [ngClass]="{'active': especialidadId === null}" 
+         (click)="seleccionarEspecialidad(null)">
+      <span>✨ Todas</span>
     </div>
-</section>
+
+    <!-- Píldoras Dinámicas provenientes de listConfig -->
+    <div class="categoria_home" 
+         *ngFor="let esp of specialities"
+         [ngClass]="{'active': especialidadId === esp.id}"
+         (click)="seleccionarEspecialidad(esp.id)">
+      
+      <!-- Icono clínico sutil por defecto (Opcional si deseas sumarlo) -->
+      <i class="fa fa-stethoscope me-1.5" *ngIf="especialidadId === esp.id" style="font-size: 0.8rem; color: #ffffff; margin-right: 5px;"></i>
+      
+      <span>{{ esp.name }}</span>
+    </div>
+
+  </div>
+</div>

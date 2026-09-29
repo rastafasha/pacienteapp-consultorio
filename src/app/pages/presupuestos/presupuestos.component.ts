@@ -15,6 +15,7 @@ export class PresupuestosComponent implements OnInit {
   cargando = false;
   private usuario: User;
   public presupuestoSelected: Presupuesto; // Property to hold the selected presupuesto
+  public presupuestoAproved: Presupuesto;
   public presupuestosList: Presupuesto[];
   ispresupuestoSelected = false; // Keep this for UI state
 
@@ -63,4 +64,41 @@ export class PresupuestosComponent implements OnInit {
 
 
   }
+
+  // Cambiamos el método para recibir la acción del usuario
+  confirmarPresupuesto(estatus: number) {
+    if (!this.presupuestoSelected) return;
+
+    this.cargando = true;
+
+    // Construimos el payload requerido por tu Request de Laravel
+    const datos = { confimation: estatus };
+
+    // Pasamos el ID y los datos al servicio
+    this.presupuestoService.updateConfirmation(this.presupuestoSelected.id, datos).subscribe({
+      next: (resp: any) => {
+        this.presupuestoAproved = resp;
+
+        // Actualizamos el estado en la lista local para evitar recargar la página
+        const index = this.presupuestosList.findIndex(p => p.id === this.presupuestoSelected.id);
+        if (index !== -1) {
+          // 🟢 Convertimos el número a string para complacer a TypeScript
+          this.presupuestosList[index].confimation = estatus.toString();
+        }
+
+        this.cargando = false;
+
+        // Cerrar el Offcanvas automáticamente tras la acción
+        const el = document.getElementById('offcanvasNotif');
+        const bsOffcanvas = bootstrap.Offcanvas.getInstance(el);
+        if (bsOffcanvas) bsOffcanvas.hide();
+      },
+      error: (err) => {
+        this.cargando = false;
+        console.error("Error al procesar el presupuesto", err);
+      }
+    });
+  }
+
+
 }

@@ -202,93 +202,6 @@
     overflow-x: scroll;
 }
 
-.otrosCategorias {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 20px;
-    width: fit-content;
-}
-
-.categoria_home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #6495ee6e;
-    border-radius: 4px;
-    height: 40px;
-    width: max-content;
-    margin-right: 5px;
-    font-size: 14px;
-    color: var(--black);
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 100px;
-}
-
-.categoria_home img {
-    position: relative;
-    display: none;
-    bottom: 0;
-    right: 10px;
-    float: right;
-    width: 60%;
-    top: -10px;
-}
-
-.categoria_home h5 {
-    font-size: 14px;
-    color: var(--black);
-    width: 100%;
-    position: relative;
-    left: 10px;
-    top: -6px;
-}
-
-.categoria_home a p {
-    font-size: 14px;
-    color: var(--black);
-    text-align: center;
-    display: flex;
-    padding: 0;
-    margin: 0;
-
-}
-
-.publicidad_home {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width: max-content;
-}
-
-.publicidad_home_item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #e7e4e4;
-    border-radius: 4px;
-    height: 180px;
-    width: 86vw;
-    margin-right: 5px;
-    font-size: 14px;
-    color: var(--black);
-    padding-top: 10px;
-}
-
-.publicidad_home_item img {
-    position: relative;
-    display: block;
-    bottom: 0;
-    right: 0;
-    float: right;
-    width: 100%;
-    top: -10px;
-}
 
 
 /* locales */
@@ -397,8 +310,6 @@
 
 
 @media(min-width:990px) {
-    .otrosCategorias,
-    .locales_categorias,
     .mercados,
     .publicidad_home {
         width: 100%;
@@ -429,15 +340,6 @@
         float: right;
         width: 30%;
         top: -30px;
-    }
-    .categoria_home img {
-        position: relative;
-        display: block;
-        bottom: 0;
-        right: 0;
-        float: right;
-        width: 50%;
-        top: -10px;
     }
 }
 

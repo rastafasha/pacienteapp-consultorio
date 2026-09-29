@@ -79,6 +79,12 @@ export class PaymentMethodService {
     return this.http.get(URL, {headers:headers});
     
   }
+  getActivoPagoByClinica(clinica_id:number){
+    let headers = new HttpHeaders({'Authorization': 'Bearer'+this.authService.token})
+    let URL = `${baseUrl}/paymentmethods/byclinica-activa/`+clinica_id;
+    return this.http.get(URL, {headers:headers});
+    
+  }
 
 
   getActivas() {

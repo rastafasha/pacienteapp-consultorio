@@ -33,6 +33,11 @@ export class PresupuestoService {
       let URL = url_servicios+'/presupuesto/show/'+id;
       return this.http.get(URL, {headers:headers});
     }
+    updateConfirmation( presupuesto_id:number, data: any, ){
+    const headers = new HttpHeaders({'Authorization': 'Bearer ' +this.authService.token})
+    const URL = url_servicios+'/presupuesto/update/cofirmation/'+presupuesto_id;
+    return this.http.put(URL,data,{headers:headers});
+  }
     
     
   

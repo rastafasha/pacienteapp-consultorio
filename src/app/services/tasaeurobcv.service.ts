@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { TasaEurobcv } from '../models/tasaeurobcv';
 
@@ -29,33 +29,27 @@ export class TasaeurobcvService {
   }
 
 
-  getTasas() {
-    const url = `${baseUrl}/tasaeurobcv`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp: { ok: boolean, tasas: TasaEurobcv }) => resp.tasas)
-      )
-  }
-  getUltimaTasa() {
-    const url = `${baseUrl}/tasaeurobcv/ultimatasa`;
-    return this.http.get<any>(url, this.headers)
-      .pipe(
-        map((resp: { ok: boolean, tasa: TasaEurobcv }) => resp.tasa)
-      )
+   /**
+   * 🔍 Obtiene el historial de tasas Euro filtrado por el ID del propietario (Clínica o Médico)
+   */
+  getTasas(usuarioId: any): Observable<any> {
+    // 🚀 SANEADO MULTI-TENANT: Inyectamos el ID del dueño en la query string
+    const url = `${baseUrl}/tasaeurobcv?usuario=${usuarioId}`;
+    return this.http.get<any>(url, this.headers).pipe(
+      map((resp: { ok: boolean, tasas: any }) => resp.tasas)
+    );
   }
 
-  createTasaBcv(tasa: any) {
-    const url = `${baseUrl}/tasaeurobcv/crear`;
-    return this.http.post(url, tasa, this.headers);
+  /**
+   * 🎯 Recupera el último valor de liquidación de Euros registrado para este establecimiento
+   */
+  getUltimaTasa(usuarioId: any): Observable<any> {
+    // 🚀 SANEADO MULTI-TENANT: Inyectamos el ID del dueño en la query string
+    const url = `${baseUrl}/tasaeurobcv/ultimatasa?usuario=${usuarioId}`;
+    return this.http.get<any>(url, this.headers).pipe(
+      map((resp: { ok: boolean, tasa: any }) => resp.tasa)
+    );
   }
 
-
-  updateTasaBcv(tasa: TasaEurobcv, id: number) {
-    return this.http.put<any>(baseUrl + '/tasaeurobcv/editar/' + id, tasa, this.headers)
-  }
-
-  deleteTasaBcv(tasa: any) {
-    const url = `${baseUrl}/tasaeurobcv/borrar/${tasa}`;
-    return this.http.delete(url, this.headers);
-  }
+  
 }

@@ -25,3 +25,22 @@ p{
   border-width: 2px;
   font-weight: bold;
 }
+
+.btn-card-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  background: #ffffff;
+  color: #7c3aed;
+  border: 1px solid #7c3aed;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-card-action:hover {
+  background: rgba(124, 58, 237, 0.04);
+}

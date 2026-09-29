@@ -1,5 +1,5 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="1" [columns]="2"></app-skeleton-loader>
-<section *ngIf="!cargando" class="container animated fadeInUp mt-3">
+<!-- <section *ngIf="!cargando" class="container animated fadeInUp mt-3" style="height:40vh">
     <h4>Publicidad</h4>
     <div class="overflow">
         <div class=" publicidad_home" >
@@ -8,18 +8,37 @@
                     <img [src]="item.avatar" alt="">
                 </div>
             </ng-container>
-            
-            <!-- <div class="publicidad_home_item">
-                <a href="mercados.html">
-                    <img src="./assets/images/food/breads.jpeg" alt="">
-                </a>
-            </div>
-            <div class="publicidad_home_item">
-                <a href="mercados.html">
-                    <img src="./assets/images/food/sushi-casero.jpeg" alt="">
-                </a>
-            </div> -->
         </div>
     </div>
 
-</section>
+</section> -->
+
+<!-- MIENTRAS CARGA LA API: Esqueleto animado Premium -->
+<div class="publicidad-carousel-wrapper" *ngIf="cargando">
+  <div class="publicidad_home">
+    <div class="publicidad_home_item placeholder-glow" style="background: #f1f5f9;">
+      <div class="placeholder w-100 h-100" style="background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: loading-shimmer 1.5s infinite;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CUANDO LA DATA ESTÁ LISTA -->
+<div class="publicidad-carousel-wrapper" *ngIf="!cargando && pubs && pubs.length > 0">
+  <div class="publicidad_home">
+    
+    <!-- Iteración de los anuncios activos -->
+    <div class="publicidad_home_item" *ngFor="let pub of pubs">
+      <!-- Si la imagen viene directo de tu storage o API -->
+      <img [src]="pub.imagen_url || pub.imagen" [alt]="pub.titulo || 'Publicidad Klyntic'">
+    </div>
+
+  </div>
+</div>
+
+<!-- ESTILO LOCAL DE ANIMACIÓN SKELETON (SHIMMER EFFECT) -->
+<style>
+  @keyframes loading-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+</style>
