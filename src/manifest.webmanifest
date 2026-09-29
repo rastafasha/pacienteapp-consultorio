@@ -1,7 +1,7 @@
 {
   "dir": "ltr",
-  "name": "Klyntic | Consultorio",
-  "short_name": "Klyntic | Consultorio",
+  "name": "Klyntic | Paciente",
+  "short_name": "Klyntic | Paciente",
   "theme_color": "#513081",
   "description": "App to connect health clinics and patients.",
   "display": "standalone",

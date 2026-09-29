@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
     this.authService.getLocalDarkMode();
     this.usuario
     this.patient
-    // this.getInfoUser()
+    this.getInfoUser()
     this.getSettings()
   }
 abrirBuzon() {
@@ -58,9 +58,7 @@ abrirBuzon() {
   }
   getInfoUser(){
     this.userService.showPatientByNdoc(this.user.n_doc).subscribe((resp:any)=>{
-      console.log(resp);
       this.patient = resp.patient.data[0];
-      this.user = resp.user.data[0];
     })
   }
 

@@ -27,32 +27,28 @@
      🟢 CONTROLES MAESTROS: Fecha y Hora (Sincronización Reactiva Forzada)
      ========================================================================= -->
         <div class="row g-2 mb-3">
-    
-    <!-- Fecha de Cita -->
-    <div class="col-6">
-        <label class="form-label small fw-bold text-secondary">Fecha de la Cita *</label>
-        <!-- 🚀 Solo ejecuta el filtro si el doctor está fijo y el usuario completó fecha y hora -->
-        <input type="date" 
-               class="form-control" 
-               [(ngModel)]="date_appointment" 
-               (ngModelChange)="(DOCTOR_SELECTED && date_appointment && hour) ? filtroDoctor() : null">
-    </div>
 
-    <!-- Bloque Horario -->
-    <div class="col-6">
-        <label class="form-label small fw-bold text-secondary">Hora *</label>
-        <select [(ngModel)]="hour" 
-                [ngModelOptions]="{standalone: true}" 
-                class="form-control form-select select" 
-                (ngModelChange)="(DOCTOR_SELECTED && date_appointment && hour) ? filtroDoctor() : null">
-            <option value="" selected disabled>Seleccione Hora</option>
-            <option *ngFor="let data of hours" [value]="data.id">
-                {{data.name}}
-            </option>
-        </select>
-    </div>
+            <!-- Fecha de Cita -->
+            <div class="col-6">
+                <label class="form-label small fw-bold text-secondary">Fecha de la Cita *</label>
+                <!-- 🚀 Solo ejecuta el filtro si el doctor está fijo y el usuario completó fecha y hora -->
+                <input type="date" class="form-control" [(ngModel)]="date_appointment"
+                    (ngModelChange)="(DOCTOR_SELECTED && date_appointment && hour) ? filtroDoctor() : null">
+            </div>
 
-</div>
+            <!-- Bloque Horario -->
+            <div class="col-6">
+                <label class="form-label small fw-bold text-secondary">Hora *</label>
+                <select [(ngModel)]="hour" [ngModelOptions]="{standalone: true}" class="form-control form-select select"
+                    (ngModelChange)="(DOCTOR_SELECTED && date_appointment && hour) ? filtroDoctor() : null">
+                    <option value="" selected disabled>Seleccione Hora</option>
+                    <option *ngFor="let data of hours" [value]="data.id">
+                        {{data.name}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
 
         <!-- Botón de Filtrado General (Solo visible en el flujo clásico del Home) -->
         <button type="button" class="btn btn-primary w-100 rounded-pill fw-bold mb-3 shadow-sm py-2"
