@@ -22,8 +22,7 @@
     <!-- Ficha del Doctor con Avatar Elevado -->
     <div class="doctor-profile-section">
       <div class="avatar-container">
-        <img src="./assets/images/users/default.jpeg" alt="Foto Doctor">
-        <!-- <img [src]="appointment.doctor?.avatar || 'assets/img/default-doctor.png'" alt="Doctor"> -->
+        <img [src]="appointment.doctor?.avatar || './assets/images/users/default.jpeg'" alt="Doctor">
       </div>
       <div class="doctor-meta">
         <h3>Dr(a). {{ appointment.doctor?.full_name || appointment.doctor?.name }}</h3>

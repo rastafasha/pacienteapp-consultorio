@@ -36,22 +36,25 @@ export class HeaderComponent implements OnInit {
     this.user = this.authService.user;
    }
 
-  ngOnInit(): void {
-    // Cargamos el conteo de las alertas pasadas al iniciar la pantalla
+ ngOnInit(): void {
+    // 📦 1. Sincronizamos el hilo reactivo del conteo para encender el indicador rojo
+    this.unreadCount$ = this.notifService.unreadCount$;
+
     const userString = localStorage.getItem('user');
     const userObj = userString ? JSON.parse(userString) : null;
     
     if (userObj && userObj.id) {
-      this.notifService.cargarContadorInicial(userObj.id);
+      // 📦 2. Consultamos de forma proactiva las alertas del pasado al iniciar
+      this.notifService.cargarContadorInicial(userObj.id.toString());
     }
     
     this.authService.getLocalStorage();
     this.authService.getLocalDarkMode();
-    this.usuario
-    this.patient
-    this.getInfoUser()
-    this.getSettings()
+    this.getInfoUser();
+    this.getSettings();
   }
+
+  
 abrirBuzon() {
     // Al hacer clic en la campana, limpiamos el contador reactivo
     this.notifService.marcarComoLeidas().subscribe();

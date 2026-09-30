@@ -108,7 +108,7 @@
   object-fit: cover;
   background: #ffffff;
   z-index: 99;
-    position: relative;
+    position: static;
     transform: translate(0px, -20px);
 }
 

@@ -42,11 +42,11 @@ export class NotificacionService {
     this.inicializarEcosistemaAlertas();
   }
 
-  get currentRole(): 'MEDICO' | 'GUEST' {
+  // 🟢 Ajustamos el tipado para que reconozca los roles oficiales del Webhook
+  get currentRole(): 'MEDICO' | 'PACIENTE' {
     const userString = localStorage.getItem('user');
     const userObj = userString ? JSON.parse(userString) : null;
-    // Retorna 'MEDICO' si tiene la propiedad de doctor o rol médico, si no, 'GUEST'
-    return userObj && (userObj.doctor_id || userObj.role === 'MEDICO') ? 'MEDICO' : 'GUEST';
+    return userObj && (userObj.doctor_id || userObj.role === 'MEDICO') ? 'MEDICO' : 'PACIENTE';
   }
 
   private getOptions() {
@@ -95,22 +95,23 @@ export class NotificacionService {
     });
   }
 
-  /**
-   * Consulta inicial rápida por HTTP para saber el conteo del pasado
+   /**
+   * Consulta inicial rápida por HTTP restaurando tu ruta legítima (/klyntic)
    */
   cargarContadorInicial(usuarioId: string): void {
+    // 🟢 RECTIFICACIÓN: Restauramos el prefijo /klyntic/ que usa tu servidor de Node
     this.http.get<{ ok: boolean, notificaciones: Notificacion[] }>(
       `${BackendApi}/klyntic/notificaciones/usuario/${usuarioId}?page=1`,
       this.getOptions()
     ).subscribe({
       next: (res) => {
-        if (res.ok) {
+        if (res.ok && res.notificaciones) {
           this.listaNotificaciones = res.notificaciones;
           const sinLeer = this.listaNotificaciones.filter(n => !n.leido).length;
-          // Inicializamos la burbuja roja con las alertas viejas sin leer
           this.unreadCountSub.next(sinLeer);
         }
-      }
+      },
+      error: (err) => console.error("❌ Error de comunicación con la API de Node:", err)
     });
   }
 
@@ -145,9 +146,12 @@ export class NotificacionService {
         toast = this.toastr.info(notif.mensaje, '🔔 Alerta de Klyntic', config);
     }
 
-    toast.onTap.subscribe(() => {
+   toast.onTap.subscribe(() => {
       this.marcarUnaComoLeida(notif._id).subscribe(() => {
-        const ruta = esMedico ? this.determinarRutaMedico(notif.tipo, notif.referenciaId) : this.determinarRutaPaciente(notif.tipo, notif.referenciaId);
+        // Usa la constante saneada 'PACIENTE'
+        const ruta = this.currentRole === 'PACIENTE' 
+          ? this.determinarRutaMedico(notif.tipo, notif.referenciaId) 
+          : this.determinarRutaPaciente(notif.tipo, notif.referenciaId);
         this.router.navigate([ruta]);
       });
     });
@@ -173,6 +177,7 @@ export class NotificacionService {
     const userObj = userString ? JSON.parse(userString) : null;
     const usuarioId = userObj ? userObj.id : '';
 
+    // 🟢 RECTIFICACIÓN: Restauramos el prefijo /klyntic/
     return this.http.get(`${BackendApi}/klyntic/notificaciones/usuario/${usuarioId}?page=${page}`, this.getOptions());
   }
 

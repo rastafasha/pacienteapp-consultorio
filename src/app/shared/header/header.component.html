@@ -18,40 +18,39 @@
                     <h4>Paciente</h4>
                 </div>
                 <div class="menuright">
-                    <ul>
+                    <!-- Busca la sección del header donde tienes la luna del Darkmode y la campana, y reemplázala por esto: -->
+                    <div class="d-flex align-items-center gap-3">
 
-                        <li>
-                            <img class="globowhite" (click)="darkMode('dark')" src="./assets/svg/luna.svg" alt="">
-                            <img class="globoblack" (click)="darkMode('dark')" src="./assets/svg/sol.svg" alt="">
-                        </li>
-                    </ul>
-                    <!-- CAMPANA CON BADGE -->
-                   
-                    <div class="bell " (click)="navegarANotificaciones()" style="cursor: pointer;">
-                        <i class="fa fa-regular fa fa-bell fs-4 text-dark animated tada"></i>
+                        <!-- Icono del Modo Oscuro (Luna) -->
+                        <button type="button" class="btn p-1 border-0" (click)="darkMode('dark')">
+                            <i class="fa-solid fa-moon text-dark fs-5"></i>
+                        </button>
 
-                        @if ((unreadCount$ | async); as pendientes) {
-                        @if (pendientes > 0) {
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            style="font-size: 0.6rem;">
-                            {{ pendientes }}
-                        </span>
-                        }
-                        }
-                    </div>
-                    <div class="menu">
-                        <a href="javascript:void(0)" (click)="openMenu()" class="sidemenu-toggler">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </a>
-                        <!-- <div *ngIf="!patient?.avatar">
-                            <img src="./assets/svg/user-login.svg" alt="">
+                        <!-- 🚀 ENVOLTORIO ANCLA: Une el icono con su respectivo contador reactivo -->
+                        <div class="bell-wrapper" (click)="navegarANotificaciones()">
+
+                            <!-- Icono de la Campana (FontAwesome) -->
+                            <i class="fa-solid fa-bell"></i>
+
+                            <!-- Condicional Reactivo de Angular unificado con tu BehaviorSubject -->
+                            <ng-container *ngIf="unreadCount$ | async as pendientes">
+                                <!-- Solo pintamos la burbuja si hay 1 o más alertas acumuladas en MongoDB -->
+                                <span class="notification-badge" *ngIf="pendientes > 0">
+                                    {{ pendientes }}
+                                </span>
+                            </ng-container>
+
                         </div>
-                        <div *ngIf="patient?.avatar">
-                            <img [src]="patient?.avatar" alt="">
-                        </div> -->
-                        <div class="sidemenu">
+
+                        <!-- Botón del Menú Lateral (El de las tres rayitas de la derecha) -->
+                        <button class="btn border p-2.5 rounded-pill d-flex align-items-center justify-content-center"
+                            type="button" (click)="openMenu()" style="width: 44px; height: 44px; background: #ffffff;">
+                            <i class="fa-solid fa-bars text-dark fs-5"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="sidemenu">
                             <a href="javascript:void(0)" (click)="closeMenu()" class="close"></a>
                             <nav>
                                 <ul>
@@ -80,11 +79,10 @@
                             </nav>
 
                             <div class="creditos">
-                                <p>Copyright © {{year}} Klyntic - Todos los derechos reservados.</p>
+                                <p>Copyright © {{year}} Klyntic <br> Todos los derechos reservados.</p>
 
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
 

@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-// import { AccountService } from '../services/account.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+
 const BackendApi = environment.backend_node;
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private _router: Router) {
-  }
-
+  constructor(private _router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
@@ -24,18 +22,44 @@ export class AuthInterceptor implements HttpInterceptor {
     // 🔥 EL BLINDAJE REAL: Comparamos directamente contra tu variable de entorno del Backend de Node
     const esPeticionNodeAlertas = req.url.startsWith(BackendApi);
 
-    if (localStorage.getItem('token')) {
+    // 📦 Recuperamos metadatos de sesión e identificación de Klyntic
+    const token = localStorage.getItem('token');
+    const tenantSlug = localStorage.getItem('tenant_slug') || ''; // El slug activo de la clínica/consultorio
+    const userData = localStorage.getItem('user');
+
+    // Cabecera universal por defecto
+    headers = headers.append('Accept', 'application/json');
+
+    if (token) {
       if (esPeticionNodeAlertas) {
-        // Formato exclusivo para Node.js
-        headers = headers.append('Accept', 'application/json')
-                         .append('x-token', localStorage.getItem('token') || '');
+        // =========================================================================
+        // 🔔 FORMATO EXCLUSIVO PARA NODE.JS (Alertas, Push y WebSockets del Paciente)
+        // =========================================================================
+        headers = headers.append('x-token', token);
+
+        // 🚀 RECTIFICACIÓN PUSH PACIENTES: Mapeamos el ID numérico real de MySQL
+        // Esto le dice a Node quién es el paciente dueño de este teléfono/navegador
+        if (userData) {
+          const user = JSON.parse(userData);
+          if (user && user.id) {
+            headers = headers.append('x-uid', user.id.toString());
+          }
+        }
+
       } else {
-        // Formato exclusivo para Laravel
-        headers = headers.append('Accept', 'application/json')
-                         .append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        // =========================================================================
+        // 🦁 FORMATO EXCLUSIVO PARA LARAVEL (Base de Datos Centralizada)
+        // =========================================================================
+        headers = headers.append('Authorization', 'Bearer ' + token);
       }
-    } else {
-      headers = headers.append('Accept', 'application/json');
+
+      // =========================================================================
+      // 🏢 CONTEXTO MULTI-TENANT BILATERAL: Inyectamos el slug a ambos mundos
+      // =========================================================================
+      if (tenantSlug) {
+        headers = headers.append('X-Tenant-Slug', tenantSlug)
+                         .append('X-Clinica-Slug', tenantSlug);
+      }
     }
 
     return next.handle(req.clone({ headers, params })).pipe(
@@ -50,9 +74,6 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
-
-
-
   errors(error: HttpErrorResponse) {
     if (error.status === 4030 || error.status === 4040 || error.status === 4230) {
       this._router.navigate(['/login']);
@@ -60,4 +81,3 @@ export class AuthInterceptor implements HttpInterceptor {
     return throwError(error);
   }
 }
-

@@ -83,8 +83,11 @@
         filter: invert(10%) sepia(100%) saturate(2476%) hue-rotate(249deg) brightness(118%) contrast(119%);
     }
 
+    .navbarM a.active i {
+        color: #6333b8;
+    }
     .navbarM a.active img {
-        filter: rgb(0, 68, 255);
+        filter: rgb(124, 4, 176);
     }
 
     .main {

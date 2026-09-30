@@ -1,0 +1,156 @@
+/* ==========================================================================
+   🔔 CONTENEDOR Y CABECERA PREMIUM DE NOTIFICACIONES
+   ========================================================================== */
+.klyntic-notif-container {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding: 0 16px 40px 16px;
+}
+
+.section-title-premium {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.5px;
+}
+
+/* 🚀 BOTONES SUPERIORES ESTILO CÁPSULA MINIMALISTA */
+.btn-action-pill {
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+}
+.btn-action-pill:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #1e293b;
+}
+.btn-action-pill.btn-danger-pill:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+/* ==========================================================================
+   💌 TARJETAS DE ALERTA INDIVIDUALES (LOOK TICKET)
+   ========================================================================== */
+.notif-card-premium {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.02);
+}
+
+.notif-card-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -3px rgba(124, 58, 237, 0.06);
+  border-color: #e2e8f0;
+}
+
+/* Estado No Leído: Fondo morado pastel ultra sutil y barra lateral */
+.notif-card-premium.unread {
+  background: #fdfcff;
+  border-left: 4px solid #7c3aed;
+}
+
+/* BADGES ESTILIZADOS */
+.badge-new-premium {
+  background: #e0e7ff;
+  color: #4338ca;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.notif-time {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.notif-title-text {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 6px 0 4px 0;
+  line-height: 1.3;
+}
+
+.notif-message-preview {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   📱 BOTTOM SHEET OFFCANVAS (Detalle Estilo iOS)
+   ========================================================================== */
+.offcanvas-bottom-premium {
+  border-top-left-radius: 24px !important;
+  border-top-right-radius: 24px !important;
+  height: auto !important;
+  max-height: 75vh !important;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.08) !important;
+  border: none !important;
+}
+
+/* Indicador horizontal para simular arrastre nativo */
+.sheet-drag-handle {
+  width: 40px;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  margin: 10px auto 0 auto;
+}
+
+.sheet-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.sheet-body-content h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+.sheet-body-content p {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* BOTONES DE ACCIÓN DE DESTINO (Morado Premium) */
+.btn-sheet-action {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 12px;
+  border-radius: 50px;
+  border: none;
+  width: 100%;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.2);
+  transition: all 0.2s ease;
+}
+.btn-sheet-action:active {
+  transform: scale(0.98);
+}
