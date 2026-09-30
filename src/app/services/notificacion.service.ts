@@ -26,7 +26,7 @@ export interface Notificacion {
 export class NotificacionService {
   private http = inject(HttpClient);
   private toastr = inject(ToastrService);
-  private router = inject(Router);
+  public router = inject(Router);
 
   // 1. El flujo de datos reactivo que escucharán todas las campanas de la app
   private unreadCountSub = new BehaviorSubject<number>(0);
@@ -124,8 +124,10 @@ export class NotificacionService {
     const esMedico = this.currentRole === 'MEDICO';
 
     switch (notif.tipo) {
+      case 'CITA_AGENDADA':
       case 'CONSULTA_NUEVA':
-        toast = this.toastr.success(notif.mensaje, '📅 Nueva Cita en Agenda', config);
+      case 'CONSULTA_NUEVA_CLINICA':
+        toast = this.toastr.info(notif.mensaje, '📅 Nueva Cita en Agenda', config);
         break;
       case 'PAGO_RECIBIDO':
         toast = this.toastr.success(notif.mensaje, esMedico ? '💰 Pago por Verificar' : '✅ Pago Recibido', config);
@@ -193,6 +195,9 @@ export class NotificacionService {
     if (!refId) return '/app/home';
     if (tipo.startsWith('PAGO_')) return `/app/mis-pagos`;
     if (tipo === 'PRESUPUESTO_NUEVO') return `/app/mis-presupuestos`;
+    if (tipo === 'CITA_AGENDADA'  || tipo === 'CONSULTA_') {
+      return `/app/detalle-cita/${refId}`;
+    }
     if (tipo === 'RECORDATORIO') return `/app/home`;
     return '/app/home';
   }
@@ -206,9 +211,9 @@ export class NotificacionService {
   // /**
   //  * 🟢 NUEVO: Vaciar completamente el buzón de notificaciones del admin
   //  */
-  // limpiarBuzonCompleto(): Observable<any> {
-  //   return this.http.delete(`${BackendApi}/notificaciones/limpiar/todas`, this.getOptions()).pipe(
-  //     tap(() => this.unreadCountSub.next(0)) // Resetea inmediatamente en la UI
-  //   );
-  // }
+  limpiarBuzonCompleto(): Observable<any> {
+    return this.http.delete(`${BackendApi}/klyntic/notificaciones/limpiar/todas`, this.getOptions()).pipe(
+      tap(() => this.unreadCountSub.next(0)) // Resetea inmediatamente en la UI
+    );
+  }
 }

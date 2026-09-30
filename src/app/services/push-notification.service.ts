@@ -46,34 +46,84 @@ export class PushNotificationService {
     this.isSubscribed$.next(!!sub);
   }
 
-  subscribeToNotifications() {
+      subscribeToNotifications() {
     this.isProcessing$.next(true);
+    
     this.swPush.requestSubscription({
       serverPublicKey: this.VAPID_PUBLIC_KEY
     })
-      .then(sub => {
-        // 1. EXTRAER EL TOKEN (Usa 'token' porque así lo guardas)
-        const miToken = localStorage.getItem('token') || '';
+    .then(sub => {
+      // 1. Extraemos el objeto usuario del localStorage del Paciente de forma segura
+      const userString = localStorage.getItem('user');
+      const userObj = userString ? JSON.parse(userString) : null;
+      // Extraemos el ID físico del Paciente logueado
+      const currentUid = userObj && userObj.id ? userObj.id.toString() : 'GUEST';
+      const miToken = localStorage.getItem('token') || '';
 
-        // 2. CONFIGURAR EL HEADER (Asegúrate de que coincida con tu validarJWT en Node)
-        // Si tu middleware usa req.header('x-token'), pon 'x-token' aquí:
-        const headers = {
-          'x-token': miToken
-        };
-        this.isSubscribed$.next(true);
-        console.log('Enviando con token:', miToken);
+      // 🚀 APORTACIÓN ANTIMISTERIOS: Convertimos la suscripción a JSON plano
+      const subJson = sub.toJSON();
 
-        // 3. HACER EL POST AL BACKEND
-        this.http.post(urlBackend, sub, { headers }).subscribe({
-          next: () => console.log('✅ ¡Suscripción guardada en Render!'),
-          error: err => console.error('❌ Error 401 persistente:', err)
-        });
+      // 2. CONFIGURAMOS EL PAYLOAD REAL: Metemos el userId directo en el JSON
+      const payloadBody = {
+        endpoint: subJson.endpoint,
+        expirationTime: subJson.expirationTime,
+        keys: subJson.keys, // Totalmente compatible y libre de errores de tipado ts(2353)
+        userId: currentUid 
+      };
 
-        this.isSubscribed$.next(true);
-        this.isProcessing$.next(false);
-        this.toastr.success('¡Notificaciones activadas!'); // Feedback visual
-      })
+      // 3. Forzamos los headers de red para blindar el canal con Node
+      const headers = {
+        'x-token': miToken,
+        'x-uid': currentUid,
+        'X-Tenant-Slug': localStorage.getItem('tenant-slug') || 'default'
+      };
+      
+      console.log('📡 [PWA PACIENTE] Despachando payload hacia Node para el ID:', currentUid);
+
+      // 4. HACER EL POST AL BACKEND DE RENDER
+      // Nota: Asegúrate de usar la variable urlBackend o la que corresponda a tu endpoint de notipush
+      this.http.post(urlBackend, payloadBody, { headers }).subscribe({
+        next: () => {
+          console.log('✅ ¡Suscripción de paciente guardada con éxito en MongoDB!');
+          this.isSubscribed$.next(true);
+          this.isProcessing$.next(false);
+          this.toastr.success('¡Notificaciones activadas con éxito!');
+
+          // =========================================================================
+          // 🚀 GLOBO NATIVO DE PACIENTES COORDINADO (Salta solo si se guardó en BD)
+          // =========================================================================
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then((registration) => {
+              const opcionesNotificacion: any = {
+                body: 'A partir de ahora recibirás aquí las confirmaciones en tiempo real de tus citas médicas y presupuestos.',
+                icon: 'assets/icons/72.png', // Ruta de tus iconos reales de pacienteapp
+                badge: 'assets/icons/72.png',
+                vibrate:[200, 100, 200],
+                tag: 'bienvenida-pwa-klyntic'
+              };
+
+              registration.showNotification('🔔 ¡Canal Klyntic Conectado!', opcionesNotificacion);
+            }).catch(swErr => console.log('Aviso: Service Worker no listo para el globo inmediato:', swErr));
+          }
+          // =========================================================================
+        },
+        error: err => {
+          console.error('❌ Error al guardar la suscripción del paciente en Render:', err);
+          this.isSubscribed$.next(false);
+          this.isProcessing$.next(false);
+          this.toastr.error('Error', 'No se pudo registrar el dispositivo de alertas');
+        }
+      });
+    })
+    .catch(err => {
+      console.error('❌ Permiso denegado por el usuario o error VAPID:', err);
+      this.isSubscribed$.next(false);
+      this.isProcessing$.next(false);
+      this.toastr.error('No se pudieron activar las alertas porque denegaste el permiso.', 'Aviso');
+    });
   }
+
+
 
  
 

@@ -86,20 +86,30 @@
       
       <button type="button" class="btn-sheet-action" 
               *ngIf="notifSeleccionada.tipo?.startsWith('PAGO_')" 
-              (click)="cerrarOffcanvas(); irAPagos(notifSeleccionada.tipo)">
+              (click)="atenderNotificacion(notifSeleccionada)">
         <i class="fa-solid fa-wallet me-1.5"></i> Gestionar mis Pagos
       </button>
+      <!-- <button type="button" class="btn-sheet-action" 
+              *ngIf="notifSeleccionada.tipo?.startsWith('PAGO_')" 
+              (click)="cerrarOffcanvas(); irAPagos(notifSeleccionada.tipo)">
+        <i class="fa-solid fa-wallet me-1.5"></i> Gestionar mis Pagos
+      </button> -->
 
       <button type="button" class="btn-sheet-action" 
               *ngIf="notifSeleccionada.tipo?.startsWith('PRESUPUESTO_')" 
-              (click)="cerrarOffcanvas(); router.navigate(['/app/mis-presupuestos'])">
+              (click)="atenderNotificacion(notifSeleccionada)">
         <i class="fa-solid fa-file-invoice-dollar me-1.5"></i> Revisar Presupuesto Disponible
       </button>
+      <!-- <button type="button" class="btn-sheet-action" 
+              *ngIf="notifSeleccionada.tipo?.startsWith('PRESUPUESTO_')" 
+              (click)="cerrarOffcanvas(); router.navigate(['/app/mis-presupuestos'])">
+        <i class="fa-solid fa-file-invoice-dollar me-1.5"></i> Revisar Presupuesto Disponible
+      </button> -->
 
       <button type="button" class="btn-sheet-action" 
               *ngIf="notifSeleccionada.tipo === 'CITA_AGENDADA' || notifSeleccionada.tipo === 'RECORDATORIO'" 
-              (click)="cerrarOffcanvas(); router.navigate(['/app/home'])">
-        <i class="fa-solid fa-calendar-check me-1.5"></i> Ver mi Agenda de Citas
+              (click)="atenderNotificacion(notifSeleccionada)">
+        <i class="fa-solid fa-calendar-check me-1.5"></i> Ver Cita
       </button>
 
     </div>

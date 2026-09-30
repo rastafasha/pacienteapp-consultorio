@@ -22,11 +22,11 @@
       <div class="patient-avatar-frame">
         <!-- Resguardo por si el avatar viene null o con imagen rota -->
          
-        <img src="./assets/images/users/default.jpeg" 
-             alt="Foto Paciente">
-        <!-- <img [src]="patient.avatar || './assets/images/users/default.jpg'" 
-             onerror="this.src='./assets/images/users/default.jpg';" 
+        <!-- <img src="./assets/images/users/default.jpeg" 
              alt="Foto Paciente"> -->
+        <img [src]="patient.avatar || './assets/images/users/default.jpeg'" 
+             onerror="this.src='./assets/images/users/default.jpeg';" 
+             alt="Foto Paciente">
       </div>
     </div>
 
@@ -51,16 +51,25 @@
     </div>
 
     <!-- 🔔 CONTROL SWITCH: NOTIFICACIONES PUSH MULTI-TENANT -->
-    <div class="push-notification-strip">
-      <div class="push-text">
-        <strong><i class="fa fa-bell-o"></i> Notificaciones Push</strong>
-        <span>Avisos importantes de tus citas médicas</span>
-      </div>
-      <label class="klyntic-switch">
-        <input type="checkbox" checked>
-        <span class="slider-switch round"></span>
-      </label>
-    </div>
+    <!-- =========================================================================
+     🔔 COMPONENTE SWITCH DE WEB PUSH ADAPTIVO - KLYNTIC PACIENTES
+     ========================================================================= -->
+<div class="d-flex align-items-center justify-content-between p-3 border rounded mb-4 bg-light">
+  <div>
+    <h5 class="mb-1 fw-bold text-dark">Notificaciones Push</h5>
+    <p class="text-muted small mb-0">Recibe recordatorios automáticos de tus citas y pagos en tiempo real.</p>
+  </div>
+  
+  <div class="form-check form-switch fs-4">
+    <!-- El checkbox se bloquea dinámicamente si isProcessing$ es verdadero -->
+    <input class="form-check-input custom-switch-purple" 
+           type="checkbox" 
+           role="switch" 
+           [checked]="pushService.isSubscribed$ | async"
+           [disabled]="pushService.isProcessing$ | async"
+           (change)="togglePush()">
+  </div>
+</div>
 
     <!-- =========================================================================
          📋 EXPEDIENTE CLÍNICO: ANTECEDENTES Y MOTIVOS (Cariño Visual Premium)

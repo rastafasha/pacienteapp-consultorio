@@ -18,7 +18,7 @@
                     <h4>Paciente</h4>
                 </div>
                 <div class="menuright">
-                    <!-- Busca la sección del header donde tienes la luna del Darkmode y la campana, y reemplázala por esto: -->
+
                     <div class="d-flex align-items-center gap-3">
 
                         <!-- Icono del Modo Oscuro (Luna) -->
@@ -26,20 +26,24 @@
                             <i class="fa-solid fa-moon text-dark fs-5"></i>
                         </button>
 
-                        <!-- 🚀 ENVOLTORIO ANCLA: Une el icono con su respectivo contador reactivo -->
+                        <!-- =========================================================================
+     🔔 ESTRUCTURA ANCLA DE LA CAMPANA PREMIUM RE-INGENIERADA (PACIENTES)
+     ========================================================================= -->
                         <div class="bell-wrapper" (click)="navegarANotificaciones()">
-
-                            <!-- Icono de la Campana (FontAwesome) -->
+                            <!-- Icono nativo de FontAwesome de tu plantilla -->
                             <i class="fa-solid fa-bell"></i>
 
-                            <!-- Condicional Reactivo de Angular unificado con tu BehaviorSubject -->
-                            <ng-container *ngIf="unreadCount$ | async as pendientes">
-                                <!-- Solo pintamos la burbuja si hay 1 o más alertas acumuladas en MongoDB -->
-                                <span class="notification-badge" *ngIf="pendientes > 0">
-                                    {{ pendientes }}
-                                </span>
-                            </ng-container>
+                            <!-- 🚀 RENDERING ASÍNCRONO MULTI-DÍGITO: 
+       *ngIf lee unreadCount$ a través del pipe 'async'. 
+       Si el conteo es mayor a 0, inyecta la píldora y le clava la animación. -->
+                            <div class="notification-badge" *ngIf="(unreadCount$ | async) as count; else noAlerts">
+                                <ng-container *if="count > 0">
+                                    {{ count }}
+                                </ng-container>
+                            </div>
 
+                            <!-- Fallback invisible por si no hay alertas (evita saltos bruscos en el layout) -->
+                            <ng-template #noAlerts></ng-template>
                         </div>
 
                         <!-- Botón del Menú Lateral (El de las tres rayitas de la derecha) -->
@@ -51,38 +55,38 @@
                     </div>
 
                     <div class="sidemenu">
-                            <a href="javascript:void(0)" (click)="closeMenu()" class="close"></a>
-                            <nav>
-                                <ul>
-                                    <li>
-                                        <a routerLink="/app/home">
-                                            <i class="fa fa-info-circle"></i>&nbsp;Hola {{patient?.name}}!
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="/app/ayuda">
-                                            <i class="fa fa-life-ring"></i>&nbsp; Ayuda en Línea
-                                        </a>
-                                    </li>
+                        <a href="javascript:void(0)" (click)="closeMenu()" class="close"></a>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a routerLink="/app/home">
+                                        <i class="fa fa-info-circle"></i>&nbsp;Hola {{patient?.name}}!
+                                    </a>
+                                </li>
+                                <li>
+                                    <a routerLink="/app/ayuda">
+                                        <i class="fa fa-life-ring"></i>&nbsp; Ayuda en Línea
+                                    </a>
+                                </li>
 
-                                    <li>
-                                        <a routerLink="/app/legal">
-                                            <i class="fa fa-balance-scale"></i>&nbsp; Información legal
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a (click)="logout()">
-                                            <i class="fa fa-sign-out"></i>&nbsp; Salir
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                <li>
+                                    <a routerLink="/app/legal">
+                                        <i class="fa fa-balance-scale"></i>&nbsp; Información legal
+                                    </a>
+                                </li>
+                                <li>
+                                    <a (click)="logout()">
+                                        <i class="fa fa-sign-out"></i>&nbsp; Salir
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
 
-                            <div class="creditos">
-                                <p>Copyright © {{year}} Klyntic <br> Todos los derechos reservados.</p>
+                        <div class="creditos">
+                            <p>Copyright © {{year}} Klyntic <br> Todos los derechos reservados.</p>
 
-                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
 

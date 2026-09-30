@@ -11,10 +11,11 @@ export const environment = {
   url_media: 'http://127.0.0.1:8000/storage/',
   backend_node: "http://localhost:5000/api",
   backend_CRM_node:"http://localhost:3000/api",
+  urlBackedNotification:"http://localhost:5000/api/notipush/save-subscription",
 
   //conexion a node y manejo de notificaciones remoto
   // backend_node:"https://back-klyntic-envios.onrender.com/api",
-  urlBackedNotification: 'https://back-klyntic-envios.onrender.com/api/notipush/save-subscription',
+  // urlBackedNotification: 'https://back-klyntic-envios.onrender.com/api/notipush/save-subscription',
   VAPI_KEY_PUBLIC: 'BG-UDqYJkOikTb0G7nNdKcpqZm__XCl0dwbJsx-kerpEecxL5rp079U7UMZxqo5XA0i60NGOVlezm1RAMyHRTbQ',
 
 
