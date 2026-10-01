@@ -35,6 +35,8 @@ export class DetallecitaComponent implements OnInit {
   appointment_selected:any;
   appointment_selectedId:any;
   laboratory:number;
+  costo:number;
+  deuda:number;
 
   FILES:any = [];
   FilesAdded:any = [];
@@ -63,16 +65,18 @@ getInfoCita(){
   this.cargando = true;
     this.appoitmentService.showAppointment(this.appointment_id).subscribe((resp:any)=>{
       this.cargando = false;
-      console.log(resp);
       this.appointment_selected = resp.appointment;
       this.appointment_selectedId = resp.appointment.id;
       this.doctor = resp.appointment.doctor;
       this.avatar_doctor = resp.appointment.doctor.avatar;
       this.speciality = resp.appointment.speciality;
       this.status_pay = resp.appointment.status_pay;
+      this.costo = resp.costo;
+      this.deuda = resp.deuda;
 
-      console.log(this.appointment_selectedId);
-      this.getFilesLaboratory();
+      console.log(this.costo);
+      console.log(this.deuda);
+      // this.getFilesLaboratory();
     })
   }
 

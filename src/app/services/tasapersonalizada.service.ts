@@ -40,13 +40,5 @@ export class TasapersonalizadaService {
   }
 
 
-  updateTasa(tasa: TasaPersonalizada, id: number) {
-    return this.http.put<any>(baseUrl + '/tasapersonalizada/editar/' + id, tasa, this.headers)
-  }
-
-
-  deleteTasaPersonalizada(tasa: any) {
-    const url = `${baseUrl}/tasapersonalizada/borrar/${tasa}`;
-    return this.http.delete(url, this.headers);
-  }
+ 
 }

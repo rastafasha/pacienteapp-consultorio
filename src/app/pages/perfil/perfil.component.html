@@ -1,105 +1,126 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="3" [columns]="1"></app-skeleton-loader>
 
-<div class="container pt-3" *ngIf="!cargando">
+<div class="klyntic-patient-profile-container" *ngIf="patient && !cargando">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <app-back-button title="Mi Perfil"></app-back-button>
-        <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
-            title="Ayuda de la sección">
-            <i class="fa fa-question"></i>
-        </button>
+  <!-- 🩻 HEADER CARNET DE IDENTIDAD (Fiel al estilo Klyntic Morado) -->
+  <div class="patient-id-banner">
+    <h2>{{ patient.full_name }}</h2>
+    <span class="patient-id-tag"><i class="fa fa-id-card-o"></i> Doc: {{ patient.n_doc }}</span>
+    <!-- ♀️ TRADUCCIÓN DEL ENUMERADOR DE GÉNERO (2 -> Femenino / 1 -> Masculino) -->
+    <div class="gender-stamp">
+      <i class="fa" [ngClass]="(patient.gender === 'Femenino' || patient.gender == 2) ? 'fa-venus' : 'fa-mars'"></i>
+      {{ (patient.gender === 'Femenino' || patient.gender == 2) ? 'Femenino' : 'Masculino' }}
     </div>
-    <div class="row">
 
-        <div class="notiene" *ngIf="!patient">
-            <p>Usted no tiene registro medico con esta Clínica.</p>
-            <!-- <p>Revise la pestaña Presupuestos, si tiene un presupuesto con esta clínica, puede verlo allí.</p> -->
+  </div>
 
-        </div>
-
-        <section class=" animated fadeInUp " *ngIf="patient">
-
-            <div class="perfil">
-                <div class="local_categoria_item" style="height: auto;">
-                    <div class="logo_local">
-                        <img [src]="patient.avatar" alt="">
-                    </div>
-                    <div class="contenido" style="height: auto;">
-                        <div class="info_local">
-                            <h3>{{patient.full_name}}</h3>
-                            <div class="infcita">
-                                <p class="esp"><b>N.Doc</b><br>
-                                    {{patient.n_doc}}</p>
-                                <p class="fech"><b>Teléfono</b><br>
-                                    {{patient.phone}}</p>
-                                <p class="monto" *ngIf="patient.birth_date">
-                                    <b>Nacimiento:</b> <br>
-                                    {{patient.birth_date}}
-                                </p>
-                                <p class="pagado" *ngIf="patient.education">
-                                    <b>Profesión:</b> <br>
-                                    {{patient.education}}
-
-                                </p>
-
-                            </div>
-                        </div>
-                        <div class="calificacion">
-                            <span *ngIf="patient.gender === 1"> <i class="fa fa-user"></i>&nbsp;Masculino</span>
-                            <span *ngIf="patient.gender === 2"> <i class="fa fa-user"></i>&nbsp;Femenino</span>
-                        </div>
-
-                    </div>
-                    <!-- configurar notificaciones push -->
-                    <div class="setting-row" *ngIf="!isLoading" [class.loading]="pushService.isProcessing$ | async">
-                        <div class="setting-info">
-                            <i class="fa fa-bell"></i>
-                            <div class="text-container">
-                                <strong>Notificaciones Push</strong>
-                                <span>Avisos importantes</span>
-                            </div>
-                        </div>
-
-                        <div class="switch-wrapper">
-                            <!-- Spinner pequeño que solo aparece al cargar -->
-                            <div *ngIf="pushService.isProcessing$ | async" class="mini-spinner"></div>
-
-                            <label class="switch">
-                                <input type="checkbox" [disabled]="pushService.isProcessing$ | async"
-                                    [checked]="pushService.isSubscribed$ | async" (change)="togglePush()">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    </div>
-                    <!-- configurar notificaciones push -->
-                </div>
-                <div class="card" style="margin-top: 45px; margin-bottom: 100px;" *ngIf="patient.antecedent_personal">
-                   <div class="card-body">
-                     <p class="monto">
-                        <b>Motivo Registro:</b> <br>
-                        {{patient.current_desease}}
-                    </p>
-                    <p class="monto">
-                        <b>Atnt. Alergico:</b> <br>
-                        {{patient.antecedent_alerg}}
-                    </p>
-                    <p class="pagado">
-                        <b>Atnt. Personal:</b> <br>
-                        {{patient.antecedent_personal}}
-                    </p>
-                    <p class="tiemp">
-                        <b>Atnt. Familiar:</b> <br>
-                        {{patient.antecedent_family}}
-                    </p>
-                    <p class="tiemp">
-                        <b>Dirección:</b> <br>
-                        {{patient.address}}
-                    </p>
-                   </div>
-                </div>
-            </div>
-
-        </section>
+  <!-- 🩺 CUERPO DE LA CREDENCIAL -->
+  <div class="patient-badge-body">
+    
+    <!-- Contenedor de la foto flotante subida (Rompe el borde del banner) -->
+    <div class="avatar-floating-wrapper">
+      <div class="patient-avatar-frame">
+        <!-- Resguardo por si el avatar viene null o con imagen rota -->
+         
+        <!-- <img src="./assets/images/users/default.jpeg" 
+             alt="Foto Paciente"> -->
+        <img [src]="patient.avatar || './assets/images/users/default.jpeg'" 
+             onerror="this.src='./assets/images/users/default.jpeg';" 
+             alt="Foto Paciente">
+      </div>
     </div>
+
+    <!-- 📊 REGILLA DE METADATOS PERSONALES (Se mantiene intacta) -->
+    <div class="patient-personal-grid">
+      <div class="grid-profile-item">
+        <span class="profile-label"><i class="fa fa-phone"></i> Teléfono</span>
+        <strong class="profile-value">{{ patient.phone || 'No registrado' }}</strong>
+      </div>
+      <div class="grid-profile-item text-right">
+        <span class="profile-label"><i class="fa fa-birthday-cake"></i> Nacimiento</span>
+        <strong class="profile-value">{{ patient.birth_date ? (patient.birth_date | date:'dd/MM/yyyy') : 'No registrado' }}</strong>
+      </div>
+      <div class="grid-profile-item border-top-split pt-3">
+        <span class="profile-label"><i class="fa fa-graduation-cap"></i> Profesión</span>
+        <strong class="profile-value text-capitalize">{{ patient.education || 'No configurada' }}</strong>
+      </div>
+      <div class="grid-profile-item border-top-split pt-3 text-right">
+        <span class="profile-label"><i class="fa fa-map-marker"></i> Dirección Sede</span>
+        <strong class="profile-value address-truncate">{{ patient.address || 'Caracas, Venezuela' }}</strong>
+      </div>
+    </div>
+
+    <!-- 🔔 CONTROL SWITCH: NOTIFICACIONES PUSH MULTI-TENANT -->
+    <!-- =========================================================================
+     🔔 COMPONENTE SWITCH DE WEB PUSH ADAPTIVO - KLYNTIC PACIENTES
+     ========================================================================= -->
+<div class="d-flex align-items-center justify-content-between p-3 border rounded mb-4 bg-light">
+  <div>
+    <h5 class="mb-1 fw-bold text-dark">Notificaciones Push</h5>
+    <p class="text-muted small mb-0">Recibe recordatorios automáticos de tus citas y pagos en tiempo real.</p>
+  </div>
+  
+  <div class="form-check form-switch fs-4">
+    <!-- El checkbox se bloquea dinámicamente si isProcessing$ es verdadero -->
+    <input class="form-check-input custom-switch-purple" 
+           type="checkbox" 
+           role="switch" 
+           [checked]="pushService.isSubscribed$ | async"
+           [disabled]="pushService.isProcessing$ | async"
+           (change)="togglePush()">
+  </div>
 </div>
+
+    <!-- =========================================================================
+         📋 EXPEDIENTE CLÍNICO: ANTECEDENTES Y MOTIVOS (Cariño Visual Premium)
+         ========================================================================= -->
+    <div class="clinical-record-section">
+      <h3 class="section-title-clinical"><i class="fa fa-folder-open-o"></i> Expediente Médico</h3>
+
+      <!-- 1. Motivo del Registro -->
+      <div class="clinical-card-item card-motivo">
+        <div class="clinical-card-header">
+          <i class="fa fa-stethoscope icon-motivo"></i>
+          <h4>Motivo de Registro / Síntomas</h4>
+        </div>
+        <p>{{ patient.current_desease || 'Ninguno reportado en la apertura de cuenta.' }}</p>
+      </div>
+
+      <!-- 2. Antecedentes Alérgicos -->
+      <div class="clinical-card-item card-alergias">
+        <div class="clinical-card-header">
+          <i class="fa fa-exclamation-triangle icon-alergias"></i>
+          <h4>Antecedentes Alérgicos</h4>
+        </div>
+        <p [ngClass]="{'text-success-smooth fw-bold': !patient.antecedent_alerg}">
+          {{ patient.antecedent_alerg || '✓ No registra alergias ni reacciones adversas conocidas.' }}
+        </p>
+      </div>
+
+      <!-- 3. Antecedentes Personales -->
+      <div class="clinical-card-item card-personales">
+        <div class="clinical-card-header">
+          <i class="fa fa-heartbeat icon-personales"></i>
+          <h4>Antecedentes Personales Patológicos</h4>
+        </div>
+        <p>{{ patient.antecedent_personal || 'No registra patologías crónicas previas.' }}</p>
+      </div>
+
+      <!-- 4. Antecedentes Familiares -->
+      <div class="clinical-card-item card-familiares">
+        <div class="clinical-card-header">
+          <i class="fa fa-users icon-familiares"></i>
+          <h4>Antecedentes Familiares</h4>
+        </div>
+        <p>{{ patient.antecedent_family || 'No reporta antecedentes patológicos hereditarios.' }}</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- signos vitales -->
+<!-- <app-signosvitales [patient]="patient"  [patient]="patient" 
+    [usuario]="usuario"></app-signosvitales> -->
+<!-- signos vitales -->
 <app-modal-instrucciones [info]="info" sectionId="mi_perfil" #instruccionesModal></app-modal-instrucciones>

@@ -1,184 +1,160 @@
-
+<!--  CONTENEDOR MAESTRO DEL OFFCANVAS BOOTSTRAP (Tu etiqueta original exacta restaurada) -->
 <div class="offcanvas offcanvas-bottom border-0 shadow-lg rounded-top-4" [class.show]="visible"
-    [style.visibility]="visible ? 'visible' : 'hidden'" style="height: 85vh; border-radius: 25px 25px 0 0;" tabindex="-1">
-    
-    <div class="offcanvas-header justify-content-between pb-0">
-        <h5 class="offcanvas-title fw-bold text-dark">📅 Solicitar Cita Médica</h5>
-        <button type="button" class="btn-close" (click)="cerrarOffcanvas()"></button>
+    [style.visibility]="visible ? 'visible' : 'hidden'" style="height: 85vh; border-radius: 25px 25px 0 0;"
+    tabindex="-1">
+
+    <!-- Fondo oscuro traslúcido para móviles -->
+    <div class="offcanvas-overlay" *ngIf="visible" (click)="cerrarOffcanvas()"></div>
+
+    <!-- Cabecera del Panel -->
+    <div class="offcanvas-header border-bottom py-3 px-3 d-flex align-items-center justify-content-between">
+        <h5 class="mb-0 fw-bold text-dark d-flex align-items-center gap-2">
+            <i class="fa fa-calendar-plus-o text-primary"></i> Solicitar Cita Médica
+        </h5>
+        <button class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center"
+            style="width: 32px; height: 32px; border: none; color: #64748b;" (click)="cerrarOffcanvas()">
+            <i class="fa fa-times"></i>
+        </button>
     </div>
 
-    <div class="offcanvas-body">
-        <!-- 🔥 TODO TU FORMULARIO ORIGINAL VA AQUÍ ADENTRO INTACTO -->
-        <p class="small text-muted">Configurando cita para especialidad: {{speciality?speciality?.name:'N/A'}}</p>
+    <!-- Cuerpo del Panel con Scroll Interno -->
+    <div class="offcanvas-body p-3" style="overflow-y: auto;">
 
-        <form>
-            <!-- consulta -->
-            <div class="row align-items-center">
-                <div class="col-12">
-                    <div class="form-heading">
-                        <h5>Agendar Cita para:</h5>
-                        <h4>{{speciality?speciality?.name:'N/A'}}</h4>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="form-group local-forms">
-                        <label>Fecha de la Cita <span class="login-danger">*</span></label>
-                        <input type="date" class="form-control datetimepicker" name="date_appointment"
-                            [(ngModel)]="date_appointment">
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="form-group local-forms">
-                        <label>Hora <span class="login-danger">*</span></label>
-                        <select [(ngModel)]="hour" [ngModelOptions]="{standalone: true}" class="form-control select"
-                            placeholder="Select Hour">
-                            <option value="" selected>Seleccione Hora</option>
-                            <option *ngFor="let data of hours" [value]="data.id">
-                                {{data.name}}
+        <!-- Nombre de la Especialidad Centralizada -->
+        <p class="text-muted small mb-3">Configurando cita para especialidad: <strong>{{speciality?.name}}</strong></p>
 
-                            </option>
-                        </select>
-                    </div>
-                </div>
+        <!-- =========================================================================
+     🟢 CONTROLES MAESTROS: Fecha y Hora (Sincronización Reactiva Forzada)
+     ========================================================================= -->
+        <div class="row g-2 mb-3">
 
-                <br>
-                <br>
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="form-group local-forms">
-                        <button type="button" class="btn btn-primary submit-form me-2"
-                            (click)="filtro()">Filtro</button>
-                    </div>
-                </div>
-            </div>
-            <!-- consulta -->
-            <!-- disponibilidad -->
-            <div class="row align-items-center">
-                <div class="col-12 listadoctors" *ngIf="selecteDoc ">
-                    <div class="table-responsive">
-                        <table class="table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Nombre Doctor</th>
-                                    <!-- <th>Detalle</th> -->
-                                    <th>Disp.</th>
-                                    <th>Ver</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container *ngFor="let DOCTOR of DOCTORS let i = index;">
-                                    <tr>
-                                        <td>{{DOCTOR.doctor.full_name}}</td>
-                                        <td>{{countDisponibilidad(DOCTOR)}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary btn-sm"
-                                                (click)="showSegment(DOCTOR,i)">+</button>
-                                        </td>
-                                    </tr>
-
-                                </ng-container>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-12" *ngIf="DOCTOR_Det_SELECTED">
-                    <div class="table-responsive">
-                        <table class="table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Info</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{DOCTOR_Det_SELECTED.doctor.full_name}}<br>
-                                        Cita: {{DOCTOR_Det_SELECTED.doctor.precio_cita|currency}}<br>
-                                        tel: {{DOCTOR_Det_SELECTED.doctor.mobile}}<br>
-                                        Dir: {{DOCTOR_Det_SELECTED.doctor.address}}</td>
-                                    <td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                        <button class="btn btn-outline-success btn-sm" (click)="back()">Cerrar</button>
-                    </div>
-                </div>
-                <div class="col-12" *ngIf="DOCTOR_SELECTED">
-                    <div class="row">
-                        <div class="table-responsive" style="width: 100vw;">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Hora</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Dr. {{DOCTOR_SELECTED.doctor.full_name}}<br>
-                                            Consultorio:{{DOCTOR_SELECTED.doctor.consultorio.name_consultorio}}<br>
-                                            Cita:{{DOCTOR_SELECTED.doctor.precio_cita|currency}}<br>
-                                            Horario disponible:<br><br>
-                                            <ng-container *ngFor="let SEGMENT of DOCTOR_SELECTED.segments">
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" *ngIf="!SEGMENT.is_appointment" name="radio"
-                                                            (click)="selecSegment(SEGMENT)">
-                                                        {{SEGMENT.format_segment.format_hour_start}} a
-                                                        {{SEGMENT.format_segment.format_hour_end}}
-                                                    </label>
-                                                </div>
-                                                <br>
-                                            </ng-container>
-
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-
-                <!-- validaciones -->
-                <div class="form-group row" *ngIf="valid_form_success">
-                    <div class="col-md-8">
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Exito!</strong>SE CREO CORRECTAMENTE.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true"> </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group row" *ngIf="text_validation">
-                    <div class="col-md-8">
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>!</strong> {{ text_validation }}.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true"> </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- validaciones -->
-            </div>
-            <!-- disponibilidad -->
-
-
-            <div class="row align-items-center">
-                <div class="col-12">
-                    <div class="doctor-submit text-end">
-                        <button type="button" class="btn btn-primary submit-form me-2"
-                            (click)="cancel()">Cancelar</button>
-                        <button type="button" class="btn btn-primary submit-form me-2" (click)="save()">Guardar</button>
-
-                    </div>
-                </div>
+            <!-- Fecha de Cita -->
+            <div class="col-6">
+                <label class="form-label small fw-bold text-secondary">Fecha de la Cita *</label>
+                <!-- 🚀 Solo ejecuta el filtro si el doctor está fijo y el usuario completó fecha y hora -->
+                <input type="date" class="form-control" [(ngModel)]="date_appointment"
+                    (ngModelChange)="(DOCTOR_SELECTED && date_appointment && hour) ? filtroDoctor() : null">
             </div>
 
-        </form>
+            <!-- Bloque Horario -->
+            <div class="col-6">
+                <label class="form-label small fw-bold text-secondary">Hora *</label>
+                <select [(ngModel)]="hour" [ngModelOptions]="{standalone: true}" class="form-control form-select select"
+                    (ngModelChange)="(DOCTOR_SELECTED && date_appointment && hour) ? filtroDoctor() : null">
+                    <option value="" selected disabled>Seleccione Hora</option>
+                    <option *ngFor="let data of hours" [value]="data.id">
+                        {{data.name}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Botón de Filtrado General (Solo visible en el flujo clásico del Home) -->
+        <button type="button" class="btn btn-primary w-100 rounded-pill fw-bold mb-3 shadow-sm py-2"
+            *ngIf="!DOCTOR_SELECTED" (click)="filtro()">
+            <i class="fa fa-search"></i> Filtrar Especialistas
+        </button>
+
+        <!-- =========================================================================
+             📋 ENTORNO A: BUSCADOR GENERAL (Se oculta si venimos de un médico fijo)
+             ========================================================================= -->
+        <div class="table-responsive bg-light p-2 rounded-3 border mb-3"
+            *ngIf="!DOCTOR_SELECTED && selecteDoc && DOCTORS?.length > 0">
+            <table class="table table-sm text-center small mb-0">
+                <thead>
+                    <tr class="table-secondary">
+                        <th class="text-start">Nombre Doctor</th>
+                        <th>Disp.</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of DOCTORS">
+                        <td class="text-start fw-semibold text-dark">{{ data.doctor?.full_name }}</td>
+                        <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle">{{
+                                countDisponibilidad(data) }}</span></td>
+                        <td>
+                            <div class="d-flex gap-1 justify-content-center">
+                                <button class="btn btn-primary btn-xs px-2 py-0.5 rounded"
+                                    (click)="showSegment(data)">+</button>
+                                <button class="btn btn-outline-secondary btn-xs px-2 py-0.5 rounded"
+                                    (click)="showDetail(data)">Info</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- =========================================================================
+     📋 FICHA DE DETALLES DEL DOCTOR (Saneada de acuerdo a tu JSON real)
+     ========================================================================= -->
+        <div class="card border-0 bg-light p-3 rounded-4 mb-3 shadow-inner" *ngIf="DOCTOR_Det_SELECTED">
+            <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-1">
+                <strong class="text-dark">Dr(a). {{ DOCTOR_Det_SELECTED.doctor?.full_name }}</strong>
+                <button class="btn btn-link btn-sm text-secondary p-0 text-decoration-none" (click)="back()"><i
+                        class="fa fa-arrow-left"></i> Volver</button>
+            </div>
+            <!-- 🚀 CORRECCIÓN DE LLAVES: Mapeamos los campos directo del objeto relacional del JSON -->
+            <p class="mb-1 small text-secondary"><strong>Especialidad:</strong> {{
+                DOCTOR_Det_SELECTED.doctor?.speciality?.name }}</p>
+            <p class="mb-1 small text-secondary"><strong>Sede:</strong> {{
+                DOCTOR_Det_SELECTED.doctor?.consultorio?.name_consultorio }}</p>
+            <p class="mb-0 small text-secondary"><strong>Dirección:</strong> {{
+                DOCTOR_Det_SELECTED.doctor?.consultorio?.address }}</p>
+        </div>
+
+        <!-- =========================================================================
+     🏢 ENTORNO B: HEADER FIJO DE MÉDICO (Se activa en Modo Directo o al fijar)
+     ========================================================================= -->
+        <div class="text-center border-bottom pb-2 mb-3 mt-1 bg-primary bg-opacity-10 p-2.5 rounded-3 text-secondary"
+            *ngIf="DOCTOR_SELECTED">
+            <span class="small d-block text-muted">Agenda activa con el especialista asignado:</span>
+            <strong class="text-primary fs-5 d-block">Dr(a). {{ DOCTOR_SELECTED.doctor?.full_name }}</strong>
+        </div>
+
+        <!-- =========================================================================
+     ⏰ REJILLA UNIFICADA DE RECUADROS DE 15 MIN (Mapeo estricto del Formato)
+     ========================================================================= -->
+        <div class="schedule-slots-section mt-3" *ngIf="DOCTOR_SELECTED && date_appointment && hour">
+            <p class="small fw-semibold text-muted mb-2"><i class="fa fa-clock-o text-primary"></i> Seleccione la hora
+                de consulta:</p>
+
+            <div class="d-flex flex-wrap gap-2 justify-content-start align-items-center">
+                <!-- 🚀 BUCLE COMPATIBLE CON TU JSON: Lee la propiedad format_segment.format_hour_start -->
+                <button type="button" class="btn btn-sm font-monospace rounded-pill px-3 py-1.5 transition-all"
+                    *ngFor="let SEGMENT of DOCTOR"
+                    [ngClass]="selected_segment_hour?.id === SEGMENT.id ? 'btn-primary text-white shadow-sm' : 'btn-outline-primary'"
+                    (click)="selecSegment(SEGMENT)">
+                    <!-- Muestra la hora formateada limpia (ej: "08:00 AM") -->
+                    {{ SEGMENT.format_segment?.format_hour_start || SEGMENT.hour_start?.slice(0,5) }}
+                </button>
+            </div>
+
+            <!-- Alerta por si el array de segmentos viene vacío -->
+            <div class="alert alert-warning small p-2.5 rounded-3 border-warning border-opacity-25 mt-3 animate-fade-in"
+                *ngIf="DOCTOR?.length === 0">
+                <i class="fa fa-exclamation-triangle text-warning me-1"></i> No se encontraron bloques de 15 min
+                disponibles para los parámetros seleccionados. Pruebe con otro día.
+            </div>
+        </div>
+
+        <!-- Caja de Validaciones de Error Nativa -->
+        <div class="alert alert-danger p-2 small mt-3" *ngIf="text_validation">
+            <i class="fa fa-exclamation-circle"></i> {{ text_validation }}
+        </div>
+
+        <!-- Botonera Maestra de Guardado General -->
+        <div class="d-flex justify-content-end align-items-center gap-2 mt-4 pt-3 border-top">
+            <button type="button" class="btn btn-light rounded-pill px-4 fw-semibold py-2"
+                (click)="cerrarOffcanvas()">Cancelar</button>
+            <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold py-2 shadow-sm" (click)="save()"
+                [disabled]="!selected_segment_hour">
+                <i class="fa fa-check"></i> Guardar Cita
+            </button>
+        </div>
+
     </div>
 </div>
 

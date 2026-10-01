@@ -1,0 +1,75 @@
+/* CONTENEDOR MAESTRO DE DESPLAZAMIENTO TÁCTIL */
+.categorias-carousel-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Inercia fluida en iOS */
+  padding: 6px 4px 12px 4px; /* Margen inferior para que no choque con las sombras */
+}
+
+/* Ocultar barra de scroll horrible de escritorio */
+.categorias-carousel-wrapper::-webkit-scrollbar {
+  display: none;
+}
+.categorias-carousel-wrapper {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+/* CONTENEDOR INTERNO DE LA TIRA HORIZONTAL */
+.otrosCategorias {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: max-content;
+  gap: 8px; /* Separación simétrica y limpia entre píldoras */
+}
+
+/* PÍLDORA INDIVIDUAL (Evolución Estética) */
+.categoria_home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9; /* Fondo grisáceo limpio y neutro de inicio */
+  border: 1px solid #e2e8f0;
+  border-radius: 100px; /* Redondeado perfecto estilo cápsula */
+  height: 42px;
+  padding: 0 18px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* TEXTO INTERNO DE LA PÍLDORA */
+.categoria_home span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #475569; /* Color de texto legible y suave */
+  white-space: nowrap; /* Evita que el texto de la especialidad se rompa en dos renglones */
+  transition: color 0.25s ease;
+}
+
+/* ESTADO SELECCIONADO / ACTIVO (Match con tus Tickets Morados) */
+.categoria_home.active {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  border-color: #7c3aed;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+  transform: translateY(-1px);
+}
+
+.categoria_home.active span {
+  color: #ffffff; /* Texto blanco contrastante */
+}
+
+/* EFECTO HOVER PARA ESCRITORIO o DISPOSITIVOS COMPATIBLES */
+.categoria_home:not(.active):hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.categoria_home:active {
+  transform: scale(0.96);
+}

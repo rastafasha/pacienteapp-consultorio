@@ -37,6 +37,17 @@ export class CategoriasComponent implements OnInit {
    
   }
 
+  // Reemplaza o añade este método en tu archivo ts
+seleccionarEspecialidad(id: any) {
+  // 1. Guardamos localmente para encender la clase .active en el HTML
+  this.especialidadId = id;
+  
+  console.log("📢 Categorías emitiendo ID hacia el Home:", id);
+  
+  // 2. Despachamos el ID hacia el componente Padre (Home)
+  this.alSeleccionarEspecialidad.emit(id);
+}
+
   
 
 }

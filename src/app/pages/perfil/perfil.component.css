@@ -1,177 +1,302 @@
-.info_local {
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    width: 220px;
+/* VARIABLES COMPARTIDAS DE DISEÑO EXCLUSIVO PACIENTES */
+:host {
+  --klyntic-purple-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  --slate-dark: #0f172a;
+  --slate-muted: #64748b;
+  --slate-bg-light: #f8fafc;
+  --border-line: #f1f5f9;
+  --radius-outer: 24px;
+  --radius-inner: 16px;
 }
 
-.logo_local {
-    display: flex;
-    width: 70px;
-    height: 70px;
-    overflow: hidden;
-    background-color: #fff;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-radius: 50%;
+/* CONTENEDOR DE LA CREDENCIAL DE PACIENTE */
+.klyntic-patient-profile-container {
+  width: 94vw;
+  max-width: 460px;
+  margin: 20px auto 100px auto; /* padding-bottom de 100px integrado en el margen */
+  background: #ffffff;
+  border-radius: var(--radius-outer);
+  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.06), 0 8px 10px -6px rgba(124, 58, 237, 0.03);
+  overflow: hidden;
+  border: 1px solid var(--border-line);
 }
 
-.btn-outline-primary.rounded-circle {
-  width: 32px;
-  height: 32px;
+/* BANNER SUPERIOR CON DEGRADADO CORPORATIVO */
+.patient-id-banner {
+  height: 110px; /* Incrementamos la altura para dar espacio al nombre y documento */
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  position: relative;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.patient-id-banner h2{
+  color: #ffffff !important;
+}
+
+/* Bloque de texto blanco dentro de la barra morada */
+.banner-identity-text {
+  color: #ffffff;
+  margin-top: 4px;
+}
+
+.banner-identity-text h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  text-shadow: 0 2px 4px rgba(15, 23, 42, 0.15);
+}
+
+.banner-identity-text .patient-id-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.9;
+  display: block;
+  margin-top: 2px;
+}
+
+
+/* Badge de sexo estilizado arriba a la derecha */
+.gender-stamp {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-width: 2px;
-  font-weight: bold;
+  gap: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
 }
 
-.infcita {
-    display: grid;
-    grid-template-columns: repeat(2, 0fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    height: 100%;
-    grid-gap: 0px;
-    grid-gap: 5px;
-    width: max-content;
+/* CUERPO INTERNO */
+.patient-badge-body {
+  padding: 0 18px 20px 18px;
 }
 
-/* El contenedor principal */
-.setting-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    background: #ffffff;
-    border-bottom: 1px solid #eee;
-    width: 100%;
-    box-sizing: border-box;
+/* BLOQUE DE IDENTIDAD DE PACIENTE (FOTO FLOTANTE) */
+.patient-core-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-/* Alineación de icono y textos */
-.setting-row .setting-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.avatar-floating-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -45px; /* 🔥 Fuerza a la foto a subir un pelo y morder el banner morado */
+  margin-bottom: 18px;
+  padding-left: 4px;
+      z-index: 99;
+    position: relative;
 }
 
-.setting-row .setting-info i {
-    font-size: 20px;
-    color: #555;
+.patient-avatar-frame img {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 4px solid #ffffff; /* Borde blanco grueso que hace el quiebre de diseño con el morado */
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+  object-fit: cover;
+  background: #ffffff;
 }
 
-.setting-row .setting-info .text-container {
-    display: flex;
-    flex-direction: column;
+.patient-meta-info {
+  padding-bottom: 4px;
 }
 
-.setting-row .setting-info .text-container strong {
-    font-size: 16px;
-    color: #333;
-    display: block;
+.patient-meta-info h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--slate-dark);
 }
 
-.setting-row .setting-info .text-container span {
-    font-size: 12px;
-    color: #888;
-    display: block;
+.patient-id-tag {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ddd;
+  display: block;
+  margin-top: 2px;
 }
 
-.switch-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+/* REJILLA DE METADATOS PERSONALES */
+.patient-personal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  background: var(--slate-bg-light);
+  padding: 14px;
+  border-radius: var(--radius-inner);
+  border: 1px solid var(--border-line);
+  margin-bottom: 20px;
+  margin-top: 8px;
 }
 
-/* Base rígida del switch (Contenedor externo) */
-.switch {
-    position: relative !important;
-    display: inline-block !important;
-    width: 50px !important;
-    height: 28px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    cursor: pointer;
+.grid-profile-item {
+  display: flex;
+  flex-direction: column;
+}
+.text-right { align-items: flex-end; text-align: right; }
+.border-top-split { border-top: 1px dashed #e2e8f0; }
+
+.profile-label {
+  font-size: 0.68rem;
+  color: var(--slate-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-/* Ocultar input real */
-.switch input {
-    opacity: 0 !important;
-    width: 0 !important;
-    height: 0 !important;
-    position: absolute !important;
+.profile-value {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--slate-dark);
+}
+.address-truncate {
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* EL ARREGLO: El fondo alargado del switch */
-.switch .slider {
-    position: absolute !important;
-    cursor: pointer;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 50px !important;  /* Forzamos el ancho alargado */
-    height: 28px !important; /* Forzamos la altura */
-    background-color: #ccc !important;
-    transition: 0.4s;
-    border-radius: 34px !important; /* Esto le da la forma de óvalo de cápsula */
+/* TIRA DE NOTIFICACIONES PUSH SWITCH STYLE */
+.push-notification-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: #ffffff;
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-inner);
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.01);
 }
 
-/* El círculo blanco interno */
-.switch .slider:before {
-    position: absolute !important;
-    content: "" !important;
-    height: 22px !important;
-    width: 22px !important;
-    left: 3px !important;
-    bottom: 3px !important;
-    background-color: #ffffff !important;
-    transition: 0.4s;
-    border-radius: 50% !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transform: none !important; /* Resetea herencias raras */
+.push-text {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Estado Activo - Fondo Verde */
-.switch input:checked + .slider {
-    background-color: #4cd964 !important;
-} 
-
-/* Estado Activo - Movimiento del círculo blanco */
-.switch input:checked + .slider:before {
-    transform: translateX(22px) !important;
+.push-text strong {
+  font-size: 0.85rem;
+  color: var(--slate-dark);
 }
 
-
-
-
-.setting-row.loading {
-    opacity: 0.7;
-    pointer-events: none; 
+.push-text span {
+  font-size: 0.72rem;
+  color: var(--slate-muted);
 }
 
-.switch-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* MOTOR CSS DEL SWITCH TOGGLE (NATIVO PREMIUM) */
+.klyntic-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.klyntic-switch input { opacity: 0; width: 0; height: 0; }
+.slider-switch {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #cbd5e1;
+  transition: .3s;
+}
+.slider-switch:before {
+  position: absolute;
+  content: "";
+  height: 18px; width: 18px;
+  left: 3px; bottom: 3px;
+  background-color: white;
+  transition: .3s;
+}
+input:checked + .slider-switch {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+}
+input:checked + .slider-switch:before { transform: translateX(20px); }
+.slider-switch.round { border-radius: 34px; }
+.slider-switch.round:before { border-radius: 50%; }
+
+/* =========================================================================
+     ⚙️ SECCIÓN DE EXPEDIENTE CLÍNICO (MICRO-TARJETAS DE SALUD)
+     ========================================================================= */
+.clinical-record-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.mini-spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid #ccc;
-    border-top: 2px solid #4cd964; 
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+.section-title-clinical {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--slate-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+.clinical-card-item {
+  border-radius: var(--radius-inner);
+  padding: 12px 14px;
+  border: 1px solid var(--border-line);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.01);
 }
+
+.clinical-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.clinical-card-header h4 {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--slate-dark);
+}
+
+.clinical-card-header i {
+  font-size: 0.95rem;
+}
+
+.clinical-card-item p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #475569;
+}
+
+/* VARIACIONES DE DISEÑO POR TARJETA MÉDICA */
+.card-motivo { background: #fef8f8; border-color: #fee2e2; }
+.icon-motivo { color: #ef4444; }
+
+.card-alergias { background: #fffbeb; border-color: #fef3c7; }
+.icon-alergias { color: #f59e0b; }
+.text-success-smooth { color: #16a34a !important; font-size: 0.78rem !important; }
+
+.card-personales { background: #f5f3ff; border-color: #ede9fe; }
+.icon-personales { color: #7c3aed; }
+
+.card-familiares { background: #f0fdfa; border-color: #ccfbf1; }
+.icon-familiares { color: #0d9488; }

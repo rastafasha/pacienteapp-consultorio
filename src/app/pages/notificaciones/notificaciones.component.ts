@@ -164,6 +164,13 @@ export class NotificacionesComponent {
     }
   }
 
+  atenderNotificacion(notifSeleccionada: any) {
+    this.notificacionService.marcarUnaComoLeida(notifSeleccionada._id).subscribe(() => {
+      const ruta = (this.notificacionService as any).determinarRutaPaciente(notifSeleccionada.tipo, notifSeleccionada.referenciaId);
+      this.notificacionService.router.navigate([ruta]);
+    });
+  }
+
   // eliminarIndividual(id: string) {
   //   this.notificacionService.borrarNotificacion(id).subscribe(() => {
   //     this.toastr.success('Notificación Eliminada');

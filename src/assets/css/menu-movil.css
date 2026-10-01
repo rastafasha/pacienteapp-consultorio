@@ -18,10 +18,13 @@
 }
 
 @media(max-width:768px) {
-    .foot{
+    .foot {
         display: flex;
-    justify-content: center;
+        justify-content: center;
+        position: relative;
+        z-index: 999;
     }
+
     .navbarM {
         display: flex;
         justify-content: space-between;
@@ -33,9 +36,10 @@
         height: 62px;
         bottom: 0px;
         z-index: 2;
-         background-color: #fff;
-         box-shadow: 0 8px 10px 0 rgba(11, 11, 11, 0.37)
+        background-color: #fff;
+        box-shadow: 0 8px 10px 0 rgba(11, 11, 11, 0.37)
     }
+
     .navbarM a {
         float: left;
         display: inline-block;
@@ -47,39 +51,50 @@
         width: calc(23%);
         height: 60px;
         /* width: 60px; */
-       ;
+        ;
     }
+
     .navbarM a i {
         font-size: 20px;
         display: block;
         text-align: center;
     }
-    .navbarM a p{
+
+    .navbarM a p {
         font-size: 11px;
         display: block;
         text-align: center;
     }
+
     .navbarM a:hover {
         background: var(--gris);
         color: #fff;
     }
+
     .navbarM a.active {
         background-color: #a8a8a85e;
         color: white;
     }
+
     .navbarM a img {
         /* rojo */
         /* filter: invert(10%) sepia(100%) saturate(2476%) hue-rotate(331deg) brightness(118%) contrast(119%); */
         /* azul */
         filter: invert(10%) sepia(100%) saturate(2476%) hue-rotate(249deg) brightness(118%) contrast(119%);
     }
-    .navbarM a.active img {
-        filter: rgb(0, 68, 255);
+
+    .navbarM a.active i {
+        color: #6333b8;
     }
+    .navbarM a.active img {
+        filter: rgb(124, 4, 176);
+    }
+
     .main {
         padding: 16px;
         margin-bottom: 30px;
     }
+
     .navbarMtop {
         display: none;
     }

@@ -1,31 +1,80 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="10" [columns]="1"></app-skeleton-loader>
 
-<div *ngIf="!cargando">
-    <section class="container animated fadeInUp " style=" padding-top: 30px; padding-bottom: 50px;">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-        <app-back-button title="Info Especialista"></app-back-button>
+<div class="klyntic-doctor-badge-card" *ngIf="doctor">
+
+  <!-- 🩻 HEADER DE LA CREDENCIAL CLÍNICA -->
+  <div class="badge-header-banner">
+    <h2>Dr(a). {{ doctor.full_name }}</h2>
+
+  </div>
+
+
+
+  <!-- 🩺 CUERPO INFORMATIVO CLÍNICO -->
+  <div class="badge-body">
+    <span class="speciality-badge-tag">
+      <i class="fa fa-stethoscope"></i> {{ doctor.speciality?.name }}
+    </span>
+
+    <!-- 🚀 CONTENEDOR DE AVATAR FLOTANTE (Subido para romper el borde del banner) -->
+    <div class="avatar-floating-wrapper-doctor">
+      <div class="doctor-avatar-frame">
+        <!-- Mantenemos intacta tu ruta nativa de imagen sin pipes -->
+        <img src="./assets/images/users/default.jpeg" alt="Foto Doctor">
+      </div>
     </div>
-        
-        <div class="perfil">
-            <div class="local_categoria_item" style="height: 240px;">
-                <div class="logo_local">
-                    <img [src]="avatar_doctor" alt="">
-                </div>
-                <div class="contenido" style="height: auto;
-                transform: translateY(32px);">
-                    <div class="info_local">
-                        <h3>Dr.{{doctor.full_name}}</h3>
-                        <p>Consultorio: {{doctor.address}}</p>
-                        <p>Teléfono: {{doctor.mobile}}</p>
-                        <p>Email: {{doctor.email}}</p>
-                        <p>Precio Cita: {{doctor.precio_cita|currency}}</p>
-                        <p >Especialidad: {{doctor.speciality.name}}</p>
-                        <p >Horario: {{doctor.days_name}}</p>
-                    </div>
-                </div>
-            </div>
+
+    <!-- 📍 FICHA DE ATENCIÓN DE LA SEDE -->
+    <div class="clinic-location-strip">
+      <i class="fa fa-map-marker"></i>
+      <div>
+        <strong>Consultorio / Sede:</strong>
+        <span>{{ doctor.address || 'Sede Central Klyntic' }}</span>
+      </div>
+    </div>
+
+    <!-- 📊 REJILLA DE CONTACTO Y PARÁMETROS -->
+    <div class="doctor-details-grid">
+
+      <!-- Teléfono de Contacto -->
+      <div class="grid-detail-item">
+        <span class="detail-label"><i class="fa fa-phone"></i> Teléfono</span>
+        <strong class="detail-value">{{ doctor.mobile || 'No registrado' }}</strong>
+      </div>
+
+      <!-- Correo Electrónico -->
+      <div class="grid-detail-item text-right">
+        <span class="detail-label"><i class="fa fa-envelope-o"></i> Email</span>
+        <strong class="detail-value email-text">{{ doctor.email }}</strong>
+      </div>
+
+      <!-- Tarifa Oficial Centralizada -->
+      <div class="grid-detail-item border-top-split pt-3">
+        <span class="detail-label"><i class="fa fa-money"></i> Precio Cita</span>
+        <strong class="detail-value price-tag-highlight">
+          <!-- Mantiene tu pipe original de currency -->
+          {{ doctor.precio_cita | currency }}
+        </strong>
+      </div>
+
+      <!-- ⏰ HORARIO / DÍAS DE CONSULTA SANEADOS -->
+      <div class="grid-detail-item border-top-split pt-3 text-right">
+        <span class="detail-label"><i class="fa fa-calendar-check-o"></i> Días de Consulta</span>
+        <div class="days-schedule-inline">
+          <!-- 🛠️ Filtro en caliente: Transforma "Lunes-Miercoles-Viernes-" en "Lunes · Miercoles · Viernes" -->
+          {{ (doctor.days_name || 'Previa Cita').replace('-', ' · ').slice(0, -2) }}
         </div>
+      </div>
 
-    </section>
+    </div>
 
-</div>
+    <!-- 🚀 BOTÓN DE ACCIÓN: REAGENDAR DIRECTO -->
+    <div class="badge-actions-container">
+      <!-- Gatilla la función inyectando tu objeto maestro 'doctor' -->
+      <button class="btn-action-primary" (click)="panelCitaDirecto.abrirOffcanvasConMedicoDirecto(doctor)">
+        <i class="fa fa-calendar"></i> Volver a Solicitar Cita
+      </button>
+    </div>
+
+  </div>
+  <app-agendar-cita #panelCitaDirecto></app-agendar-cita>
