@@ -1,0 +1,215 @@
+/* 🚀 ANTÍDOTO ATÓMICO: Evita la acumulación de opacidad en el fondo */
+.modal-backdrop.show {
+    opacity: 0.5 !important; /* Mantiene el fondo oscuro estándar de Bootstrap */
+}
+
+.bgklyntic{
+    --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: var(--primary-gradient);
+}
+
+.btn-successklyntic {
+    background: #7c3aed;
+    color:#ddd;
+    border: none !important;
+}
+
+/* =========================================================================
+   🚀 CALIBRACIÓN ATÓMICA DE CAPAS PARA EL MODAL INICIAL
+   ========================================================================= */
+
+/* 1. La capa raíz será una ventana invisible que permite hacer clics */
+#modalInicial {
+    background-color: transparent !important; /* QUITAMOS el color gris de aquí */
+    z-index: 1055 !important;                /* Nivel estándar de Bootstrap 5 superior */
+    pointer-events: none !important;          /* 🚀 CLAVE: Permite que los clics atraviesen las zonas vacías */
+}
+
+/* 2. Trasladamos el fondo translúcido controlado ÚNICAMENTE al diálogo */
+#modalInicial .modal-dialog {
+    pointer-events: auto !important;          /* 🚀 CLAVE: Devuelve la interactividad total a los botones y la tarjeta */
+    z-index: 1056 !important;
+    margin-top: 2% !important;               /* Lo baja un poco para centrarlo simétricamente */
+}
+
+/* 3. Forzamos al cuadro interno a ser 100% BLANCO SÓLIDO Y NÍTIDO */
+#modalInicial .modal-content {
+    background-color: #ffffff !important;     /* 🟢 Blanco puro sin heredar transparencias */
+    color: #212529 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3) !important; /* Sombreado pronunciado para darle profundidad */
+    border: none !important;
+    opacity: 1 !important;                    /* Asegura la máxima nitidez */
+}
+
+/* 4. Blindaje estricto de fuentes para romper lavados de color */
+#modalInicial h2,
+#modalInicial h3,
+#modalInicial p,
+#modalInicial li,
+#modalInicial span {
+    color: #212529 !important;                /* Gris oscuro corporativo ultra legible */
+    opacity: 1 !important;
+    font-weight: 500;
+}
+
+/* 5. Apagamos por completo el backdrop automático de Bootstrap que congela la pantalla */
+.modal-backdrop {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+
+h2{
+    color: #b02b2b !important;
+    text-align: center;
+}
+
+
+.step-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ddd;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.step-circle.active {
+  background: #00c0ef;
+  color: white;
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: #ddd;
+  margin: 0 10px;
+}
+
+
+.imgcuadro{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+  width: 100%;
+  height: auto;
+  margin: 5px;
+}
+
+
+
+
+
+/* =========================================================================
+   🚀 CALIBRACIÓN ATÓMICA DE CAPAS PARA EL MODAL INICIAL (Klyntic Enterprise)
+   ========================================================================= */
+
+
+/* 🎛️ INDICADORES DE PASOS */
+.step-indicators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.step-circle.active {
+    background: #00c0ef !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(0, 192, 239, 0.3);
+}
+
+.step-line {
+    flex: 1;
+    height: 3px;
+    background: #00c0ef;
+    max-width: 120px;
+    margin: 0 8px;
+    border-radius: 2px;
+}
+
+/* 🎨 CONTENEDORES Y DETALLES */
+.icon-wrapper {
+    background: #f7fafc;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.ultra-small {
+    font-size: 10px !important;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.bg-light {
+    background-color: #f8fafc !important;
+}
+
+.check-klyntic {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+/* 📱 RESPONSIVE DESIGN - GRID INTELIGENTE */
+.botonesmodal {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+@media (min-width: 768px) {
+    .border-md-start {
+        border-left: 1px solid #e2e8f0 !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .botonesmodal {
+        width: 100%;
+    }
+    .botonesmodal button {
+        width: 100%;
+    }
+    #modalInicial .modal-dialog {
+        margin: 15px !important;
+    }
+}
+
+/* Apagamos el backdrop automático molesto de Bootstrap */
+.modal-backdrop {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}

@@ -1,0 +1,114 @@
+<!-- Modal Dinámico de Instrucciones -->
+<div #modalInicialRef class="modal fade" id="modalInicial" tabindex="-1" aria-labelledby="modalInicialLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content border-0 shadow">
+      <!-- Header con color dinámico si lo deseas, aquí mantenemos el success -->
+      <div class="modal-header bgklyntic text-white border-0">
+        <h5 class="modal-title d-flex align-items-center" id="modalInicialLabel">
+          <i class="fa fa-info-circle me-2"></i>
+          <span>Hola!</span>
+        </h5>
+        <button type="button" class="btn-close btn-close-white" (click)="onClose()" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- <div class="step-indicators text-center mb-4">
+          <span class="step-circle" [class.active]="currentStep >= 1">1</span>
+          <span class="step-line"></span>
+          <span class="step-circle" [class.active]="currentStep >= 2">2</span>
+        </div> -->
+
+        <div *ngIf="currentStep === 1">
+          <!-- Encabezado Original con Estilo Klyntic -->
+          <div class="modal-header border-0 pb-0 pt-4 px-4 d-flex flex-column align-items-center">
+            <h2 class="modal-title font-weight-bold" id="modalInicialLabel">🚀 ¡Bienvenido a Klyntic!</h2>
+            <p class="text-muted text-center mt-2 small">En esta aplicación podras.</p>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-6 mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <span class="text-info">👥</span>
+                <span class="text-dark font-weight-medium">Encontrar Médicos por especialidad y solicitar citas,
+                  mantener tus Recipes y presupuestos.</span>
+              </div>
+            </div>
+            <div class="col-md-6 mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <span class="text-warning">💳</span>
+                <span class="text-dark font-weight-medium">Control de Pagos y Transferencias.</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="d-flex align-items-center gap-2">
+                <span class="text-success">⚡</span>
+                <span class="text-dark font-weight-medium">El sistema te notificará toda la actividad en tiempo
+                  real.</span>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="p-3 bg-light rounded border border-info-subtle mb-3">
+            <p class="text-dark small mb-0 font-weight-medium">
+              🔄 <strong>Sobre las actualizaciones:</strong> En el momento de cada actualización de la Aplicación,
+              aparecerá un mensaje en el lado superior; sólo debes actualizar y en segundos continuar con tu jornada.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- <div *ngIf="currentStep === 2">
+          <h2>Instalalo en tu Dispositivo! </h2>
+          <p>Si puedes ver este icon en la barra de dirección:</p>
+          <div class="imgcuadro">
+            <img src="./assets/img/barra1.png" class="img-fluid" style="width: 100%; display: block; margin:auto" alt="">
+
+          </div>
+          <p>ó</p>
+          <div class="imgcuadro">
+            <img src="./assets/img/barra2.png" class="img-fluid" style="width: 100%; display: block; margin:auto" alt="">
+
+          </div>
+          <div class="row mt-5">
+            <div class="col-12 col-sm-6">
+              <p>1 Pulsa sobre el icono y podras instalarlo en tu dispositivo (Computador, Tabla, Movil):</p>
+              <div class="imgcuadro">
+                <img src="./assets/img/install.png" class="img-fluid" style="width: 100%; display: block; margin:auto" alt="">
+
+              </div>
+              <p>2 Pulsa el Boton Install</p>
+            </div>
+            <div class="col-12 col-sm-6">
+              <p>3 Agregalo a tu barra de Inicio:</p>
+              <div class="imgcuadro">
+                <img src="./assets/img/instalado.png" class="img-fluid" style="width: 100%; display: block; margin:auto" alt="">
+
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="text-center mt-4">
+          <button *ngIf="currentStep === 1" class="btn btn-info btn-md text-uppercase me-2" (click)="nextStep()">
+            Siguiente
+          </button>
+          <button *ngIf="currentStep === 2" class="btn btn-secondary btn-md me-2" (click)="prevStep()">
+            Volver
+          </button>
+        </div> -->
+      </div>
+
+      <div class="modal-footer border-0 bg-light d-flex justify-content-between">
+        <!-- Botón para no volver a mostrar (Usa el ID único de sección internamente) -->
+        <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onNoShowMore()">
+          No mostrar más en esta sección
+        </button>
+
+        <button type="button" class="btn btn-successklyntic px-4" (click)="onClose()">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

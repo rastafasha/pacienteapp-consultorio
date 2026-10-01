@@ -1,0 +1,10 @@
+.bgklyntic{
+    --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: var(--primary-gradient);
+}
+
+.btn-successklyntic {
+    background: #7c3aed;
+    color:#ddd;
+    border: none !important;
+}
