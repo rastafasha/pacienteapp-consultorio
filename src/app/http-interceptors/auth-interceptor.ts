@@ -11,15 +11,16 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private _router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // 🛡️ EL ESCUDO DE LOGIN: Si la petición va al login, que pase directo sin trabas de red
+    if (req.url.includes('loginpaciente') || req.url.includes('login')) {
+        return next.handle(req);
+    }
     
     if (!req.url.startsWith('http')) {
       return next.handle(req);
     }
 
-    // 🛡️ EL ESCUDO DE LOGIN: Si la petición va al login, que pase directo sin trabas de red
-    if (req.url.includes('loginpaciente') || req.url.includes('login')) {
-        return next.handle(req);
-    }
+    
 
     if (!req.url.startsWith('http')) {
         return next.handle(req);
