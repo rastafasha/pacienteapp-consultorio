@@ -57,8 +57,8 @@ export class AuthInterceptor implements HttpInterceptor {
       // 🏢 CONTEXTO MULTI-TENANT BILATERAL: Inyectamos el slug a ambos mundos
       // =========================================================================
       if (tenantSlug) {
-        headers = headers.append('X-Tenant-Slug', tenantSlug)
-                         .append('X-Clinica-Slug', tenantSlug);
+        // 🟢 DEJAMOS ÚNICAMENTE LA CABECERA QUE MANDA EL JUEGO EN LARAVEL
+        headers = headers.append('X-Tenant-Slug', tenantSlug);
       }
     }
 
