@@ -15,21 +15,21 @@ export class PaymentService {
   public payments: Payment;
   public payment: Payment;
 
-  info:any = {};
-  cargada:boolean = false;
+  info: any = {};
+  cargada: boolean = false;
 
   //datos
   // payments = 'assets/dataSimulada/pago.json';
 
   constructor(private http: HttpClient) { }
 
-  get token():string{
+  get token(): string {
     return localStorage.getItem('auth_token');
   }
 
 
-  get headers(){
-    return{
+  get headers() {
+    return {
       headers: {
         'auth_token': this.token
       }
@@ -45,23 +45,23 @@ export class PaymentService {
 
 
 
-  
 
-  getPagoById(id:number): Observable<any> {
+
+  getPagoById(id: number): Observable<any> {
     const url = `${baseUrl}/payment/show/${id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, payment: Payment}) => resp.payment)
-        );
+        map((resp: { ok: boolean, payment: Payment }) => resp.payment)
+      );
   }
 
-  create(data:any): Observable<any> {
+  create(data: any): Observable<any> {
     const url = `${baseUrl}/payment/store`;
     return this.http.post(url, data, this.headers);
   }
 
-  update(payment:Payment): Observable<any> {
-   const url = `${baseUrl}/payment/update/${payment.id}`;
+  update(payment: Payment): Observable<any> {
+    const url = `${baseUrl}/payment/update/${payment.id}`;
     return this.http.put(url, payment, this.headers);
   }
 
@@ -84,43 +84,43 @@ export class PaymentService {
     return this.http.get(`${baseUrl}/payment/?title=${title}`);
   }
 
-  getPagosbyUser(id:number): Observable<any> {
+  getPagosbyUser(id: number): Observable<any> {
 
     const url = `${baseUrl}/payment/pagosbyUser/${id}`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, payments: Payment}) => resp.payments)
-        );
+        map((resp: { ok: boolean, payments: Payment }) => resp.payments)
+      );
   }
 
-//   getPagosbyUser(
-//   patient_id:number, 
-//   page=1, 
-//   search_referencia='',  
-//   search_status='',  
-//   ){
-//   let LINK = "";
-//   if(search_referencia){
-//   LINK+="&search_referencia="+search_referencia;
-//   }
-//   if(search_status){
-//     LINK+="&search_status="+search_status;
-//     }
-  
-//   const url = baseUrl+'/payment/pagosbyUser/'+patient_id+'/?page='+page+LINK;
-//   return this.http.get(url, this.headers);
-// }
+  //   getPagosbyUser(
+  //   patient_id:number, 
+  //   page=1, 
+  //   search_referencia='',  
+  //   search_status='',  
+  //   ){
+  //   let LINK = "";
+  //   if(search_referencia){
+  //   LINK+="&search_referencia="+search_referencia;
+  //   }
+  //   if(search_status){
+  //     LINK+="&search_status="+search_status;
+  //     }
 
-   getRecientes(): Observable<any> {
+  //   const url = baseUrl+'/payment/pagosbyUser/'+patient_id+'/?page='+page+LINK;
+  //   return this.http.get(url, this.headers);
+  // }
+
+  getRecientes(): Observable<any> {
     const url = `${baseUrl}/payment/recientes`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, payments: Payment}) => resp.payments)
+        map((resp: { ok: boolean, payments: Payment }) => resp.payments)
       )
   }
 
-  search(query=''){
-    return this.http.get(`${baseUrl}/payment/search`, {params: {buscar: query}})
+  search(query = '') {
+    return this.http.get(`${baseUrl}/payment/search`, { params: { buscar: query } })
 
   }
 
