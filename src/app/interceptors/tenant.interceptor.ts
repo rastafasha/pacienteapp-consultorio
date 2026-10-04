@@ -14,6 +14,7 @@ export class TenantInterceptor implements HttpInterceptor {
     const rutasGlobales = [
       'loginpaciente', 
       'login',
+      '/patients/profile/','appointments/config', 'pub/activos',
       '/user/show/ndoc/',      // Endpoint maestro de datos e historial unificado
       '/presupuesto/bypatient/' // Endpoint maestro de presupuestos consolidados
     ];

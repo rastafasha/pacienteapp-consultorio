@@ -35,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // 🟢 ACCIÓN DE SANEAMIENTO PWA: El slug ya no se lee de localStorage.
     // Forzamos el uso del ClinicaService que garantiza retornar siempre 'consultorio'.
     // Sin embargo, si la ruta es una de las unificadas por cédula, NO inyectamos contexto multi-tenant.
-    const rutasGlobales = ['/user/show/ndoc/', '/presupuesto/bypatient/'];
+    const rutasGlobales = ['/user/show/ndoc/', '/presupuesto/bypatient/', ];
     const esRutaGlobalUnificada = rutasGlobales.some(ruta => req.url.includes(ruta));
     
     const tenantSlug = esRutaGlobalUnificada ? '' : this._clinicaService.obtenerSlugDeUrl();
