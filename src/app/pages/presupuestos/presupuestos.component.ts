@@ -23,6 +23,7 @@ export class PresupuestosComponent implements OnInit {
   <h2>Sección: Presupuestos</h2>
   <ul>
     <li><strong>Historial de Presupuestos:</strong> Consulta los Presupuestos solicitados a tu medico de confianza.</li> 
+    <li><strong>Aprueba:</strong> Avisale a tu médico que aprobaste el presupuesto.</li> 
     
   </ul>`;
 

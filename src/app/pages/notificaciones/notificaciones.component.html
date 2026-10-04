@@ -1,12 +1,16 @@
 <div class="klyntic-notif-container mt-3 animate__animated animate__fadeIn">
   
   <!-- CABECERA DE LA PÁGINA -->
-  <div class="d-flex align-items-center justify-content-between mb-4">
+  <div class="topeInfo container mb-4">
     <h2 class="section-title-premium mb-0">
       <i class="fa-solid fa-bell text-purple me-1" style="color: #7c3aed;"></i> Mis Notificaciones
     </h2>
     <!-- Botón Informativo (Opcional, abre tu info del componente) -->
-    <i class="fa-solid fa-circle-question text-muted fs-4" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasHelp"></i>
+    <!-- <i class="fa-solid fa-circle-question text-muted fs-4" style="cursor: pointer;" (click)="instruccionesModal.open()"></i> -->
+     <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
+            title="Ayuda de la sección">
+            <i class="fa fa-question"></i>
+        </button>
   </div>
 
   <!-- CONTROLADORES / ACCIONES RÁPIDAS -->
@@ -135,3 +139,5 @@
     </div>
   </div>
 </div>
+
+<app-modal-instrucciones [info]="info" sectionId="misnotificaciones" #instruccionesModal></app-modal-instrucciones>

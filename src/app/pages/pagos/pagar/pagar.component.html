@@ -1,15 +1,12 @@
 <div class="container-fluid min-vh-100 bg-light p-3 pb-5">
   <!-- Encabezado con Botón de Regreso -->
-  <div class="d-flex align-items-center mb-4">
-    <button class="btn btn-link text-dark p-0 me-3" routerLink="/app/mis-citas">
-      <i class="fas fa-arrow-left fa-lg text-primary" style="color: #6f42c1 !important;"></i>
-    </button>
-    <h2 class="h4 mb-0 fw-bold text-dark">Reportar Pago</h2>
-    <!-- <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
-      title="Ayuda de la sección">
-      <i class="fa fa-question"></i>
-    </button> -->
-  </div>
+  <div class="topeInfo ">
+        <app-back-button title="Reportar Pago"></app-back-button>
+        <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
+            title="Ayuda de la sección">
+            <i class="fa fa-question"></i>
+        </button>
+    </div>
 
   <div class="row g-3" *ngIf="!cargando && appointment">
     <!-- TARJETA PREMIUM MORADA (Ticket de Cita a Pagar) -->
@@ -176,4 +173,4 @@
 </div>
 
 <!-- Contenido del Popover Informativo -->
-<!-- <app-modal-instrucciones [info]="info" sectionId="reportepago" #instruccionesModal></app-modal-instrucciones> -->
+<app-modal-instrucciones [info]="info" sectionId="reportepago" #instruccionesModal></app-modal-instrucciones>

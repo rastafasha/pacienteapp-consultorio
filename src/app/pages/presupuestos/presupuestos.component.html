@@ -2,7 +2,7 @@
 
 <!-- CONTENEDOR GENERAL DE PRESUPUESTOS (CSS PURO) -->
 <div class="klyntic-presupuestos-page animate-fade-in mt-5" *ngIf="!cargando">
-    <div class="d-flex justify-content-between align-items-center mb-3 container">
+    <div class="topeInfo container">
         <app-back-button title="Mis Presupuestos"></app-back-button>
         <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
             title="Ayuda de la sección">
@@ -177,4 +177,4 @@
 
     </div>
 </div>
-<app-modal-instrucciones [info]="info" sectionId="misnotificaciones" #instruccionesModal></app-modal-instrucciones>
+<app-modal-instrucciones [info]="info" sectionId="mispresupuestos" #instruccionesModal></app-modal-instrucciones>

@@ -44,3 +44,13 @@ p{
 .btn-card-action:hover {
   background: rgba(124, 58, 237, 0.04);
 }
+
+.topeInfo{
+  display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+     margin-top: 14px;
+    align-items: baseline;
+    align-self: center;
+    justify-content: space-between;
+}

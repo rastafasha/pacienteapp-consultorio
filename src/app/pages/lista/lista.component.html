@@ -1,44 +1,43 @@
 <app-skeleton-loader *ngIf="cargando" [rows]="10" [columns]="1"></app-skeleton-loader>
-<!-- 🎚️ CONTENEDOR DE PESTAÑAS CORPORATIVAS CON SEPARACIÓN -->
-<div class="klyntic-tabs-container">
-  <div class="tabs-wrapper">
-    <button class="tab-btn" [ngClass]="{'active-tab': option_selected === 1}" (click)="optionSelected(1)">
-      Pendientes
-    </button>
-    <button class="tab-btn" [ngClass]="{'active-tab': option_selected === 2}" (click)="optionSelected(2)">
-      Atendidas
-    </button>
-    <button class="tab-btn" [ngClass]="{'active-tab': option_selected === 3}" (click)="optionSelected(3)">
-      Todas
-    </button>
-  </div>
+<div class="topeInfo container" *ngIf="!cargando">
+  <app-back-button title="Mis Citas"></app-back-button>
+  <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
+    title="Ayuda de la sección">
+    <i class="fa fa-question"></i>
+  </button>
 </div>
-
-
-<!-- SECCIÓN DE RENDERIZADO UNIFICADO -->
-<section class="container pt-3" style="padding-bottom: 100px;" *ngIf="!cargando && patient">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-        <app-back-button title="Mis Citas"></app-back-button>
-        <button class="btn btn-outline-primary btn-sm rounded-circle shadow-sm" (click)="instruccionesModal.open()"
-            title="Ayuda de la sección">
-            <i class="fa fa-question"></i>
-        </button>
+  <!-- 🎚️ CONTENEDOR DE PESTAÑAS CORPORATIVAS CON SEPARACIÓN -->
+  <div class="klyntic-tabs-container" *ngIf="!cargando">
+    <div class="tabs-wrapper">
+      <button class="tab-btn" [ngClass]="{'active-tab': option_selected === 1}" (click)="optionSelected(1)">
+        Pendientes
+      </button>
+      <button class="tab-btn" [ngClass]="{'active-tab': option_selected === 2}" (click)="optionSelected(2)">
+        Atendidas
+      </button>
+      <button class="tab-btn" [ngClass]="{'active-tab': option_selected === 3}" (click)="optionSelected(3)">
+        Todas
+      </button>
     </div>
-  <div>
-     <!-- Recorremos la colección según la pestaña seleccionada y llamamos al componente hijo -->
+  </div>
+
+
+  <!-- SECCIÓN DE RENDERIZADO UNIFICADO -->
+  <section class="container pt-3" style="padding-bottom: 100px;" *ngIf="!cargando && patient">
+
+    <!-- Recorremos la colección según la pestaña seleccionada y llamamos al componente hijo -->
     <div class="cards-list-wrapper">
-    <ng-container *ngFor="let itemCita of obtenerCitasPorFiltro()">
-      <app-cita-card [appointment]="itemCita"></app-cita-card>
-    </ng-container>
+      <ng-container *ngFor="let itemCita of obtenerCitasPorFiltro()">
+        <app-cita-card [appointment]="itemCita"></app-cita-card>
+      </ng-container>
 
-    <div class="empty-state-card" *ngIf="obtenerCitasPorFiltro().length === 0">
-      <i class="bi bi-calendar-x"></i>
-      <p>No tienes registros médicos en esta sección.</p>
+      <div class="empty-state-card" *ngIf="obtenerCitasPorFiltro().length === 0">
+        <i class="bi bi-calendar-x"></i>
+        <p>No tienes registros médicos en esta sección.</p>
+      </div>
     </div>
-  </div>
 
-  </div>
-</section>
+  </section>
 
 
-<app-modal-instrucciones [info]="info" sectionId="mis_citas" #instruccionesModal></app-modal-instrucciones>
+  <app-modal-instrucciones [info]="info" sectionId="mis_citas" #instruccionesModal></app-modal-instrucciones>
