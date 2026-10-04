@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { ClinicaService } from '../services/clinica.service'; // 🟢 INYECTAMOS EL NUEVO CORE
 
 const BackendApi = environment.backend_node;
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private _router: Router) {}
+  private _router = inject(Router);
+  private _clinicaService = inject(ClinicaService); // 🟢 CONECTADO AL BYPASS UNIVERSAL
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 🛡️ EL ESCUDO DE LOGIN: Si la petición va al login, que pase directo sin trabas de red
@@ -20,12 +22,6 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    
-
-    if (!req.url.startsWith('http')) {
-        return next.handle(req);
-    }
-
     let headers = new HttpHeaders();
     let params = req.params;
     
@@ -34,8 +30,15 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // 📦 Recuperamos metadatos de sesión e identificación de Klyntic
     const token = localStorage.getItem('token');
-    const tenantSlug = localStorage.getItem('tenant_slug') || ''; // El slug activo de la clínica/consultorio
     const userData = localStorage.getItem('user');
+
+    // 🟢 ACCIÓN DE SANEAMIENTO PWA: El slug ya no se lee de localStorage.
+    // Forzamos el uso del ClinicaService que garantiza retornar siempre 'consultorio'.
+    // Sin embargo, si la ruta es una de las unificadas por cédula, NO inyectamos contexto multi-tenant.
+    const rutasGlobales = ['/user/show/ndoc/', '/presupuesto/bypatient/'];
+    const esRutaGlobalUnificada = rutasGlobales.some(ruta => req.url.includes(ruta));
+    
+    const tenantSlug = esRutaGlobalUnificada ? '' : this._clinicaService.obtenerSlugDeUrl();
 
     // Cabecera universal por defecto
     headers = headers.append('Accept', 'application/json');
@@ -48,7 +51,6 @@ export class AuthInterceptor implements HttpInterceptor {
         headers = headers.append('x-token', token);
 
         // 🚀 RECTIFICACIÓN PUSH PACIENTES: Mapeamos el ID numérico real de MySQL
-        // Esto le dice a Node quién es el paciente dueño de este teléfono/navegador
         if (userData) {
           const user = JSON.parse(userData);
           if (user && user.id) {
@@ -64,10 +66,9 @@ export class AuthInterceptor implements HttpInterceptor {
       }
 
       // =========================================================================
-      // 🏢 CONTEXTO MULTI-TENANT BILATERAL: Inyectamos el slug a ambos mundos
+      // 🏢 CONTEXTO MULTI-TENANT GLOBAL: Inyectamos 'consultorio' solo si no es global unificada
       // =========================================================================
       if (tenantSlug) {
-        // 🟢 DEJAMOS ÚNICAMENTE LA CABECERA QUE MANDA EL JUEGO EN LARAVEL
         headers = headers.append('X-Tenant-Slug', tenantSlug);
       }
     }
