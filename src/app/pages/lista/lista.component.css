@@ -18,7 +18,6 @@
 
 /* CONTEXTO DE SEPARACIÓN KLYNTIC */
 .klyntic-tabs-container {
-  margin-top: 32px;      /* 🚀 ¡FIX CRÍTICO!: Despega las pestañas del navbar superior */
   margin-bottom: 24px;   /* Le da aire al título "Mis Citas" de abajo */
   padding: 0 16px;
   display: flex;
