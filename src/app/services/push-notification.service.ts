@@ -75,7 +75,7 @@ export class PushNotificationService {
       const headers = {
         'x-token': miToken,
         'x-uid': currentUid,
-        'X-Tenant-Slug': localStorage.getItem('tenant-slug') || 'default'
+        // 'X-Tenant-Slug': localStorage.getItem('tenant-slug') || 'default'
       };
       
       console.log('📡 [PWA PACIENTE] Despachando payload hacia Node para el ID:', currentUid);

@@ -1,22 +1,18 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+// import { AccountService } from '../services/account.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { ClinicaService } from '../services/clinica.service'; // 🟢 INYECTAMOS EL NUEVO CORE
-
 const BackendApi = environment.backend_node;
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  private _router = inject(Router);
-  private _clinicaService = inject(ClinicaService); // 🟢 CONECTADO AL BYPASS UNIVERSAL
+  constructor(private _router: Router) {
+  }
+
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // 🛡️ EL ESCUDO DE LOGIN: Si la petición va al login, que pase directo sin trabas de red
-    if (req.url.includes('loginpaciente') || req.url.includes('login')) {
-        return next.handle(req);
-    }
     
     if (!req.url.startsWith('http')) {
       return next.handle(req);
@@ -28,49 +24,18 @@ export class AuthInterceptor implements HttpInterceptor {
     // 🔥 EL BLINDAJE REAL: Comparamos directamente contra tu variable de entorno del Backend de Node
     const esPeticionNodeAlertas = req.url.startsWith(BackendApi);
 
-    // 📦 Recuperamos metadatos de sesión e identificación de Klyntic
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-
-    // 🟢 ACCIÓN DE SANEAMIENTO PWA: El slug ya no se lee de localStorage.
-    // Forzamos el uso del ClinicaService que garantiza retornar siempre 'consultorio'.
-    // Sin embargo, si la ruta es una de las unificadas por cédula, NO inyectamos contexto multi-tenant.
-    const rutasGlobales = ['/user/show/ndoc/', '/presupuesto/bypatient/', ];
-    const esRutaGlobalUnificada = rutasGlobales.some(ruta => req.url.includes(ruta));
-    
-    const tenantSlug = esRutaGlobalUnificada ? '' : this._clinicaService.obtenerSlugDeUrl();
-
-    // Cabecera universal por defecto
-    headers = headers.append('Accept', 'application/json');
-
-    if (token) {
+    if (localStorage.getItem('token')) {
       if (esPeticionNodeAlertas) {
-        // =========================================================================
-        // 🔔 FORMATO EXCLUSIVO PARA NODE.JS (Alertas, Push y WebSockets del Paciente)
-        // =========================================================================
-        headers = headers.append('x-token', token);
-
-        // 🚀 RECTIFICACIÓN PUSH PACIENTES: Mapeamos el ID numérico real de MySQL
-        if (userData) {
-          const user = JSON.parse(userData);
-          if (user && user.id) {
-            headers = headers.append('x-uid', user.id.toString());
-          }
-        }
-
+        // Formato exclusivo para Node.js
+        headers = headers.append('Accept', 'application/json')
+                         .append('x-token', localStorage.getItem('token') || '');
       } else {
-        // =========================================================================
-        // 🦁 FORMATO EXCLUSIVO PARA LARAVEL (Base de Datos Centralizada)
-        // =========================================================================
-        headers = headers.append('Authorization', 'Bearer ' + token);
+        // Formato exclusivo para Laravel
+        headers = headers.append('Accept', 'application/json')
+                         .append('Authorization', 'Bearer ' + localStorage.getItem('token'));
       }
-
-      // =========================================================================
-      // 🏢 CONTEXTO MULTI-TENANT GLOBAL: Inyectamos 'consultorio' solo si no es global unificada
-      // =========================================================================
-      if (tenantSlug) {
-        headers = headers.append('X-Tenant-Slug', tenantSlug);
-      }
+    } else {
+      headers = headers.append('Accept', 'application/json');
     }
 
     return next.handle(req.clone({ headers, params })).pipe(
@@ -84,6 +49,9 @@ export class AuthInterceptor implements HttpInterceptor {
       })
     );
   }
+
+
+
 
   errors(error: HttpErrorResponse) {
     if (error.status === 4030 || error.status === 4040 || error.status === 4230) {
