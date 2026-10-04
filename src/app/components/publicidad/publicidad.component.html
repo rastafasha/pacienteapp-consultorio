@@ -29,7 +29,7 @@
     <!-- Iteración de los anuncios activos -->
     <div class="publicidad_home_item" *ngFor="let pub of pubs">
       <!-- Si la imagen viene directo de tu storage o API -->
-      <img [src]="pub.imagen_url || pub.imagen" [alt]="pub.titulo || 'Publicidad Klyntic'">
+      <img [src]="pub.avatar" [alt]="pub.titulo || 'Publicidad Klyntic'">
     </div>
 
   </div>

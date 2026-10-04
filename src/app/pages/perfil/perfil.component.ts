@@ -86,6 +86,7 @@ export class PerfilComponent implements OnInit {
     this.cargando = true;
     if (this.patient) {
       this.userService.showPatientProfile(this.patient.id).subscribe((resp: any) => {
+      
       this.appointments= resp.appointments;
       this.num_appointment= resp.num_appointment;
       this.money_of_appointments= resp.money_of_appointments;
