@@ -65,6 +65,9 @@
         display: block;
         text-align: center;
     }
+    .navbarM a.active p {
+        color: #6333b8;
+    }
 
     .navbarM a:hover {
         background: var(--gris);
