@@ -31,6 +31,7 @@ export class AgendarCitaComponent implements OnInit {
   specilityie_id: any;
   date_appointment: any;
   speciality: any;
+  loading=false;
 
   // Variable para almacenar el consultorio del CRM indexado en la mañana [3]
   public consultorioSelected: any = null;
@@ -149,11 +150,11 @@ export class AgendarCitaComponent implements OnInit {
       hour: this.hour,
       speciality_id: idEspecialidadFinal
     };
-
+    this.loading =true;
     this.appointmentService.lisFiterByDoctor(data, idDoctorFinal).subscribe((resp: any) => {
       const respuestaDoctor = resp.doctor;
       const listaSegmentos = respuestaDoctor?.segments || resp.segments || [];
-
+      this.loading =false;
       if (resp.message === 403 || listaSegmentos.length === 0) {
         this.text_validation = resp.message_text || "No hay bloques horarios disponibles para esta fecha.";
         this.toastr.warning(this.text_validation);

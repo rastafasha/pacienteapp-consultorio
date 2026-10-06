@@ -52,7 +52,7 @@ export class GridHomeComponent implements OnInit {
     this.authService.getLocalStorage();
     this.authService.closeMenu();
     this.patient_selected = this.patient;
-    this.getConfig();
+    // this.getConfig();
     this.getPatientInfo();
     
   }

@@ -93,8 +93,8 @@
         <div class="card border-0 bg-light p-3 rounded-4 mb-3 shadow-inner" *ngIf="DOCTOR_Det_SELECTED">
             <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-1">
                 <strong class="text-dark">Dr(a). {{ DOCTOR_Det_SELECTED.doctor?.full_name }}</strong>
-                <button class="btn btn-link btn-sm text-secondary p-0 text-decoration-none" (click)="back()"><i
-                        class="fa fa-arrow-left"></i> Volver</button>
+                <button class="btn btn-link btn-sm text-secondary p-0 text-decoration-none" (click)="back()">
+                    <i class="fa fa-arrow-left"></i> Volver</button>
             </div>
             <!-- 🚀 CORRECCIÓN DE LLAVES: Mapeamos los campos directo del objeto relacional del JSON -->
             <p class="mb-1 small text-secondary"><strong>Especialidad:</strong> {{
@@ -103,6 +103,8 @@
                 DOCTOR_Det_SELECTED.doctor?.consultorio?.name_consultorio }}</p>
             <p class="mb-0 small text-secondary"><strong>Dirección:</strong> {{
                 DOCTOR_Det_SELECTED.doctor?.consultorio?.address }}</p>
+            <p class="mb-0 small text-secondary"><strong>Precio Cita:</strong> {{
+                DOCTOR_Det_SELECTED.doctor?.precio_cita | currency: DOCTOR_Det_SELECTED.doctor?.moneda}}</p>
         </div>
 
         <!-- =========================================================================
@@ -117,6 +119,7 @@
         <!-- =========================================================================
      ⏰ REJILLA UNIFICADA DE RECUADROS DE 15 MIN (Mapeo estricto del Formato)
      ========================================================================= -->
+     <app-loading *ngIf="loading" ></app-loading>
         <div class="schedule-slots-section mt-3" *ngIf="DOCTOR_SELECTED && date_appointment && hour">
             <p class="small fw-semibold text-muted mb-2"><i class="fa fa-clock-o text-primary"></i> Seleccione la hora
                 de consulta:</p>
